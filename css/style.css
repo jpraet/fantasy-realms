@@ -4,7 +4,7 @@ html {
 
 #header {
   background-color: #6f292b;
-  padding: 15px;
+  padding: 10px;
 }
 
 li.list-group-item {
@@ -67,7 +67,7 @@ li.Wild {
   padding: 8px;
   font-weight: bold;
   background-color: #ccc0a8;
-  cursor: pointer;  
+  cursor: pointer;
 }
 
 #cards li {
