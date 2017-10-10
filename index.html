@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fantasy Realms Scoring App</title>
+  <meta name="description" content="Fantasy Realms Scoring App">
+  <meta name="author" content="Jimmy Praet">
+  <link rel="stylesheet" href="css/style.css?v=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/handlebars-v4.0.10.js"></script>
+  <script src="js/cards.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+  <script id="cards-template" type="text/x-handlebars-template">
+    {{#each suits}}
+      <div class="card">
+        <div class="card-header" role="tab" id="{{@key}}Header" data-toggle="collapse" data-parent="#cards" href="#{{@key}}" aria-expanded="false" aria-controls="{{@key}}">
+            <a>{{@key}}</a>
+        </div>
+        <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
+            <ul class="list-group">
+              {{#each this}}
+              <li class="list-group-item {{suit}}">{{name}} <span class="badge badge-default">{{strength}}</span></li>
+              {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{/each}}
+  </script>
+  <div id="header"><img src="img/fantasy-realms.jpg" /></div>
+  <div id="cards" class="panel" role="tablist" aria-multiselectable="true" />
+</body>
+</html>

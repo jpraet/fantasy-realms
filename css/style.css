@@ -1,0 +1,76 @@
+html {
+  background-color: #ccc0a8;
+}
+
+#header {
+  background-color: #6f292b;
+  padding: 15px;
+}
+
+li.list-group-item {
+  color: white;
+}
+
+li.Land {
+  background-color: #3b1d13;
+}
+
+li.Flood {
+  background-color: #41437c;
+}
+
+li.Weather {
+  background-color: #a6bced;
+}
+
+li.Flame {
+  background-color: #b44347;
+}
+
+li.Army {
+  background-color: #312b2f;
+}
+
+li.Wizard {
+  background-color: #e056a3;
+}
+
+li.Leader {
+  background-color: #7b48a4;
+}
+
+li.Beast {
+  background-color: #60a35c;
+}
+
+li.Weapon {
+  background-color: #878586;
+}
+
+li.Artifact {
+  background-color: #d24e37;
+}
+
+li.Wild {
+  background-color: #c6c2c3;
+}
+
+#cards {
+  background-color: #ccc0a8;
+}
+
+#cards li span.badge {
+  margin-left: 1em;
+}
+
+#cards .card-header {
+  padding: 8px;
+  font-weight: bold;
+  background-color: #ccc0a8;
+  cursor: pointer;  
+}
+
+#cards li {
+  font-weight: bold;
+  padding: 8px;
+}

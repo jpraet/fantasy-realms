@@ -1,0 +1,53 @@
+Land;Mountain;9;BONUS: +50 with both Smoke and Wildfire. CLEARS the Penalty on all Floods
+Land;Cavern;6;BONUS: +25 with Dwarvish Infantry or Dragon. CLEARS the Penalty on all Weather.
+Land;Bell Tower;8;BONUS: +15 with any one Wizard.
+Land;Forest;7;BONUS: +12 for each Beast and Elven Archers.
+Land;Earth Elemental;4;BONUS: +15 for each other Land.
+Flood;Fountain of Life;1;BONUS: Add the base strength of any one Weapon, Flood, Flame, Land or Weather in your hand.
+Flood;Swamp;18;PENALTY: -3 for each Army and Flame.
+Flood;Great Flood;32;PENALTY: BLANKS all Armies, all Lands except Mountain, and all Flames except Lightning.
+Flood;Island;14;BONUS: CLEARS the Penalty on any one Flood or Flame.
+Flood;Water Elemental;4;BONUS: +15 for each other Flood.
+Weather;Rainstorm;8;BONUS: +10 for each Flood.;PENALTY: BLANKS all Flames except Lightning.
+Weather;Blizzard;30;PENALTY: BLANKS all Floods. -5 for each Army, Leader, Beast, and Flame.
+Weather;Smoke;27;PENALTY: This card is BLANKED unless with at least one Flame.
+Weather;Whirlwind;13;BONUS: +40 with Rainstorm and either Blizzard of Great Flood.
+Weather;Air Elemental;4;BONUS: +15 for each other Weather.
+Flame;Wildfire;40;PENALTY: BLANKS all cards except Flames, Wizards, Weather, Weapons, Artifacts, Mountain, Great Flood, Island, Unicorn and Dragon.
+Flame;Candle;2;BONUS: +100 with Book of Changes, Bell Tower, and any one Wizard.
+Flame;Forge;9;BONUS: +9 for each Weapon and Artifact.
+Flame;Lightning;11;BONUS: +30 with Rainstorm.
+Flame;Fire Elemental;4;BONUS: +15 for each other Flame.
+Army;Knights;20;PENALTY: -8 unless with at least one Leader.
+Army;Elven Archers;10;BONUS: +5 if no Weather.
+Army;Light Cavalry;17;PENALTY: -2 for each Land.
+Army;Dwarvish Infanty;15;PENALTY: -2 for each other Army.
+Army;Rangers;5;BONUS: +10 for each Land. CLEARS the word Army from all Penalties.
+Wizard;Collector;7;BONUS: +10 if three different cards in same suit, +40 if four different cards in same suit, +100 if five different cards in same suit.
+Wizard;Beastmaster;9;BONUS: +9 for each Beast. CLEARS the Penalty on all Beasts.
+Wizard;Necromancer;3;BONUS: At the end of the game, you may take one Army, Leader, Wizard, or Beast from the discard pile and add it to your hand as an eighth card.
+Wizard;Warlock Lord;25;PENALTY: -10 for each Leader and other Wizard.
+Wizard;Enchantress;5;BONUS: +5 for each Land, Weather, Flood, and Flame.
+Leader;King;8;BONUS: +5 for each Army. OR +20 for each Army if with Queen.
+Leader;Queen;6;BONUS: +5 for each Army. OR +20 for each Army if with King.
+Leader;Princess;2;BONUS: +8 for each Army, Wizard, and other Leader.
+Leader;Warlord;4;BONUS: The sum of the base strength of all Armies.
+Leader;Empress;15;BONUS: +10 for each Army.;PENALTY: -5 for each other Leader.
+Beast;Unicorn;9;BONUS: +30 with Princess. OR +15 with Empress, Queen, or Enchantress.
+Beast;Basilisk;35;PENALTY: BLANKS all Armies, Leaders, and other Beasts.
+Beast;Warhorse;6;BONUS: +14 with any Leader or Wizard.
+Beast;Dragon;30;PENALTY: -40 unless with at least one Wizard.
+Beast;Hydra;12;BONUS: +28 with Swamp.
+Weapon;Warship;23;BONUS: CLEARS the word Army from all Penalties of all Floods.;PENALTY: BLANKED unless with at least one Flood.
+Weapon;Magic Wand;1;BONUS: +25 with any one Wizard.
+Weapon;Sword of Keth;7;BONUS: +10 with any one Leader. OR +40 with both Leader and Shield of Keth.
+Weapon;Elven Longbow;3;BONUS: +30 with Elven Archers, Warlord or Beastmaster.
+Weapon;War Dirigible;35;PENALTY: BLANKED unless with at least one Army. BLANKED with any Weather.
+Artifact;Shield of Keth;4;BONUS: +15 with any one Leader. OR +40 with both Leader and Sword of Keth.
+Artifact;Gem of Order;5;BONUS: +10 for 3-card run, +30 for 4-card run, +60 for 5-card run, +100 for 6-card run, +150 for 7-card run. (This refers to the base strength numbers.)
+Artifact;World Tree;2;BONUS: +50 if every non-BLANKED card is a different suit.
+Artifact;Book of Changes;3;BONUS: You may change the suit of one other card. Its name, bonuses and penalties remain the same.
+Artifact;Protection Rune;1;BONUS: CLEARS the Penalty on all cards.
+Wild;Shapeshifter;0;BONUS: May duplicate the name and suit of any one Artifact, Leader, Wizard, Weapon or Beast in the game. Does not take the bonus, penalty, or base strength of the card duplicated/
+Wild;Mirage;0;BONUS: May duplicate the name and suit of any one Army, Land, Weather, Flood or Flame in the game. Does not take the bonus, penalty, or base strength of the card duplicated/
+Wild;Doppelgänger;0;BONUS: May duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.
