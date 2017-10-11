@@ -1,37 +1,56 @@
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Fantasy Realms Scoring App</title>
   <meta name="description" content="Fantasy Realms Scoring App">
   <meta name="author" content="Jimmy Praet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css?v=1.0">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/handlebars-v4.0.10.js"></script>
-  <script src="js/cards.js"></script>
-  <script src="js/app.js"></script>
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/css/style.css?v=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script src="/js/jquery-3.2.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/handlebars-v4.0.10.js"></script>
+  <script src="/js/cards.js"></script>
+  <script src="/js/app.js"></script>
 </head>
+
 <body>
   <script id="cards-template" type="text/x-handlebars-template">
     {{#each suits}}
-      <div class="card">
-        <div class="card-header" role="tab" id="{{@key}}Header" data-toggle="collapse" data-parent="#cards" href="#{{@key}}" aria-expanded="false" aria-controls="{{@key}}">
-            <a>{{@key}}</a>
-        </div>
-        <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
-            <ul class="list-group">
-              {{#each this}}
-              <li class="list-group-item {{suit}}">{{name}} <span class="badge badge-default">{{strength}}</span></li>
-              {{/each}}
-            </ul>
-        </div>
+    <div class="card">
+      <div class="card-header" role="tab" id="{{@key}}Header" data-toggle="collapse" data-parent="#cards" href="#{{@key}}" aria-expanded="false" aria-controls="{{@key}}">
+        <a>{{@key}}</a>
+      </div>
+      <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
+        <ul class="list-group">
+          {{#each this}}
+          <li class="list-group-item {{suit}}">{{name}} <span class="badge badge-default">{{strength}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
     </div>
     {{/each}}
   </script>
-  <div id="header"><img src="img/fantasy-realms.jpg" style="height: 3em;"/></div>
+  <div id="header"><img src="img/fantasy-realms.jpg" style="height: 3em;" /></div>
   <div id="cards" class="panel" role="tablist" aria-multiselectable="true" />
 </body>
+
 </html>
