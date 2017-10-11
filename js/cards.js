@@ -433,3 +433,7 @@ for (var i = 0; i < cards.length; i++) {
   }
   cardsBySuit[card.suit].push(card);
 }
+
+function getCard(id) {
+  return cards[id - 1];
+}

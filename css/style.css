@@ -15,6 +15,16 @@ html {
   color: white;
 }
 
+#left {
+  width: 50%;
+  float: left;
+}
+
+#right {
+  width: 50%;
+  float: right;
+}
+
 li.list-group-item {
   color: white;
 }
@@ -67,18 +77,30 @@ li.Wild {
   background-color: #ccc0a8;
 }
 
-#cards li span.badge {
+#cards li span.badge, #hand li span.badge{
   margin-left: 1em;
 }
 
-#cards .card-header {
+#cards .card-header, #hand .card-header {
   padding: 8px;
   font-weight: bold;
   background-color: #ccc0a8;
   cursor: pointer;
 }
 
-#cards li {
+#hand .card-header {
+  background-color: #e9e3c6;
+  cursor: auto;
+}
+
+#cards li, #hand li {
   font-weight: bold;
   padding: 8px;
+  cursor: pointer;
+}
+
+#hand li.bonus, #hand li.penalty {
+  background-color: #fffafa;
+  color: grey;
+  font-weight: normal;
 }
