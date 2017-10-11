@@ -1,5 +1,6 @@
 {
-  "name": "Fantasy Realms Scoring App",
+  "short_name": "Fantasy Realms",
+  "name": "Fantasy Realms Compantion App",
   "start_url": "index.html",
   "icons": [{
       "src": "/icons/android-icon-36x36.png",
