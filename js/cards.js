@@ -3,7 +3,7 @@ var cards = [{
     suit: 'Land',
     name: 'Mountain',
     strength: 9,
-    bonus: 'BONUS: +50 with both Smoke and Wildfire. CLEARS the Penalty on all Floods',
+    bonus: '+50 with both <span class="weather">&nbsp;Smoke&nbsp;</span> and <span class="flame">&nbsp;Wildfire</span>. CLEARS the Penalty on all <span class="flood">&nbsp;Floods</span>.',
     penalty: null
   },
   {
@@ -11,7 +11,7 @@ var cards = [{
     suit: 'Land',
     name: 'Cavern',
     strength: 6,
-    bonus: 'BONUS: +25 with Dwarvish Infantry or Dragon. CLEARS the Penalty on all Weather.',
+    bonus: '+25 with <span class="army">&nbsp;Dwarvish Infantry&nbsp;</span> or <span class="beast">&nbsp;Dragon</span>. CLEARS the Penalty on all <span class="weather">&nbsp;Weather</span>.',
     penalty: null
   },
   {
@@ -19,7 +19,7 @@ var cards = [{
     suit: 'Land',
     name: 'Bell Tower',
     strength: 8,
-    bonus: 'BONUS: +15 with any one Wizard.',
+    bonus: '+15 with any one <span class="wizard">&nbsp;Wizard</span>.',
     penalty: null
   },
   {
@@ -27,7 +27,7 @@ var cards = [{
     suit: 'Land',
     name: 'Forest',
     strength: 7,
-    bonus: 'BONUS: +12 for each Beast and Elven Archers.',
+    bonus: '+12 for each <span class="beast">&nbsp;Beast&nbsp;</span> and <span class="army">&nbsp;Elven Archers</span>.',
     penalty: null
   },
   {
@@ -35,7 +35,7 @@ var cards = [{
     suit: 'Land',
     name: 'Earth Elemental',
     strength: 4,
-    bonus: 'BONUS: +15 for each other Land.',
+    bonus: '+15 for each other <span class="land">&nbsp;Land</span>.',
     penalty: null
   },
   {
@@ -43,7 +43,7 @@ var cards = [{
     suit: 'Flood',
     name: 'Fountain of Life',
     strength: 1,
-    bonus: 'BONUS: Add the base strength of any one Weapon, Flood, Flame, Land or Weather in your hand.',
+    bonus: 'Add the base strength of any one <span class="weapon">&nbsp;Weapon</span>, <span class="flood">&nbsp;Flood</span>, <span class="flame">&nbsp;Flame</span>, <span class="land">&nbsp;Land&nbsp;</span> or <span class="weather">&nbsp;Weather&nbsp;</span> in your hand.',
     penalty: null
   },
   {
@@ -51,23 +51,23 @@ var cards = [{
     suit: 'Flood',
     name: 'Swamp',
     strength: 18,
-    bonus: 'PENALTY: -3 for each Army and Flame.',
-    penalty: null
+    bonus: null,
+    penalty: '-3 for each <span class="army">&nbsp;Army&nbsp;</span> and <span class="flame">&nbsp;Flame</span>.'
   },
   {
     id: 8,
     suit: 'Flood',
     name: 'Great Flood',
     strength: 32,
-    bonus: 'PENALTY: BLANKS all Armies, all Lands except Mountain, and all Flames except Lightning.',
-    penalty: null
+    bonus: null,
+    penalty: 'BLANKS all <span class="army">&nbsp;Armies</span>, all <span class="land">&nbsp;Lands&nbsp;</span> except <span class="land">&nbsp;Mountain</span>, and all <span class="flame">&nbsp;Flames&nbsp;</span> except <span class="flame">&nbsp;Lightning</span>.'
   },
   {
     id: 9,
     suit: 'Flood',
     name: 'Island',
     strength: 14,
-    bonus: 'BONUS: CLEARS the Penalty on any one Flood or Flame.',
+    bonus: 'CLEARS the Penalty on any one <span class="flood">&nbsp;Flood&nbsp;</span> or <span class="flame">&nbsp;Flame</span>.',
     penalty: null
   },
   {
@@ -75,7 +75,7 @@ var cards = [{
     suit: 'Flood',
     name: 'Water Elemental',
     strength: 4,
-    bonus: 'BONUS: +15 for each other Flood.',
+    bonus: '+15 for each other <span class="flood">&nbsp;Flood</span>.',
     penalty: null
   },
   {
@@ -83,31 +83,31 @@ var cards = [{
     suit: 'Weather',
     name: 'Rainstorm',
     strength: 8,
-    bonus: 'BONUS: +10 for each Flood.',
-    penalty: 'PENALTY: BLANKS all Flames except Lightning.'
+    bonus: '+10 for each <span class="flood">&nbsp;Flood</span>.',
+    penalty: 'BLANKS all <span class="flame">&nbsp;Flames&nbsp;</span> except <span class="flame">&nbsp;Lightning</span>.'
   },
   {
     id: 12,
     suit: 'Weather',
     name: 'Blizzard',
     strength: 30,
-    bonus: 'PENALTY: BLANKS all Floods. -5 for each Army, Leader, Beast, and Flame.',
-    penalty: null
+    bonus: null,
+    penalty: 'BLANKS all <span class="flood">&nbsp;Floods</span>. -5 for each <span class="army">&nbsp;Army</span>, <span class="leader">&nbsp;Leader</span>, <span class="beast">&nbsp;Beast</span>, and <span class="flame">&nbsp;Flame</span>.'
   },
   {
     id: 13,
     suit: 'Weather',
     name: 'Smoke',
     strength: 27,
-    bonus: 'PENALTY: This card is BLANKED unless with at least one Flame.',
-    penalty: null
+    bonus: null,
+    penalty: 'This card is BLANKED unless with at least one <span class="flame">&nbsp;Flame</span>.'
   },
   {
     id: 14,
     suit: 'Weather',
     name: 'Whirlwind',
     strength: 13,
-    bonus: 'BONUS: +40 with Rainstorm and either Blizzard of Great Flood.',
+    bonus: '+40 with <span class="weather">&nbsp;Rainstorm&nbsp;</span> and either <span class="weather">&nbsp;Blizzard&nbsp;</span> or <span class="flood">&nbsp;Great Flood</span>.',
     penalty: null
   },
   {
@@ -115,7 +115,7 @@ var cards = [{
     suit: 'Weather',
     name: 'Air Elemental',
     strength: 4,
-    bonus: 'BONUS: +15 for each other Weather.',
+    bonus: '+15 for each other <span class="weather">&nbsp;Weather</span>.',
     penalty: null
   },
   {
@@ -123,15 +123,15 @@ var cards = [{
     suit: 'Flame',
     name: 'Wildfire',
     strength: 40,
-    bonus: 'PENALTY: BLANKS all cards except Flames, Wizards, Weather, Weapons, Artifacts, Mountain, Great Flood, Island, Unicorn and Dragon.',
-    penalty: null
+    bonus: null,
+    penalty: 'BLANKS all cards except <span class="flame">&nbsp;Flames</span>, <span class="wizard">&nbsp;Wizards</span>, <span class="weather">&nbsp;Weather</span>, <span class="weapon">&nbsp;Weapons</span>, <span class="artifact">&nbsp;Artifacts</span>, <span class="land">&nbsp;Mountain</span>, <span class="flood">&nbsp;Great Flood</span>, <span class="flood">&nbsp;Island</span>, <span class="beast">&nbsp;Unicorn&nbsp;</span> and <span class="beast">&nbsp;Dragon</span>.'
   },
   {
     id: 17,
     suit: 'Flame',
     name: 'Candle',
     strength: 2,
-    bonus: 'BONUS: +100 with Book of Changes, Bell Tower, and any one Wizard.',
+    bonus: '+100 with <span class="artifact">&nbsp;Book of Changes</span>, <span class="land">&nbsp;Bell Tower</span>, and any one <span class="wizard">&nbsp;Wizard</span>.',
     penalty: null
   },
   {
@@ -139,7 +139,7 @@ var cards = [{
     suit: 'Flame',
     name: 'Forge',
     strength: 9,
-    bonus: 'BONUS: +9 for each Weapon and Artifact.',
+    bonus: '+9 for each <span class="weapon">&nbsp;Weapon&nbsp;</span> and <span class="artifact">&nbsp;Artifact</span>.',
     penalty: null
   },
   {
@@ -147,7 +147,7 @@ var cards = [{
     suit: 'Flame',
     name: 'Lightning',
     strength: 11,
-    bonus: 'BONUS: +30 with Rainstorm.',
+    bonus: '+30 with <span class="weather">&nbsp;Rainstorm</span>.',
     penalty: null
   },
   {
@@ -155,7 +155,7 @@ var cards = [{
     suit: 'Flame',
     name: 'Fire Elemental',
     strength: 4,
-    bonus: 'BONUS: +15 for each other Flame.',
+    bonus: '+15 for each other <span class="flame">&nbsp;Flame</span>.',
     penalty: null
   },
   {
@@ -163,15 +163,15 @@ var cards = [{
     suit: 'Army',
     name: 'Knights',
     strength: 20,
-    bonus: 'PENALTY: -8 unless with at least one Leader.',
-    penalty: null
+    bonus: null,
+    penalty: '-8 unless with at least one <span class="leader">&nbsp;Leader</span>.'
   },
   {
     id: 22,
     suit: 'Army',
     name: 'Elven Archers',
     strength: 10,
-    bonus: 'BONUS: +5 if no Weather.',
+    bonus: '+5 if no <span class="weather">&nbsp;Weather</span>.',
     penalty: null
   },
   {
@@ -179,23 +179,23 @@ var cards = [{
     suit: 'Army',
     name: 'Light Cavalry',
     strength: 17,
-    bonus: 'PENALTY: -2 for each Land.',
-    penalty: null
+    bonus: null,
+    penalty: '-2 for each <span class="land">&nbsp;Land</span>.'
   },
   {
     id: 24,
     suit: 'Army',
     name: 'Dwarvish Infanty',
     strength: 15,
-    bonus: 'PENALTY: -2 for each other Army.',
-    penalty: null
+    bonus: null,
+    penalty: '-2 for each other <span class="army">&nbsp;Army</span>.'
   },
   {
     id: 25,
     suit: 'Army',
     name: 'Rangers',
     strength: 5,
-    bonus: 'BONUS: +10 for each Land. CLEARS the word Army from all Penalties.',
+    bonus: '+10 for each <span class="land">&nbsp;Land</span>. CLEARS the word <span class="army">&nbsp;Army&nbsp;</span> from all Penalties.',
     penalty: null
   },
   {
@@ -203,7 +203,7 @@ var cards = [{
     suit: 'Wizard',
     name: 'Collector',
     strength: 7,
-    bonus: 'BONUS: +10 if three different cards in same suit, +40 if four different cards in same suit, +100 if five different cards in same suit.',
+    bonus: '+10 if three different cards in same suit, +40 if four different cards in same suit, +100 if five different cards in same suit.',
     penalty: null
   },
   {
@@ -211,7 +211,7 @@ var cards = [{
     suit: 'Wizard',
     name: 'Beastmaster',
     strength: 9,
-    bonus: 'BONUS: +9 for each Beast. CLEARS the Penalty on all Beasts.',
+    bonus: '+9 for each <span class="beast">&nbsp;Beast</span>. CLEARS the Penalty on all <span class="beast">&nbsp;Beasts</span>.',
     penalty: null
   },
   {
@@ -219,7 +219,7 @@ var cards = [{
     suit: 'Wizard',
     name: 'Necromancer',
     strength: 3,
-    bonus: 'BONUS: At the end of the game, you may take one Army, Leader, Wizard, or Beast from the discard pile and add it to your hand as an eighth card.',
+    bonus: 'At the end of the game, you may take one <span class="army">&nbsp;Army</span>, <span class="leader">&nbsp;Leader</span>, <span class="wizard">&nbsp;Wizard</span>, or <span class="beast">&nbsp;Beast</span> from the discard pile and add it to your hand as an eighth card.',
     penalty: null
   },
   {
@@ -227,15 +227,15 @@ var cards = [{
     suit: 'Wizard',
     name: 'Warlock Lord',
     strength: 25,
-    bonus: 'PENALTY: -10 for each Leader and other Wizard.',
-    penalty: null
+    bonus: null,
+    penalty: '-10 for each <span class="leader">&nbsp;Leader&nbsp;</span> and other <span class="wizard">&nbsp;Wizard</span>.'
   },
   {
     id: 30,
     suit: 'Wizard',
     name: 'Enchantress',
     strength: 5,
-    bonus: 'BONUS: +5 for each Land, Weather, Flood, and Flame.',
+    bonus: '+5 for each <span class="land">&nbsp;Land</span>, <span class="weather">&nbsp;Weather</span>, <span class="flood">&nbsp;Flood</span>, and <span class="flame">&nbsp;Flame</span>.',
     penalty: null
   },
   {
@@ -243,7 +243,7 @@ var cards = [{
     suit: 'Leader',
     name: 'King',
     strength: 8,
-    bonus: 'BONUS: +5 for each Army. OR +20 for each Army if with Queen.',
+    bonus: '+5 for each <span class="army">&nbsp;Army</span>. OR +20 for each <span class="army">&nbsp;Army&nbsp;</span> if with <span class="leader">&nbsp;Queen</span>.',
     penalty: null
   },
   {
@@ -251,7 +251,7 @@ var cards = [{
     suit: 'Leader',
     name: 'Queen',
     strength: 6,
-    bonus: 'BONUS: +5 for each Army. OR +20 for each Army if with King.',
+    bonus: '+5 for each <span class="army">&nbsp;Army</span>. OR +20 for each <span class="army">&nbsp;Army&nbsp;</span> if with <span class="leader">&nbsp;King</span>.',
     penalty: null
   },
   {
@@ -259,7 +259,7 @@ var cards = [{
     suit: 'Leader',
     name: 'Princess',
     strength: 2,
-    bonus: 'BONUS: +8 for each Army, Wizard, and other Leader.',
+    bonus: '+8 for each <span class="army">&nbsp;Army</span>, <span class="wizard">&nbsp;Wizard</span>, and other <span class="leader">&nbsp;Leader</span>.',
     penalty: null
   },
   {
@@ -267,7 +267,7 @@ var cards = [{
     suit: 'Leader',
     name: 'Warlord',
     strength: 4,
-    bonus: 'BONUS: The sum of the base strength of all Armies.',
+    bonus: 'The sum of the base strength of all <span class="army">&nbsp;Armies</span>.',
     penalty: null
   },
   {
@@ -275,15 +275,15 @@ var cards = [{
     suit: 'Leader',
     name: 'Empress',
     strength: 15,
-    bonus: 'BONUS: +10 for each Army.',
-    penalty: 'PENALTY: -5 for each other Leader.'
+    bonus: '+10 for each <span class="army">&nbsp;Army</span>.',
+    penalty: '-5 for each other <span class="leader">&nbsp;Leader</span>.'
   },
   {
     id: 36,
     suit: 'Beast',
     name: 'Unicorn',
     strength: 9,
-    bonus: 'BONUS: +30 with Princess. OR +15 with Empress, Queen, or Enchantress.',
+    bonus: '+30 with <span class="leader">&nbsp;Princess</span>. OR +15 with <span class="leader">&nbsp;Empress</span>, <span class="leader">&nbsp;Queen</span>, or <span class="leader">&nbsp;Enchantress</span>.',
     penalty: null
   },
   {
@@ -291,15 +291,15 @@ var cards = [{
     suit: 'Beast',
     name: 'Basilisk',
     strength: 35,
-    bonus: 'PENALTY: BLANKS all Armies, Leaders, and other Beasts.',
-    penalty: null
+    bonus: null,
+    penalty: 'BLANKS all <span class="army">&nbsp;Armies</span>, <span class="leader">&nbsp;Leaders</span>, and other <span class="beast">&nbsp;Beasts</span>.'
   },
   {
     id: 38,
     suit: 'Beast',
     name: 'Warhorse',
     strength: 6,
-    bonus: 'BONUS: +14 with any Leader or Wizard.',
+    bonus: '+14 with any <span class="leader">&nbsp;Leader</span> or <span class="wizard">&nbsp;Wizard</span>.',
     penalty: null
   },
   {
@@ -307,15 +307,15 @@ var cards = [{
     suit: 'Beast',
     name: 'Dragon',
     strength: 30,
-    bonus: 'PENALTY: -40 unless with at least one Wizard.',
-    penalty: null
+    bonus: null,
+    penalty: '-40 unless with at least one <span class="wizard">&nbsp;Wizard</span>.'
   },
   {
     id: 40,
     suit: 'Beast',
     name: 'Hydra',
     strength: 12,
-    bonus: 'BONUS: +28 with Swamp.',
+    bonus: '+28 with <span class="flood">&nbsp;Swamp</span>.',
     penalty: null
   },
   {
@@ -323,15 +323,15 @@ var cards = [{
     suit: 'Weapon',
     name: 'Warship',
     strength: 23,
-    bonus: 'BONUS: CLEARS the word Army from all Penalties of all Floods.',
-    penalty: 'PENALTY: BLANKED unless with at least one Flood.'
+    bonus: 'CLEARS the word <span class="army">&nbsp;Army&nbsp;</span> from all Penalties of all <span class="flood">&nbsp;Floods</span>.',
+    penalty: 'BLANKED unless with at least one <span class="flood">&nbsp;Flood</span>.'
   },
   {
     id: 42,
     suit: 'Weapon',
     name: 'Magic Wand',
     strength: 1,
-    bonus: 'BONUS: +25 with any one Wizard.',
+    bonus: '+25 with any one <span class="wizard">&nbsp;Wizard</span>.',
     penalty: null
   },
   {
@@ -339,7 +339,7 @@ var cards = [{
     suit: 'Weapon',
     name: 'Sword of Keth',
     strength: 7,
-    bonus: 'BONUS: +10 with any one Leader. OR +40 with both Leader and Shield of Keth.',
+    bonus: '+10 with any one <span class="leader">&nbsp;Leader</span>. OR +40 with both <span class="leader">&nbsp;Leader&nbsp;</span> and <span class="artifact">&nbsp;Shield of Keth</span>.',
     penalty: null
   },
   {
@@ -347,7 +347,7 @@ var cards = [{
     suit: 'Weapon',
     name: 'Elven Longbow',
     strength: 3,
-    bonus: 'BONUS: +30 with Elven Archers, Warlord or Beastmaster.',
+    bonus: '+30 with <span class="army">&nbsp;Elven Archers</span>, <span class="leader">&nbsp;Warlord&nbsp;</span> or <span class="wizard">&nbsp;Beastmaster</span>.',
     penalty: null
   },
   {
@@ -355,15 +355,15 @@ var cards = [{
     suit: 'Weapon',
     name: 'War Dirigible',
     strength: 35,
-    bonus: 'PENALTY: BLANKED unless with at least one Army. BLANKED with any Weather.',
-    penalty: null
+    bonus: null,
+    penalty: 'BLANKED unless with at least one <span class="army">&nbsp;Army</span>. BLANKED with any <span class="weather">&nbsp;Weather</span>.'
   },
   {
     id: 46,
     suit: 'Artifact',
     name: 'Shield of Keth',
     strength: 4,
-    bonus: 'BONUS: +15 with any one Leader. OR +40 with both Leader and Sword of Keth.',
+    bonus: '+15 with any one <span class="leader">&nbsp;Leader</span>. OR +40 with both <span class="leader">&nbsp;Leader&nbsp;</span> and <span class="weapon">&nbsp;Sword of Keth</span>.',
     penalty: null
   },
   {
@@ -371,7 +371,7 @@ var cards = [{
     suit: 'Artifact',
     name: 'Gem of Order',
     strength: 5,
-    bonus: 'BONUS: +10 for 3-card run, +30 for 4-card run, +60 for 5-card run, +100 for 6-card run, +150 for 7-card run. (This refers to the base strength numbers.)',
+    bonus: '+10 for 3-card run, +30 for 4-card run, +60 for 5-card run, +100 for 6-card run, +150 for 7-card run. (This refers to the base strength numbers.)',
     penalty: null
   },
   {
@@ -379,7 +379,7 @@ var cards = [{
     suit: 'Artifact',
     name: 'World Tree',
     strength: 2,
-    bonus: 'BONUS: +50 if every non-BLANKED card is a different suit.',
+    bonus: '+50 if every non-BLANKED card is a different suit.',
     penalty: null
   },
   {
@@ -387,7 +387,7 @@ var cards = [{
     suit: 'Artifact',
     name: 'Book of Changes',
     strength: 3,
-    bonus: 'BONUS: You may change the suit of one other card. Its name, bonuses and penalties remain the same.',
+    bonus: 'You may change the suit of one other card. Its name, bonuses and penalties remain the same.',
     penalty: null
   },
   {
@@ -395,7 +395,7 @@ var cards = [{
     suit: 'Artifact',
     name: 'Protection Rune',
     strength: 1,
-    bonus: 'BONUS: CLEARS the Penalty on all cards.',
+    bonus: 'CLEARS the Penalty on all cards.',
     penalty: null
   },
   {
@@ -403,7 +403,7 @@ var cards = [{
     suit: 'Wild',
     name: 'Shapeshifter',
     strength: 0,
-    bonus: 'BONUS: May duplicate the name and suit of any one Artifact, Leader, Wizard, Weapon or Beast in the game. Does not take the bonus, penalty, or base strength of the card duplicated/',
+    bonus: 'May duplicate the name and suit of any one <span class="artifact">&nbsp;Artifact</span>, <span class="leader">&nbsp;Leader</span>, <span class="wizard">&nbsp;Wizard</span>, <span class="weapon">&nbsp;Weapon&nbsp;</span> or <span class="beast">&nbsp;Beast&nbsp;</span> in the game. Does not take the bonus, penalty, or base strength of the card duplicated.',
     penalty: null
   },
   {
@@ -411,7 +411,7 @@ var cards = [{
     suit: 'Wild',
     name: 'Mirage',
     strength: 0,
-    bonus: 'BONUS: May duplicate the name and suit of any one Army, Land, Weather, Flood or Flame in the game. Does not take the bonus, penalty, or base strength of the card duplicated/',
+    bonus: 'May duplicate the name and suit of any one <span class="army">&nbsp;Army</span>, <span class="land">&nbsp;Land</span>, <span class="weather">&nbsp;Weather</span>, <span class="flood">&nbsp;Flood&nbsp;</span> or <span class="flame">&nbsp;Flame&nbsp;</span> in the game. Does not take the bonus, penalty, or base strength of the card duplicated.',
     penalty: null
   },
   {
@@ -419,7 +419,7 @@ var cards = [{
     suit: 'Wild',
     name: 'Doppelgänger',
     strength: 0,
-    bonus: 'BONUS: May duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.',
+    bonus: 'May duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.',
     penalty: null
   }
 ];

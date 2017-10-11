@@ -33,44 +33,88 @@ li.Land {
   background-color: #3b1d13;
 }
 
+span.land {
+  color: #3b1d13;
+}
+
 li.Flood {
   background-color: #41437c;
+}
+
+span.flood {
+  color: #41437c;
 }
 
 li.Weather {
   background-color: #a6bced;
 }
 
+span.weather {
+  color: #a6bced;
+}
+
 li.Flame {
   background-color: #b44347;
+}
+
+span.flame {
+  color: #b44347;
 }
 
 li.Army {
   background-color: #312b2f;
 }
 
+span.army {
+  color: #312b2f;
+}
+
 li.Wizard {
   background-color: #e056a3;
+}
+
+span.wizard {
+  color: #e056a3;
 }
 
 li.Leader {
   background-color: #7b48a4;
 }
 
+span.leader {
+  color: #7b48a4;
+}
+
 li.Beast {
   background-color: #60a35c;
+}
+
+span.beast {
+  color: #60a35c;
 }
 
 li.Weapon {
   background-color: #878586;
 }
 
+span.weapon {
+  color: #878586;
+}
+
 li.Artifact {
   background-color: #d24e37;
 }
 
+span.artifact {
+  color: #d24e37;
+}
+
 li.Wild {
   background-color: #c6c2c3;
+}
+
+span.wild {
+  color: #c6c2c3;
 }
 
 #cards {
@@ -78,11 +122,11 @@ li.Wild {
 }
 
 #cards li span.badge, #hand li span.badge{
-  margin-left: 1em;
+  margin-left: 1rem;
 }
 
 #cards .card-header, #hand .card-header {
-  padding: 8px;
+  padding: 0.4rem;
   font-weight: bold;
   background-color: #ccc0a8;
   cursor: pointer;
@@ -95,7 +139,7 @@ li.Wild {
 
 #cards li, #hand li {
   font-weight: bold;
-  padding: 8px;
+  padding: 0.4rem;
   cursor: pointer;
 }
 
@@ -103,4 +147,9 @@ li.Wild {
   background-color: #fffafa;
   color: grey;
   font-weight: normal;
+  font-size: 0.8rem;
+}
+
+#hand li span {
+    font-weight: bold;
 }

@@ -15,6 +15,12 @@ function addToHand(id) {
   updateHandView();
 }
 
+function removeFromHand(id) {
+  delete hand[id];
+  history.replaceState(null, null, "index.html?hand=" + Object.keys(hand).join());
+  updateHandView();
+}
+
 function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
   var html = template({
