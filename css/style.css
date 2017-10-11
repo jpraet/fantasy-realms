@@ -3,8 +3,16 @@ html {
 }
 
 #header {
+  position: relative;
   background-color: #6f292b;
   padding: 10px;
+}
+
+#version {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: white;
 }
 
 li.list-group-item {
