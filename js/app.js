@@ -17,7 +17,11 @@ function addToHand(id) {
 
 function removeFromHand(id) {
   delete hand[id];
-  history.replaceState(null, null, "index.html?hand=" + Object.keys(hand).join());
+  if (hand.length > 0) {
+    history.replaceState(null, null, "index.html?hand=" + Object.keys(hand).join());
+  } else {
+    history.replaceState(null, null, "index.html");
+  }
   updateHandView();
 }
 
