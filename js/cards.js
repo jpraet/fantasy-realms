@@ -186,7 +186,7 @@ var cards = [{
   {
     id: 24,
     suit: 'Army',
-    name: 'Dwarvish Infanty',
+    name: 'Dwarvish Infantry',
     strength: 15,
     bonus: null,
     penalty: '-2 for each other <span class="army">Army</span>.'
