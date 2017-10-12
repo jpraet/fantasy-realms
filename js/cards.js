@@ -68,7 +68,8 @@ var cards = [{
     name: 'Island',
     strength: 14,
     bonus: 'CLEARS the Penalty on any one <span class="flood">Flood</span> or <span class="flame">Flame</span>.',
-    penalty: null
+    penalty: null,
+    action: true
   },
   {
     id: 10,
@@ -220,7 +221,8 @@ var cards = [{
     name: 'Necromancer',
     strength: 3,
     bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand as an eighth card.',
-    penalty: null
+    penalty: null,
+    action: true
   },
   {
     id: 29,
@@ -388,7 +390,8 @@ var cards = [{
     name: 'Book of Changes',
     strength: 3,
     bonus: 'You may change the suit of one other card. Its name, bonuses and penalties remain the same.',
-    penalty: null
+    penalty: null,
+    action: true
   },
   {
     id: 50,
@@ -404,7 +407,8 @@ var cards = [{
     name: 'Shapeshifter',
     strength: 0,
     bonus: 'May duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. Does not take the bonus, penalty, or base strength of the card duplicated.',
-    penalty: null
+    penalty: null,
+    action: true
   },
   {
     id: 52,
@@ -412,7 +416,8 @@ var cards = [{
     name: 'Mirage',
     strength: 0,
     bonus: 'May duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. Does not take the bonus, penalty, or base strength of the card duplicated.',
-    penalty: null
+    penalty: null,
+    action: true
   },
   {
     id: 53,
@@ -420,7 +425,8 @@ var cards = [{
     name: 'Doppelgänger',
     strength: 0,
     bonus: 'May duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.',
-    penalty: null
+    penalty: null,
+    action: true
   }
 ];
 

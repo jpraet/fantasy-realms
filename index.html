@@ -42,7 +42,7 @@
       <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
         <ul class="list-group">
           {{#each this}}
-          <li class="list-group-item {{suit}}" onclick="addToHand({{id}})">{{name}} <span class="badge badge-default">{{strength}}</span></li>
+          <li class="list-group-item {{suit}}" onclick="addToHand({{id}})"><span class="badge badge-default">{{strength}}</span> {{name}}</li>
           {{/each}}
         </ul>
       </div>
@@ -51,18 +51,22 @@
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
     {{#each cards}}
-    <li class="list-group-item {{suit}}" onclick="removeFromHand({{id}})">{{name}} <span class="badge badge-default">{{strength}}</span></li>
+    <li class="list-group-item {{suit}}" onclick="removeFromHand({{id}})">
+      <span class="badge badge-default">{{strength}}</span> {{name}}
+      {{#if action}}
+        <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-success float-right" disabled>Use</button>
+      {{/if}}
+    </span>
+    </li>
     {{#if bonus}}
     <li class="card-text bonus">
       {{{bonus}}}
     </li>
-    {{/if}}
-    {{#if penalty}}
+    {{/if}} {{#if penalty}}
     <li class="card-text penalty">
       {{{penalty}}}
     </li>
-    {{/if}}
-    {{/each}}
+    {{/if}} {{/each}}
   </script>
   </div>
   <div id="header">
@@ -77,6 +81,9 @@
       <div id="hand" class="card">
         <div class="card-header">
           Hand
+          <div class="float-right">
+            <button id="start" type="button" class="btn btn-sm btn-primary" disabled>Start scoring</button>
+          </div>
         </div>
         <ul id="cards-in-hand" class="list-group">
         </ul>

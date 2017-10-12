@@ -27,6 +27,7 @@ html {
 
 li.list-group-item {
   color: white;
+  display: block;
 }
 
 li.Land {
@@ -121,10 +122,6 @@ span.wild {
   background-color: #ccc0a8;
 }
 
-#cards li span.badge, #hand li span.badge {
-  margin-left: 1rem;
-}
-
 #cards .card-header, #hand .card-header {
   padding: 0.4rem;
   font-weight: bold;
@@ -156,4 +153,8 @@ span.wild {
 
 #hand li.card-text {
   list-style-type: none;
+}
+
+span.badge-default {
+  width: 1.8rem;
 }
