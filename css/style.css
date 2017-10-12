@@ -121,7 +121,7 @@ span.wild {
   background-color: #ccc0a8;
 }
 
-#cards li span.badge, #hand li span.badge{
+#cards li span.badge, #hand li span.badge {
   margin-left: 1rem;
 }
 
@@ -151,5 +151,9 @@ span.wild {
 }
 
 #hand li span {
-    font-weight: bold;
+  font-weight: bold;
+}
+
+#hand li.card-text {
+  list-style-type: none;
 }

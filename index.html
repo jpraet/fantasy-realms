@@ -53,17 +53,18 @@
     {{#each cards}}
     <li class="list-group-item {{suit}}" onclick="removeFromHand({{id}})">{{name}} <span class="badge badge-default">{{strength}}</span></li>
     {{#if bonus}}
-    <li class="list-group-item bonus">
+    <li class="card-text bonus">
       {{{bonus}}}
     </li>
     {{/if}}
     {{#if penalty}}
-    <li class="list-group-item penalty">
+    <li class="card-text penalty">
       {{{penalty}}}
     </li>
     {{/if}}
     {{/each}}
   </script>
+  </div>
   <div id="header">
     <img src="img/fantasy-realms.jpg" style="height: 3em;"></img>
     <div id="version">unofficial companion app v0.1</div>
