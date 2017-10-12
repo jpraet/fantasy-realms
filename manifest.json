@@ -40,5 +40,6 @@
     }
   ],
   "display": "standalone",
+  "background_color": "#6f292b",  
   "orientation": "portrait"
 }
