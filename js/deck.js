@@ -316,25 +316,18 @@ var deck = {
       penalty: null,
       bonusScore: function(hand) {
         var bySuit = {};
-        for (var id in hand.cardsInHand) {
-          if (hand.cardsInHand.hasOwnProperty(id)) {
-            var card = hand.cardsInHand[id];
-            if (!card.blanked) {
-              var suit = card.suit;
-              if (bySuit[suit] === undefined) {
-                bySuit[suit] = {};
-                bySuit[suit][card.name] = card;
-              }
-            }
+        for (const card of hand.nonBlankedCards()) {
+          var suit = card.suit;
+          if (bySuit[suit] === undefined) {
+            bySuit[suit] = {};
           }
+          bySuit[suit][card.name] = card;
         }
         var maxPerSuit = 0;
-        for (var suit in bySuit) {
-          if (bySuit.hasOwnProperty(suit)) {
-            var count = Object.keys(bySuit[suit]).length;
-            if (count > maxPerSuit) {
-              maxPerSuit = count;
-            }
+        for (const suit of Object.values(bySuit)) {
+          var count = Object.keys(suit).length;
+          if (count > maxPerSuit) {
+            maxPerSuit = count;
           }
         }
         if (maxPerSuit === 3) {

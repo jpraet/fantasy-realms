@@ -154,6 +154,18 @@ span.wild {
   font-weight: bold;
 }
 
+#hand li.blanked {
+  opacity: 0.35;
+}
+
 span.badge-default {
   width: 1.8rem;
+}
+
+span.bonus {
+  color: green;
+}
+
+span.penalty {
+  color: red;
 }
