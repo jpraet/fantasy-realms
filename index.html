@@ -28,7 +28,8 @@
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/handlebars-v4.0.10.js"></script>
-  <script src="js/cards.js"></script>
+  <script src="js/deck.js"></script>
+  <script src="js/hand.js"></script>
   <script src="js/app.js"></script>
 </head>
 
@@ -50,21 +51,19 @@
     {{/each}}
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
-    {{#each cards}}
-    <li class="list-group-item {{suit}}" onclick="removeFromHand({{id}})">
-      <span class="badge badge-default">{{strength}}</span> {{name}}
-      {{#if action}}
-        <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-success float-right" disabled>Use</button>
-      {{/if}}
-    </span>
+    {{#each cardsInHand}}
+    <li class="list-group-item {{card.suit}}" onclick="removeFromHand({{id}})">
+      <span class="badge badge-default">{{card.strength}}</span> {{name}} {{#if card.action}}
+      <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-success float-right" disabled>Use</button> {{/if}}
+      </span>
     </li>
-    {{#if bonus}}
-    <li class="card-text bonus">
-      {{{bonus}}}
+    {{#if card.bonus}}
+    <li class="list-group-item bonus">
+      {{{card.bonus}}}
     </li>
-    {{/if}} {{#if penalty}}
-    <li class="card-text penalty">
-      {{{penalty}}}
+    {{/if}} {{#if card.penalty}}
+    <li class="list-group-item penalty">
+      {{{card.penalty}}}
     </li>
     {{/if}} {{/each}}
   </script>
@@ -80,9 +79,8 @@
     <div id="right">
       <div id="hand" class="card">
         <div class="card-header">
-          Hand
+          Hand: <span id="points">0</span> points
           <div class="float-right">
-            <button id="start" type="button" class="btn btn-sm btn-primary" disabled>Calculate</button>
             <button id="clear" type="button" class="btn btn-sm btn-danger" onclick="clearHand()">Clear</button>
           </div>
         </div>

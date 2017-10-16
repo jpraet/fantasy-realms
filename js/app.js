@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var template = Handlebars.compile($("#cards-template").html());
   var html = template({
-    suits: cardsBySuit
+    suits: deck.getCardsBySuit()
   });
   $('#cards').html(html);
   getHandFromQueryString();
@@ -11,29 +11,26 @@ var click = new Audio('sound/click.mp3');
 var swoosh = new Audio('sound/swoosh.mp3');
 var clear = new Audio('sound/clear.mp3');
 
-var hand = {};
-
 function clearHand() {
   clear.play();
-  hand = {};
+  hand.clear();
   history.replaceState(null, null, "index.html");
   updateHandView();
 }
 
 function addToHand(id) {
-  if (hand[id] === undefined) {
+  if (hand.addCard(deck.getCardById(id))) {
     click.play();
+    history.replaceState(null, null, "index.html?hand=" + hand.toString());
+    updateHandView();
   }
-  hand[id] = getCard(id);
-  history.replaceState(null, null, "index.html?hand=" + Object.keys(hand).join());
-  updateHandView();
 }
 
 function removeFromHand(id) {
   swoosh.play();
-  delete hand[id];
+  hand.removeId(id);
   if (hand.length > 0) {
-    history.replaceState(null, null, "index.html?hand=" + Object.keys(hand).join());
+    history.replaceState(null, null, "index.html?hand=" + hand.toString());
   } else {
     history.replaceState(null, null, "index.html");
   }
@@ -42,10 +39,9 @@ function removeFromHand(id) {
 
 function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
-  var html = template({
-    cards: hand
-  });
+  var html = template(hand);
   $('#cards-in-hand').html(html);
+  $('#points').text(hand.score());
 }
 
 function getHandFromQueryString() {
@@ -53,11 +49,7 @@ function getHandFromQueryString() {
   for (var i = 0; i < params.length; i++) {
     var param = params[i].split('=');
     if (param[0] === 'hand') {
-      var cardIds = param[1].split(',');
-      for (var j = 0; j < cardIds.length; j++) {
-        var cardId = cardIds[j];
-        hand[cardId] = getCard(cardId);
-      }
+      hand.loadFromString(param[1]);
       updateHandView();
     }
   }

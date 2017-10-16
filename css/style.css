@@ -28,6 +28,7 @@ html {
 li.list-group-item {
   color: white;
   display: block;
+  font-size: 0.9rem;
 }
 
 li.Land {
@@ -129,9 +130,11 @@ span.wild {
   cursor: pointer;
 }
 
-#hand .card-header {
+#hand {
   background-color: #e9e3c6;
-  cursor: auto;
+  padding: 0.4rem;
+  height: 100%;
+  font-weight: bold;
 }
 
 #cards li, #hand li {
@@ -149,10 +152,6 @@ span.wild {
 
 #hand li span {
   font-weight: bold;
-}
-
-#hand li.card-text {
-  list-style-type: none;
 }
 
 span.badge-default {
