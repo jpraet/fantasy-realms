@@ -77,25 +77,27 @@
   </script>
   </div>
   <div id="container">
-  <div id="header">
-    <img src="img/fantasy-realms.jpg" style="height: 3rem;"></img>
-    <div id="points">0</div>
-  </div>
-  <div id="left">
-    <div id="cards" class="panel" role="tablist" aria-multiselectable="true"></div>
-  </div>
-  <div id="right">
-    <div id="hand" class="card">
-        <div class="card-header">
-          Hand [<span id="cardCount">0</span>/<span id="cardLimit">7</span>]
-          <div class="float-right">
-            <button id="clear" type="button" class="btn btn-sm btn-danger" onclick="clearHand()">Clear</button>
-          </div>
-        </div>
-        <ul id="cards-in-hand" class="list-group">
-        </ul>
+    <div id="header">
+      <img src="img/fantasy-realms.jpg" style="height: 3rem;"></img>
+      <div id="points">0</div>
+    </div>
+    <div id="main">
+      <div id="left">
+        <div id="cards" class="panel" role="tablist" aria-multiselectable="true"></div>
       </div>
-  </div>
+      <div id="right">
+        <div id="hand" class="card">
+            <div class="card-header">
+              Hand [<span id="cardCount">0</span>/<span id="cardLimit">7</span>]
+              <div class="float-right">
+                <button id="clear" type="button" class="btn btn-sm btn-danger" onclick="clearHand()">Clear</button>
+              </div>
+            </div>
+            <ul id="cards-in-hand" class="list-group">
+            </ul>
+          </div>
+      </div>
+    </div>
 </div>
 </body>
 

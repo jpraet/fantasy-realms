@@ -7,13 +7,24 @@ body {
 }
 
 #container {
+  position: relative;
+  width: 100%;
   max-width: 60rem;
 }
 
 #header {
-  position: relative;
+  position: fixed;
   background-color: #6f292b;
-  padding: 10px;
+  height: 4rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 60rem;
+  z-index: 1;
+}
+
+#main {
+  padding-top: 4rem;
+  height: 100%;
 }
 
 #points {
@@ -24,13 +35,13 @@ body {
 }
 
 #left {
-  width: 50%;
+  width: 12rem;
   float: left;
 }
 
 #right {
-  width: 50%;
-  float: right;
+  padding-left: 12rem;
+  background-color: #ccc0a8;
 }
 
 li.list-group-item {
@@ -168,7 +179,9 @@ span.wild {
 }
 
 span.badge-default {
-  width: 1.8rem;
+  background-color: #c0c0c0;
+  color: black;
+  width: 1.5rem;
 }
 
 span.bonus {
