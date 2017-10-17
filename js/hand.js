@@ -5,7 +5,7 @@ class Hand {
   }
 
   addCard(card) {
-    if (this.cardsInHand[card.id] === undefined) {
+    if (this.cardsInHand[card.id] === undefined && !this.complete()) {
       this.cardsInHand[card.id] = new CardInHand(card);
       return true;
     }
@@ -17,12 +17,9 @@ class Hand {
   }
 
   contains(cardName) {
-    for (var id in this.cardsInHand) {
-      if (this.cardsInHand.hasOwnProperty(id)) {
-        var card = this.cardsInHand[id];
-        if (!card.blanked && card.card.name === cardName) {
-          return true;
-        }
+    for (const card of this.nonBlankedCards()) {
+      if (card.name === cardName) {
+        return true;
       }
     }
     return false;
@@ -33,12 +30,9 @@ class Hand {
   }
 
   containsSuit(suitName) {
-    for (var id in this.cardsInHand) {
-      if (this.cardsInHand.hasOwnProperty(id)) {
-        var card = this.cardsInHand[id];
-        if (!card.blanked && card.card.suit === suitName) {
-          return true;
-        }
+    for (const card of this.nonBlankedCards()) {
+      if (card.suit === suitName) {
+        return true;
       }
     }
     return false;
@@ -46,12 +40,9 @@ class Hand {
 
   countSuit(suitName) {
     var count = 0;
-    for (var id in this.cardsInHand) {
-      if (this.cardsInHand.hasOwnProperty(id)) {
-        var card = this.cardsInHand[id];
-        if (!card.blanked && card.card.suit === suitName) {
-          count++;
-        }
+    for (const card of this.nonBlankedCards()) {
+      if (card.suit === suitName) {
+        count++;
       }
     }
     return count;
@@ -59,32 +50,28 @@ class Hand {
 
   countSuitExcluding(suitName, excludingCardId) {
     var count = 0;
-    for (var id in this.cardsInHand) {
-      if (this.cardsInHand.hasOwnProperty(id)) {
-        var card = this.cardsInHand[id];
-        if (!card.blanked && card.card.suit === suitName && card.card.id !== excludingCardId) {
-          count++;
-        }
+    for (const card of this.nonBlankedCards()) {
+      if (card.suit === suitName && card.id !== excludingCardId) {
+        count++;
       }
     }
     return count;
   }
 
   nonBlankedCards() {
-    var result = [];
-    for (var id in this.cardsInHand) {
-      if (this.cardsInHand.hasOwnProperty(id)) {
-        var card = this.cardsInHand[id];
-        if (!card.blanked) {
-          result.push(card);
-        }
-      }
-    }
-    return result;
+    return this.cards().filter(function(card) {
+      return !card.blanked;
+    });
   }
 
   cards() {
     return Object.values(this.cardsInHand);
+  }
+
+  cardNames() {
+    return this.cards().map(function (card) {
+      return card.name;
+    });
   }
 
   score() {
@@ -117,17 +104,36 @@ class Hand {
   }
 
   _applyBlanking() {
-    // TODO: cards that are blanked should not blank other cards?
     for (const card of this.cards()) {
-      if (card.card.blanks !== undefined) {
+      if (card.card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
         for (const target of this.cards()) {
-          if (card.card.blanks(target)) {
+          if (card.card.blanks(target, this)) {
             console.log(card.name + ' blanks ' + target.name);
             target.blanked = true;
           }
         }
       }
     }
+    for (const card of this.cards()) {
+      if (card.card.blankedIf !== undefined && !card.penaltyCleared) {
+        if (card.card.blankedIf(this)) {
+          console.log(card.name + ' is blanked');
+          card.blanked = true;
+        }
+      }
+    }
+  }
+
+  // a card that is blanked by another card cannot blank other cards
+  _cardBlanked(card) {
+    for (const by of this.nonBlankedCards()) {
+      if (by.card.blanks !== undefined && !by.penaltyCleared) {
+        if (by.card.blanks(card, this)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   clear() {
@@ -136,6 +142,14 @@ class Hand {
 
   size() {
     return Object.keys(this.cardsInHand).length;
+  }
+
+  limit() {
+    return this.contains('Necromancer') ? 8 : 7;
+  }
+
+  complete() {
+    return this.size() === this.limit();
   }
 
   toString() {
@@ -177,7 +191,7 @@ class CardInHand {
     } else {
       this.bonus = 0;
     }
-    if (this.card.penaltyScore !== undefined) {
+    if (this.card.penaltyScore !== undefined && !this.penaltyCleared) {
       this.penalty = this.card.penaltyScore(hand);
     } else {
       this.penalty = 0;

@@ -2,6 +2,10 @@ html {
   background-color: #ccc0a8;
 }
 
+body {
+  background-color: #ccc0a8;
+}
+
 #header {
   position: relative;
   background-color: #6f292b;
@@ -155,7 +159,8 @@ span.wild {
 }
 
 #hand li.blanked {
-  opacity: 0.35;
+  opacity: 0.4;
+  filter: grayscale(100%);
 }
 
 span.badge-default {
@@ -167,5 +172,10 @@ span.bonus {
 }
 
 span.penalty {
+  color: red;
+}
+
+.cleared {
+  text-decoration: line-through;
   color: red;
 }

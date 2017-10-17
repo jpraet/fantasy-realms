@@ -104,7 +104,9 @@ var deck = {
       bonus: null,
       penalty: 'BLANKS all <span class="army">Armies</span>, all <span class="land">Lands</span> except <span class="land">Mountain</span>, and all <span class="flame">Flames</span> except <span class="flame">Lightning</span>.',
       blanks: function(card, hand) {
-        return card.suit === 'Army' || (card.suit === 'Land' && card.name !== 'Mountain') || (card.suit === 'Flame' && card.name !== 'Lightning');
+        return (card.suit === 'Army' && !(hand.containsId(25) || hand.containsId(41))) || // these clear the word 'Army' from the penalty
+          (card.suit === 'Land' && card.name !== 'Mountain') ||
+          (card.suit === 'Flame' && card.name !== 'Lightning');
       }
     },
     {
@@ -166,8 +168,8 @@ var deck = {
       strength: 27,
       bonus: null,
       penalty: 'This card is BLANKED unless with at least one <span class="flame">Flame</span>.',
-      blanks: function(card, hand) {
-        return card.id === 13 && !hand.containsSuit('Flame');
+      blankedIf: function(hand) {
+        return !hand.containsSuit('Flame');
       }
     },
     {
@@ -361,8 +363,7 @@ var deck = {
       name: 'Necromancer',
       strength: 3,
       bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand as an eighth card.', // TODO
-      penalty: null,
-      action: true
+      penalty: null
     },
     {
       id: 29,
@@ -471,7 +472,9 @@ var deck = {
       bonus: null,
       penalty: 'BLANKS all <span class="army">Armies</span>, <span class="leader">Leaders</span>, and other <span class="beast">Beasts</span>.',
       blanks: function(card, hand) {
-        return card.suit === 'Army' || card.suit === 'Leader' || (card.suit === 'Beast' && card.id !== 37);
+        return (card.suit === 'Army' && !hand.containsId(25)) || // clears the word 'Army' from the penalty
+          card.suit === 'Leader' ||
+          (card.suit === 'Beast' && card.id !== 37);
       }
     },
     {
@@ -514,8 +517,8 @@ var deck = {
       strength: 23,
       bonus: 'CLEARS the word <span class="army">Army</span> from all Penalties of all <span class="flood">Floods</span>.',
       penalty: 'BLANKED unless with at least one <span class="flood">Flood</span>.',
-      blanks: function(card, hand) {
-        return card.id === 41 && !card.containsSuit('Flood');
+      blankedIf: function(hand) {
+        return !hand.containsSuit('Flood');
       }
     },
     {
@@ -558,8 +561,8 @@ var deck = {
       strength: 35,
       bonus: null,
       penalty: 'BLANKED unless with at least one <span class="army">Army</span>. <br />BLANKED with any <span class="weather">Weather</span>.',
-      blanks: function(card, hand) {
-        return card.id === 45 && (!hand.containsSuit('Army') || hand.containsSuit('Weather'));
+      blankedIf: function(hand) {
+        return !hand.containsSuit('Army') || hand.containsSuit('Weather');
       }
     },
     {

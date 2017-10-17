@@ -23,8 +23,8 @@
   <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css?v=1.0">
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css?v=1.0">
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/handlebars-v4.0.10.js"></script>
@@ -67,7 +67,7 @@
       {{/if}}
     </li>
     {{/if}} {{#if card.penalty}}
-    <li class="list-group-item penalty {{#if blanked}}blanked{{/if}}">
+    <li class="list-group-item penalty {{#if blanked}}blanked{{/if}} {{#if penaltyCleared}}cleared{{/if}}">
       {{{card.penalty}}}
       {{#if penalty}}
       <span class="float-right penalty">{{penalty}}</span>

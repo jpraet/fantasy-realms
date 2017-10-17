@@ -29,7 +29,7 @@ function addToHand(id) {
 function removeFromHand(id) {
   swoosh.play();
   hand.deleteCardById(id);
-  if (hand.length > 0) {
+  if (hand.size() > 0) {
     history.replaceState(null, null, "index.html?hand=" + hand.toString());
   } else {
     history.replaceState(null, null, "index.html");
@@ -44,6 +44,7 @@ function updateHandView() {
   $('#cards-in-hand').html(html);
   $('#points').text(score);
   $('#cardCount').text(hand.size());
+  $('#cardLimit').text(hand.limit());
 }
 
 function getHandFromQueryString() {
