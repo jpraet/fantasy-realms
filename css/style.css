@@ -20,6 +20,7 @@ body {
   width: 100%;
   max-width: 60rem;
   z-index: 1;
+  vertical-align: middle;
 }
 
 #main {
@@ -27,11 +28,29 @@ body {
   height: 100%;
 }
 
-#points {
-  color: #c3a332;
+#header-right {
   float: right;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#hand-info {
   font-size: 2.4rem;
   font-weight: bold;
+  margin-right: 0.6rem;
+}
+
+#points {
+  color: #c3a332;
+}
+
+#cardCount, #cardLimit {
+  color: #995153;
+}
+
+span.separator {
+  color: #995153;
 }
 
 #left {
@@ -147,7 +166,6 @@ span.wild {
   font-weight: bold;
   background-color: #ccc0a8;
   cursor: pointer;
-
 }
 
 #hand {
@@ -172,6 +190,7 @@ span.wild {
   color: grey;
   font-weight: normal;
   font-size: 0.8rem;
+  cursor: auto;
 }
 
 #hand li span {
@@ -181,6 +200,10 @@ span.wild {
 #hand li.blanked {
   opacity: 0.4;
   filter: grayscale(100%);
+}
+
+#hand div.card {
+  margin-bottom: 0.4rem;
 }
 
 span.badge-default {

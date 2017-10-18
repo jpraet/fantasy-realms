@@ -2,8 +2,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Fantasy Realms Companion App</title>
-  <meta name="description" content="Fantasy Realms Companion App">
+  <title>Fantasy Realms: App of Scoring</title>
+  <meta name="description" content="Fantasy Realms: App of Scoring">
   <meta name="author" content="Jimmy Praet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="msapplication-TileColor" content="#ffffff">
@@ -52,50 +52,53 @@
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
     {{#each cardsInHand}}
-    <li class="list-group-item {{card.suit}} {{#if blanked}}blanked{{/if}}" onclick="removeFromHand({{id}})">
-      <span class="badge badge-default">{{card.strength}}</span> {{name}} {{#if blanked}}[BLANKED]{{/if}}
-      {{#if card.action}}
-      <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-success float-right" disabled>Use</button>
-      {{/if}}
-      <span class="float-right points">{{points}}</span>
-    </li>
-    {{#if card.bonus}}
-    <li class="list-group-item bonus {{#if blanked}}blanked{{/if}}">
-      {{{card.bonus}}}
-      {{#if bonus}}
-      <span class="float-right bonus">+{{bonus}}</span>
-      {{/if}}
-    </li>
-    {{/if}} {{#if card.penalty}}
-    <li class="list-group-item penalty {{#if blanked}}blanked{{/if}} {{#if penaltyCleared}}cleared{{/if}}">
-      {{{card.penalty}}}
-      {{#if penalty}}
-      <span class="float-right penalty">{{penalty}}</span>
-      {{/if}}
-    </li>
-    {{/if}} {{/each}}
+    <div class="card">
+      <ul class="list-group">
+        <li class="list-group-item {{card.suit}} {{#if blanked}}blanked{{/if}}" onclick="removeFromHand({{id}})">
+          <span class="badge badge-default">{{card.strength}}</span> {{name}} {{#if blanked}}[BLANKED]{{/if}}
+          {{#if card.action}}
+          <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-success float-right" disabled>Use</button>
+          {{/if}}
+          <span class="float-right points">{{points}}</span>
+        </li>
+        {{#if card.bonus}}
+        <li class="list-group-item bonus {{#if blanked}}blanked{{/if}}">
+          {{{card.bonus}}}
+          {{#if bonus}}
+          <span class="float-right bonus">+{{bonus}}</span>
+          {{/if}}
+        </li>
+        {{/if}} {{#if card.penalty}}
+        <li class="list-group-item penalty {{#if blanked}}blanked{{/if}} {{#if penaltyCleared}}cleared{{/if}}">
+          {{{card.penalty}}}
+          {{#if penalty}}
+          <span class="float-right penalty">{{penalty}}</span>
+          {{/if}}
+        </li>
+        {{/if}}
+      </ul>
+    </div>
+    {{/each}}
   </script>
   </div>
   <div id="container">
     <div id="header">
       <img src="img/fantasy-realms.jpg" style="height: 3rem;"></img>
-      <div id="points">0</div>
+      <div id="header-right">
+        <div id="hand-info">
+          <span id="cardCount">0</span><span class="separator">/</span><span id="cardLimit">7</span>
+          <span id="points">000</span>
+        </div>
+        <button id="clear" type="button" class="btn btn-success" onclick="clearHand()">Reset</button>
+      </div>
     </div>
     <div id="main">
       <div id="left">
         <div id="cards" class="panel" role="tablist" aria-multiselectable="true"></div>
       </div>
       <div id="right">
-        <div id="hand" class="card">
-            <div class="card-header">
-              Hand [<span id="cardCount">0</span>/<span id="cardLimit">7</span>]
-              <div class="float-right">
-                <button id="clear" type="button" class="btn btn-sm btn-danger" onclick="clearHand()">Clear</button>
-              </div>
-            </div>
-            <ul id="cards-in-hand" class="list-group">
-            </ul>
-          </div>
+        <div id="hand">
+        </div>
       </div>
     </div>
 </div>

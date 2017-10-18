@@ -41,8 +41,8 @@ function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
   var score = hand.score();
   var html = template(hand);
-  $('#cards-in-hand').html(html);
-  $('#points').text(score);
+  $('#hand').html(html);
+  $('#points').text(('000' + score).slice(-3));
   $('#cardCount').text(hand.size());
   $('#cardLimit').text(hand.limit());
 }
