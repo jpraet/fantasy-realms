@@ -417,7 +417,7 @@ var deck = {
       bonus: '+8 for each <span class="army">Army</span>, <span class="wizard">Wizard</span>, and other <span class="leader">Leader</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 8 * (hand.countSuit('Army') + hand.countSuit('Wizard') + hand.countSuitExcluding('Leader', 'Princess'));
+        return 8 * (hand.countSuit('Army') + hand.countSuit('Wizard') + hand.countSuitExcluding('Leader', 33));
       }
     },
     {
