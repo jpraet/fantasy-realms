@@ -207,7 +207,7 @@ span.wild {
 }
 
 span.badge-default {
-  width: 1.5rem;
+  min-width: 1.5rem;
 }
 
 span.bonus {
@@ -221,4 +221,8 @@ span.penalty {
 .cleared {
   text-decoration: line-through;
   color: red;
+}
+
+button {
+  cursor: pointer;
 }
