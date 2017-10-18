@@ -203,7 +203,7 @@ var deck = {
       penalty: 'BLANKS all cards except <span class="flame">Flames</span>, <span class="wizard">Wizards</span>, <span class="weather">Weather</span>, <span class="weapon">Weapons</span>, <span class="artifact">Artifacts</span>, <span class="land">Mountain</span>, <span class="flood">Great Flood</span>, <span class="flood">Island</span>, <span class="beast">Unicorn</span> and <span class="beast">Dragon</span>.',
       blanks: function(card, hand) {
         return !(card.suit === 'Flame' || card.suit === 'Wizard' || card.suit === 'Weather' ||
-          card.suit === 'Weapon' || card.suit === 'Artifact' || card.name === 'Mountain' ||
+          card.suit === 'Weapon' || card.suit === 'Artifact' || card.suit === 'Wild' || card.name === 'Mountain' ||
           card.name === 'Great Flood' || card.name === 'Island' || card.name === 'Unicorn' || card.name === 'Dragon');
       }
     },
