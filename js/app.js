@@ -42,7 +42,11 @@ function updateHandView() {
   var score = hand.score();
   var html = template(hand);
   $('#hand').html(html);
-  $('#points').text(('000' + score).slice(-3));
+  if (score >= 0) {
+    $('#points').text(('000' + score).slice(-3));
+  } else {
+    $('#points').text('-' + ('000' + Math.abs(score)).slice(-3));  
+  }
   $('#cardCount').text(hand.size());
   $('#cardLimit').text(hand.limit());
 }
