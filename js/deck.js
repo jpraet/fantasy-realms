@@ -761,7 +761,7 @@ var deck = {
       suit: 'Wild',
       name: 'Shapeshifter',
       strength: 0,
-      bonus: 'May duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.', // TODO
+      bonus: 'Shapeshifter may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.', // TODO
       penalty: null,
       action: true,
       relatedSuits: ['Artifact', 'Leader', 'Wizard', 'Weapon', 'Beast'],
@@ -772,7 +772,7 @@ var deck = {
       suit: 'Wild',
       name: 'Mirage',
       strength: 0,
-      bonus: 'May duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.', // TODO
+      bonus: 'Mirage may duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.', // TODO
       penalty: null,
       action: true,
       relatedSuits: ['Army', 'Land', 'Weather', 'Flood', 'Flame'],
@@ -783,7 +783,7 @@ var deck = {
       suit: 'Wild',
       name: 'Doppelgänger',
       strength: 0,
-      bonus: 'May duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.', // TODO
+      bonus: 'Doppelgänger may duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.', // TODO
       penalty: null,
       action: true,
       relatedSuits: [],
@@ -801,19 +801,21 @@ var deck = {
   getCardById: function(id) {
     return this.cards[id - 1];
   },
-  getCardsBySuit: function() {
+  getCardsBySuit: function(suits) {
     var cardsBySuit = {};
     for (var i = 0; i < this.cards.length; i++) {
       var card = this.cards[i];
-      if (cardsBySuit[card.suit] === undefined) {
-        cardsBySuit[card.suit] = [];
+      if (suits === undefined || suits.includes(card.suit)) {
+        if (cardsBySuit[card.suit] === undefined) {
+          cardsBySuit[card.suit] = [];
+        }
+        cardsBySuit[card.suit].push(card);
       }
-      cardsBySuit[card.suit].push(card);
     }
     return cardsBySuit;
   }
 };
 
 function allSuits() {
-  return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact'];
+  return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'];
 }

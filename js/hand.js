@@ -69,7 +69,7 @@ class Hand {
   }
 
   cardNames() {
-    return this.cards().map(function (card) {
+    return this.cards().map(function(card) {
       return card.name;
     });
   }
@@ -151,17 +151,42 @@ class Hand {
   }
 
   toString() {
-    return Object.keys(this.cardsInHand).join();
+    var stringValue = Object.keys(this.cardsInHand).join();
+    var actions = [];
+    for (const card of this.cards()) {
+      if (card.special !== undefined) {
+        actions.push(card.id + ':' + card.special);
+      }
+    }
+    return Object.keys(this.cardsInHand).join() + '|' + actions.join();
   }
 
   loadFromString(string) {
     this.clear();
-    var cardIds = string.split(',');
-    for (var i = 0; i < cardIds.length; i++) {
-      var cardId = cardIds[i];
+    var parts = string.split('|');
+    var cardIds = parts[0].split(',');
+    var cardActions = parts[1].split(',');
+    for (const cardId of cardIds) {
       this.addCard(deck.getCardById(cardId));
     }
+    for (const cardAction of cardActions) {
+      var actionParts = cardAction.split(':');
+      var cardId = parseInt(actionParts[0]);
+      var action = actionParts[1];
+      this.performCardAction(cardId, action);
+    }
   }
+
+  performCardAction(id, action) {
+    if (id === 51 || id === 52) { // Shapeshifter or Mirage
+      var selectedCard = deck.getCardById(action);
+      var target = this.cardsInHand[id];
+      target.name = selectedCard.name;
+      target.suit = selectedCard.suit;
+      target.special = action;
+    }
+  }
+
 }
 
 var hand = new Hand();
@@ -170,14 +195,14 @@ class CardInHand {
 
   constructor(card) {
     this.card = card;
-    this.reset();
-  }
-
-  reset() {
     this.id = this.card.id;
     this.name = this.card.name;
     this.suit = this.card.suit;
     this.strength = this.card.strength;
+    this.reset();
+  }
+
+  reset() {
     this.blanked = false;
     this.penalty = 0;
     this.bonus = 0;

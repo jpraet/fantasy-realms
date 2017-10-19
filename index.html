@@ -54,7 +54,7 @@
     {{#each cardsInHand}}
     <div class="card">
       <ul class="list-group">
-        <li class="list-group-item {{card.suit}} {{#if blanked}}blanked{{/if}}" onclick="removeFromHand({{id}})">
+        <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}" onclick="removeFromHand({{id}})">
           <span class="badge badge-default">
             {{#if blanked}}
               BLANKED
@@ -62,7 +62,8 @@
               {{card.strength}}
             {{/if}}
           </span> {{name}}
-          {{#if card.action}}
+          {{#if special}}
+          *
           {{/if}}
           <span class="float-right points">{{points}}</span>
         </li>
@@ -73,7 +74,7 @@
           <span class="float-right bonus">+{{bonus}}</span>
           {{/if}}
           {{#if card.action}}
-          <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-primary float-right" disabled>Use</button>
+          <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="useCard({{card.id}})">Use</button>
           {{/if}}
         </li>
         {{/if}} {{#if card.penalty}}
