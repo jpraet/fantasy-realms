@@ -108,7 +108,6 @@ class Hand {
       if (card.card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
         for (const target of this.cards()) {
           if (card.card.blanks(target, this)) {
-            console.log(card.name + ' blanks ' + target.name);
             target.blanked = true;
           }
         }
@@ -117,7 +116,6 @@ class Hand {
     for (const card of this.cards()) {
       if (card.card.blankedIf !== undefined && !card.penaltyCleared) {
         if (card.card.blankedIf(this)) {
-          console.log(card.name + ' is blanked');
           card.blanked = true;
         }
       }
