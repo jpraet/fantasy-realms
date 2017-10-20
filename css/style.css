@@ -191,6 +191,7 @@ span.wild {
   font-weight: normal;
   font-size: 0.8rem;
   cursor: auto;
+  border: 0;
 }
 
 #hand li span {
@@ -218,11 +219,14 @@ span.penalty {
   color: red;
 }
 
-.cleared {
+.cleared, .cleared:hover {
   text-decoration: line-through;
-  color: red;
 }
 
 button {
   cursor: pointer;
+}
+
+#cards div.suit-selection {
+  background-color: #aed77b;
 }

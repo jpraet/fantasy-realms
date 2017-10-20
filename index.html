@@ -50,19 +50,28 @@
     </div>
     {{/each}}
   </script>
+  <script id="suit-selection-template" type="text/x-handlebars-template">
+    {{#each suits}}
+    <div class="card">
+      <div class="card-header suit-selection" onclick="selectSuit('{{this}}')">
+        {{this}}
+      </div>
+    </div>
+    {{/each}}
+  </script>
   <script id="hand-template" type="text/x-handlebars-template">
     {{#each cardsInHand}}
-    <div class="card">
+    <div id="card-{{id}}" class="card">
       <ul class="list-group">
-        <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}" onclick="removeFromHand({{id}})">
+        <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}" onclick="selectFromHand({{id}})">
           <span class="badge badge-default">
             {{#if blanked}}
               BLANKED
             {{else}}
-              {{card.strength}}
+              {{strength}}
             {{/if}}
           </span> {{name}}
-          {{#if special}}
+          {{#if magic}}
           *
           {{/if}}
           <span class="float-right points">{{points}}</span>
@@ -73,16 +82,20 @@
           {{#if bonus}}
           <span class="float-right bonus">+{{bonus}}</span>
           {{/if}}
-          {{#if card.action}}
-          <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="useCard({{card.id}})">Use</button>
-          {{/if}}
         </li>
-        {{/if}} {{#if card.penalty}}
+        {{/if}}
+        {{#if card.penalty}}
         <li class="list-group-item penalty {{#if blanked}}blanked{{/if}} {{#if penaltyCleared}}cleared{{/if}}">
           {{{card.penalty}}}
           {{#if penalty}}
           <span class="float-right penalty">{{penalty}}</span>
           {{/if}}
+        </li>
+        {{/if}}
+        {{#if card.action}}
+        <li class="list-group-item bonus">
+            <span id="card-action-text-{{card.id}}" />
+            <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="useCard({{card.id}})">Use</button>
         </li>
         {{/if}}
       </ul>

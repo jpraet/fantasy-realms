@@ -130,9 +130,9 @@ var deck = {
       suit: 'Flood',
       name: 'Island',
       strength: 14,
-      bonus: 'CLEARS the Penalty on any one <span class="flood">Flood</span> or <span class="flame">Flame</span>.', // TODO
+      bonus: 'CLEARS the Penalty on any one <span class="flood">Flood</span> or <span class="flame">Flame</span>.',
       penalty: null,
-      action: true,
+      action: 'Pick a Flood or Flame from your hand to clear.',
       relatedSuits: ['Flood', 'Flame'],
       relatedCards: []
     },
@@ -417,7 +417,7 @@ var deck = {
       suit: 'Wizard',
       name: 'Necromancer',
       strength: 3,
-      bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand as an eighth card.', // TODO
+      bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand as an eighth card.',
       penalty: null,
       relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast'],
       relatedCards: []
@@ -737,9 +737,9 @@ var deck = {
       suit: 'Artifact',
       name: 'Book of Changes',
       strength: 3,
-      bonus: 'You may change the suit of one other card. Its name, bonuses and penalties remain the same.', // TODO
+      bonus: 'You may change the suit of one other card. Its name, bonuses and penalties remain the same.',
       penalty: null,
-      action: true,
+      action: 'Pick a suit and a target card from your hand.',
       relatedSuits: [], // empty because the main reason for relatedSuits is to determine how to use 'Book of Changes'
       relatedCards: []
     },
@@ -761,9 +761,9 @@ var deck = {
       suit: 'Wild',
       name: 'Shapeshifter',
       strength: 0,
-      bonus: 'Shapeshifter may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.', // TODO
+      bonus: '<b>Shapeshifter</b> may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
       penalty: null,
-      action: true,
+      action: 'Pick a target card to duplicate.',
       relatedSuits: ['Artifact', 'Leader', 'Wizard', 'Weapon', 'Beast'],
       relatedCards: []
     },
@@ -772,9 +772,9 @@ var deck = {
       suit: 'Wild',
       name: 'Mirage',
       strength: 0,
-      bonus: 'Mirage may duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.', // TODO
+      bonus: '<b>Mirage</b> may duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
       penalty: null,
-      action: true,
+      action: 'Pick a target card to duplicate.',
       relatedSuits: ['Army', 'Land', 'Weather', 'Flood', 'Flame'],
       relatedCards: []
     },
@@ -783,9 +783,9 @@ var deck = {
       suit: 'Wild',
       name: 'Doppelgänger',
       strength: 0,
-      bonus: 'Doppelgänger may duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.', // TODO
+      bonus: '<b>Doppelgänger</b> may duplicate the name, base strength, suit, and penalty BUT NOT BONUS of any one other card in your hand.',
       penalty: null,
-      action: true,
+      action: 'Pick a card from your hand to duplicate.',
       relatedSuits: [],
       relatedCards: []
     }
@@ -819,3 +819,11 @@ var deck = {
 function allSuits() {
   return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'];
 }
+
+var NONE = -1;
+var ISLAND = 9;
+var NECROMANCER = 28;
+var BOOK_OF_CHANGES = 49;
+var SHAPESHIFTER = 51;
+var MIRAGE = 52;
+var DOPPELGANGER = 53;

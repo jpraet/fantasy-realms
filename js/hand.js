@@ -5,7 +5,7 @@ class Hand {
   }
 
   addCard(card) {
-    if (this.cardsInHand[card.id] === undefined && !this.complete()) {
+    if (this._canAdd(card)) {
       this.cardsInHand[card.id] = new CardInHand(card);
       return true;
     }
@@ -13,7 +13,20 @@ class Hand {
   }
 
   deleteCardById(id) {
+    if (id === BOOK_OF_CHANGES) {
+      var bookOfChanges = this.getCardById(id);
+      if (bookOfChanges.actionData !== undefined) {
+        var target = hand.getCardById(bookOfChanges.actionData[0]);
+        if (target !== undefined) {
+          target.suit = previousTarget.card.previousSuit;
+        }
+      }
+    }
     delete this.cardsInHand[id];
+  }
+
+  getCardById(id) {
+    return this.cardsInHand[id];
   }
 
   contains(cardName) {
@@ -85,6 +98,30 @@ class Hand {
     return score;
   }
 
+  _canAdd(newCard) {
+    if (this.cardsInHand[newCard.id] !== undefined) {
+      return false;
+    } else if (this.size() < 7) {
+      return true;
+    } else if (this.size() > 7) {
+      return false;
+    } else if (this.containsId(NECROMANCER) || newCard.id === NECROMANCER) {
+      var targetFound = false;
+      for (const card of this.cards()) {
+        if (card.card.id !== NECROMANCER && deck.getCardById(NECROMANCER).relatedSuits.includes(card.card.suit)) {
+          targetFound = true;
+        }
+      }
+      return targetFound || this.containsId(NECROMANCER) && deck.getCardById(NECROMANCER).relatedSuits.includes(newCard.suit);
+    } else {
+      return false;
+    }
+  }
+
+  _isValidNecromancerTarget(card) {
+    return;
+  }
+
   _resetHand() {
     for (const card of this.cards()) {
       card.reset();
@@ -143,19 +180,15 @@ class Hand {
   }
 
   limit() {
-    return this.contains('Necromancer') ? 8 : 7;
-  }
-
-  complete() {
-    return this.size() === this.limit();
+    return this.containsId(NECROMANCER) ? 8 : 7;
   }
 
   toString() {
     var stringValue = Object.keys(this.cardsInHand).join();
     var actions = [];
     for (const card of this.cards()) {
-      if (card.special !== undefined) {
-        actions.push(card.id + ':' + card.special);
+      if (card.actionData !== undefined) {
+        actions.push(card.id + ':' + card.actionData.join(':'));
       }
     }
     return Object.keys(this.cardsInHand).join() + '|' + actions.join();
@@ -170,20 +203,52 @@ class Hand {
       this.addCard(deck.getCardById(cardId));
     }
     for (const cardAction of cardActions) {
-      var actionParts = cardAction.split(':');
-      var cardId = parseInt(actionParts[0]);
-      var action = actionParts[1];
-      this.performCardAction(cardId, action);
+      if (cardAction.length > 0) {
+        var actionParts = cardAction.split(':');
+        var cardId = parseInt(actionParts[0]);
+        var action = actionParts.slice(1);
+        this.performCardAction(cardId, action);
+      }
     }
   }
 
   performCardAction(id, action) {
-    if (id === 51 || id === 52) { // Shapeshifter or Mirage
-      var selectedCard = deck.getCardById(action);
-      var target = this.cardsInHand[id];
-      target.name = selectedCard.name;
-      target.suit = selectedCard.suit;
-      target.special = action;
+    var actionCard = this.getCardById(id);
+    actionCard.actionData = action;
+    if (id === BOOK_OF_CHANGES) {
+      var target = this.cardsInHand[action[0]];
+      var suit = action[1];
+      target.previousSuit = target.suit;
+      target.suit = suit;
+      target.magic = true;
+    } else if (id === SHAPESHIFTER || id === MIRAGE) {
+      var selectedCard = deck.getCardById(action[0]);
+      actionCard.name = selectedCard.name;
+      actionCard.suit = selectedCard.suit;
+      actionCard.magic = true;
+    } else if (id === DOPPELGANGER) {
+      var selectedCard = deck.getCardById(action[0]);
+      actionCard.name = selectedCard.name;
+      actionCard.suit = selectedCard.suit;
+      actionCard.strength = selectedCard.strength;
+      // TODO: also duplicate the Penalty
+      actionCard.magic = true;
+    }
+  }
+
+  undoCardAction(id) {
+    var actionCard = this.getCardById(id);
+    if (id === BOOK_OF_CHANGES) {
+      if (actionCard.actionData !== undefined) {
+        var target = this.getCardById(actionCard.actionData[0]);
+        if (target !== undefined) {
+          target.suit = target.previousSuit;
+          target.magic = false; // TODO: what if it's Shapeshifter, Mirage, Doppelgänger, Island?
+        }
+      }
+      actionCard.resetAction();
+    } else if (id === SHAPESHIFTER || id === MIRAGE || id === DOPPELGANGER) {
+      actionCard.resetAction();
     }
   }
 
@@ -206,6 +271,16 @@ class CardInHand {
     this.blanked = false;
     this.penalty = 0;
     this.bonus = 0;
+  }
+
+  resetAction() {
+    this.reset();
+    this.id = this.card.id;
+    this.name = this.card.name;
+    this.suit = this.card.suit;
+    this.strength = this.card.strength;
+    this.actionData = undefined;
+    this.magic = false;
   }
 
   score(hand) {

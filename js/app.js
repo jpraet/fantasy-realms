@@ -6,26 +6,52 @@ $(document).ready(function() {
 var click = new Audio('sound/click.mp3');
 var swoosh = new Audio('sound/swoosh.mp3');
 var clear = new Audio('sound/clear.mp3');
-var actionId = -1;
+var magic = new Audio('sound/magic.mp3');
+var actionId = NONE;
+var bookOfChangesSelectedCard = NONE;
+var bookOfChangesSelectedSuit = undefined;
 
 function clearHand() {
   clear.play();
   hand.clear();
   showCards();
   updateHandView();
-  actionId = -1;
+  actionId = NONE;
+  bookOfChangesSelectedCard = NONE;
+  bookOfChangesSelectedSuit = undefined;
 }
 
 function addToHand(id) {
-  if (actionId !== -1) {
+  if (actionId === SHAPESHIFTER || actionId === MIRAGE) {
     click.play();
-    hand.performCardAction(actionId, id);
+    magic.play();
+    hand.performCardAction(actionId, [id]);
     showCards();
     updateHandView();
-    actionId = -1;
+    actionId = NONE;
   } else if (hand.addCard(deck.getCardById(id))) {
     click.play();
     updateHandView();
+    actionId = NONE;
+  }
+}
+
+function selectFromHand(id) {
+  if (actionId === BOOK_OF_CHANGES) {
+    if (id !== BOOK_OF_CHANGES) {
+      click.play();
+      bookOfChangesSelectedCard = id;
+      performBookOfChanges();
+    }
+  } else if (actionId === DOPPELGANGER) {
+    if (id !== DOPPELGANGER) {
+      click.play();
+      magic.play();
+      hand.performCardAction(actionId, [id]);
+      updateHandView();
+    }
+  } else {
+    removeFromHand(id);
   }
 }
 
@@ -68,13 +94,39 @@ function getHandFromQueryString() {
 function useCard(id) {
   click.play();
   actionId = id;
-  if (id === 51) {
-    // Shapeshifter
-    showCards(deck.getCardById(id).relatedSuits);
-  } else if (id === 52) {
-    // Mirage
-    showCards(deck.getCardById(id).relatedSuits);
+  if (id === BOOK_OF_CHANGES) {
+    bookOfChangesSelectedCard = NONE;
+    bookOfChangesSelectedSuit = undefined;
+    hand.undoCardAction(id);
+    var template = Handlebars.compile($("#suit-selection-template").html());
+    var html = template({
+      suits: allSuits()
+    });
+    $('#cards').html(html);
+  } else if (id === SHAPESHIFTER || id == MIRAGE) {
+    hand.undoCardAction(id);
+    showCards(duplicator.card.relatedSuits);
+  } else if (id === DOPPELGANGER) {
+    hand.undoCardAction(id);
   }
+  updateHandView();
+  $('#card-action-text-' + id).text(deck.getCardById(id).action);
+}
+
+function performBookOfChanges() {
+  if (bookOfChangesSelectedCard !== NONE && bookOfChangesSelectedSuit !== undefined) {
+    magic.play();
+    hand.performCardAction(actionId, [bookOfChangesSelectedCard, bookOfChangesSelectedSuit]);
+    showCards();
+    updateHandView();
+    actionId = NONE;
+  }
+}
+
+function selectSuit(suit) {
+  click.play();
+  bookOfChangesSelectedSuit = suit;
+  performBookOfChanges();
 }
 
 function showCards(suits) {
