@@ -2,9 +2,11 @@ $(document).ready(function() {
   assertScoreByName(['Blizzard', 'Great Flood', 'Elven Archers'], 35);
   assertScoreByName(['Smoke', 'Dwarvish Infantry', 'War Dirigible'], 50);
   assertScoreByName(['Candle', 'Smoke', 'Dwarvish Infantry', 'War Dirigible'], 44);
-  assertScoreByCode('21,24,25,31,32,43,46', 265);
-  assertScoreByCode('6,7,8,9,10,11,26', 326);
-  assertScoreByCode('18,22,31,32,43,46,47', 342);  
+  assertScoreByCode('21,24,25,31,32,43,46|', 265);
+  assertScoreByCode('6,7,8,9,10,11,26|', 326);
+  assertScoreByCode('18,22,31,32,43,46,47|', 342);
+  assertScoreByCode('3,17,32,43,46,47,49|49:47:Wizard', 380);
+  assertScoreByCode('37,53|53:37', 0);
 });
 
 function assertScoreByName(cardNames, expectedScore) {

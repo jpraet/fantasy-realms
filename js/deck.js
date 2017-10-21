@@ -547,7 +547,7 @@ var deck = {
       blanks: function(card, hand) {
         return (card.suit === 'Army' && !hand.containsId(25)) || // clears the word 'Army' from the penalty
           card.suit === 'Leader' ||
-          (card.suit === 'Beast' && card.id !== 37);
+          (card.suit === 'Beast' && card.id !== this.id);
       },
       relatedSuits: ['Army', 'Leader', 'Beast'],
       relatedCards: []
@@ -827,3 +827,5 @@ var BOOK_OF_CHANGES = 49;
 var SHAPESHIFTER = 51;
 var MIRAGE = 52;
 var DOPPELGANGER = 53;
+
+var ACTION_ORDER = [DOPPELGANGER, MIRAGE, SHAPESHIFTER, BOOK_OF_CHANGES, ISLAND];

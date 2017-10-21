@@ -76,26 +76,26 @@
           {{/if}}
           <span class="float-right points">{{points}}</span>
         </li>
-        {{#if card.bonus}}
+        {{#if bonus}}
         <li class="list-group-item bonus {{#if blanked}}blanked{{/if}}">
-          {{{card.bonus}}}
-          {{#if bonus}}
-          <span class="float-right bonus">+{{bonus}}</span>
+          {{{bonus}}}
+          {{#if bonusPoints}}
+          <span class="float-right bonus">+{{bonusPoints}}</span>
           {{/if}}
         </li>
         {{/if}}
-        {{#if card.penalty}}
+        {{#if penalty}}
         <li class="list-group-item penalty {{#if blanked}}blanked{{/if}} {{#if penaltyCleared}}cleared{{/if}}">
-          {{{card.penalty}}}
-          {{#if penalty}}
-          <span class="float-right penalty">{{penalty}}</span>
+          {{{penalty}}}
+          {{#if penaltyPoints}}
+          <span class="float-right penalty">{{penaltyPoints}}</span>
           {{/if}}
         </li>
         {{/if}}
         {{#if card.action}}
         <li class="list-group-item bonus">
-            <span id="card-action-text-{{card.id}}" />
-            <button id="card-action-{{card.id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="useCard({{card.id}})">Use</button>
+            <span id="card-action-text-{{id}}" />
+            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="useCard({{id}})">Use</button>
         </li>
         {{/if}}
       </ul>

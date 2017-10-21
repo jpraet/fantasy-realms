@@ -25,7 +25,8 @@ function addToHand(id) {
   if (actionId === SHAPESHIFTER || actionId === MIRAGE) {
     click.play();
     magic.play();
-    hand.performCardAction(actionId, [id]);
+    var duplicator = hand.getCardById(actionId);
+    duplicator.actionData = [id];
     showCards();
     updateHandView();
     actionId = NONE;
@@ -45,9 +46,11 @@ function selectFromHand(id) {
     }
   } else if (actionId === DOPPELGANGER) {
     if (id !== DOPPELGANGER) {
+      actionId = NONE;
       click.play();
       magic.play();
-      hand.performCardAction(actionId, [id]);
+      var doppelGanger = hand.getCardById(DOPPELGANGER);
+      doppelGanger.actionData = [id];
       updateHandView();
     }
   } else {
@@ -116,7 +119,8 @@ function useCard(id) {
 function performBookOfChanges() {
   if (bookOfChangesSelectedCard !== NONE && bookOfChangesSelectedSuit !== undefined) {
     magic.play();
-    hand.performCardAction(actionId, [bookOfChangesSelectedCard, bookOfChangesSelectedSuit]);
+    var bookOfChanges = hand.getCardById(BOOK_OF_CHANGES);
+    bookOfChanges.actionData = [bookOfChangesSelectedCard, bookOfChangesSelectedSuit];
     showCards();
     updateHandView();
     actionId = NONE;
