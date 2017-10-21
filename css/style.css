@@ -62,6 +62,7 @@ span.separator {
 #right {
   margin-left: 10rem;
   background-color: #e9e3c6;
+  min-height: 100%;
 }
 
 li.list-group-item {
