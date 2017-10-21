@@ -59,8 +59,8 @@ span.separator {
 }
 
 #right {
-  padding-left: 10rem;
-  background-color: #ccc0a8;
+  margin-left: 10rem;
+  background-color: #e9e3c6;
 }
 
 li.list-group-item {
