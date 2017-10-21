@@ -56,6 +56,7 @@ span.separator {
 #left {
   width: 10rem;
   float: left;
+  background-color: #ccc0a8;
 }
 
 #right {
@@ -171,7 +172,6 @@ span.wild {
 #hand {
   background-color: #e9e3c6;
   padding: 0.4rem;
-  height: 100%;
   font-weight: bold;
 }
 
