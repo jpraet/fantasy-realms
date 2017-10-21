@@ -53,6 +53,16 @@ function selectFromHand(id) {
       doppelGanger.actionData = [id];
       updateHandView();
     }
+  } else if (actionId === ISLAND) {
+    var selectedCard = hand.getCardById(id);
+    var island = hand.getCardById(ISLAND);
+    if (selectedCard.suit === 'Flood' || selectedCard.suit === 'Flame') {
+      actionId = NONE;
+      click.play();
+      magic.play();
+      island.actionData = [id];
+      updateHandView();
+    }
   } else {
     removeFromHand(id);
   }
@@ -110,6 +120,8 @@ function useCard(id) {
     hand.undoCardAction(id);
     showCards(duplicator.card.relatedSuits);
   } else if (id === DOPPELGANGER) {
+    hand.undoCardAction(id);
+  } else if (id === ISLAND) {
     hand.undoCardAction(id);
   }
   updateHandView();

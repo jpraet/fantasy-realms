@@ -126,7 +126,7 @@ class Hand {
   }
 
   _performCardActions() {
-    for(const cardAction of ACTION_ORDER) {
+    for (const cardAction of ACTION_ORDER) {
       var actionCard = this.getCardById(cardAction);
       if (actionCard !== undefined) {
         actionCard.performCardAction(this);
@@ -286,6 +286,16 @@ class CardInHand {
           this.blanks = selectedCard.blanks;
           this.blankedIf = selectedCard.blankedIf
           this.magic = true;
+        }
+      } else if (this.id === ISLAND) {
+        var selectedCard = hand.getCardById(this.actionData[0]);
+        if (selectedCard === undefined || !(selectedCard.suit === 'Flood' || selectedCard.suit === 'Flame')) {
+          this.actionData = undefined;
+        } else {
+          this.clearsPenalty = function(card) {
+            return card.id === selectedCard.id;
+          }
+          selectedCard.magic = true;
         }
       }
     }
