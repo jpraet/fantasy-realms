@@ -118,6 +118,7 @@ function useCard(id) {
     $('#cards').html(html);
   } else if (id === SHAPESHIFTER || id == MIRAGE) {
     hand.undoCardAction(id);
+    var duplicator = hand.getCardById(id);
     showCards(duplicator.card.relatedSuits);
   } else if (id === DOPPELGANGER) {
     hand.undoCardAction(id);
