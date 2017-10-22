@@ -65,7 +65,7 @@ var deck = {
       bonus: '+15 for each other <span class="land">Land</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Land', 5);
+        return 15 * hand.countSuitExcluding('Land', this.id);
       },
       relatedSuits: ['Land'],
       relatedCards: []
@@ -144,7 +144,7 @@ var deck = {
       bonus: '+15 for each other <span class="flood">Flood</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Flood', 10);
+        return 15 * hand.countSuitExcluding('Flood', this.id);
       },
       relatedSuits: ['Flood'],
       relatedCards: []
@@ -219,7 +219,7 @@ var deck = {
       bonus: '+15 for each other <span class="weather">Weather</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Weather', 15);
+        return 15 * hand.countSuitExcluding('Weather', this.id);
       },
       relatedSuits: ['Weather'],
       relatedCards: []
@@ -286,7 +286,7 @@ var deck = {
       bonus: '+15 for each other <span class="flame">Flame</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 15 * hand.countSuitExcluding('Flame', 20);
+        return 15 * hand.countSuitExcluding('Flame', this.id);
       },
       relatedSuits: ['Flame'],
       relatedCards: []
@@ -340,7 +340,7 @@ var deck = {
       penalty: '-2 for each other <span class="army">Army</span>.',
       penaltyScore: function(hand) {
         if (!hand.containsId(25)) { // clears the word 'Army' from the penalty
-          return -2 * hand.countSuitExcluding('Army', 24);
+          return -2 * hand.countSuitExcluding('Army', this.id);
         }
         return 0;
       },
@@ -430,7 +430,7 @@ var deck = {
       bonus: null,
       penalty: '-10 for each <span class="leader">Leader</span> and other <span class="wizard">Wizard</span>.',
       penaltyScore: function(hand) {
-        return -10 * (hand.countSuit('Leader') + hand.countSuitExcluding('Wizard', 29));
+        return -10 * (hand.countSuit('Leader') + hand.countSuitExcluding('Wizard', this.id));
       },
       relatedSuits: ['Leader', 'Wizard'],
       relatedCards: []
@@ -482,7 +482,7 @@ var deck = {
       bonus: '+8 for each <span class="army">Army</span>, <span class="wizard">Wizard</span>, and other <span class="leader">Leader</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 8 * (hand.countSuit('Army') + hand.countSuit('Wizard') + hand.countSuitExcluding('Leader', 33));
+        return 8 * (hand.countSuit('Army') + hand.countSuit('Wizard') + hand.countSuitExcluding('Leader', this.id));
       },
       relatedSuits: ['Army', 'Wizard', 'Leader'],
       relatedCards: []
@@ -519,7 +519,7 @@ var deck = {
         return 10 * hand.countSuit('Army');
       },
       penaltyScore: function(hand) {
-        return 5 * hand.countSuitExcluding('Leader', 35);
+        return 5 * hand.countSuitExcluding('Leader', this.id);
       },
       relatedSuits: ['Army', 'Leader'],
       relatedCards: []
