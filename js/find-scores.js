@@ -81,7 +81,7 @@ async function findMaxAndMinScore(c) {
             }
           }
           if (add) {
-            console.log('New bottom 10 hand', topHand);
+            console.log('New bottom 10 hand', bottomHand);
             bottom10.push(bottomHand);
             bottom10 = bottom10.sort(function(a, b) {
               return a.score > b.score ? 1 : -1
