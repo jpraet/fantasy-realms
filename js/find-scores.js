@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  findMaxAndMinScore(2);
+  findMaxAndMinScore(7);
 });
 
 async function findMaxAndMinScore(c) {
