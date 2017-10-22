@@ -3,6 +3,16 @@ $(document).ready(function() {
 });
 
 async function findMaxAndMinScore(c) {
+  var parts = 1;
+  var part = 1;
+  var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  for (var i = 0; i < params.length; i++) {
+    var param = params[i].split('=');
+    if (param[0] === 'part') {
+      part = parseInt(param[1].split('/')[0]);
+      parts = parseInt(param[1].split('/')[1]);
+    }
+  }
   var set = [];
   for (var i = 1; i <= 53; i++) {
     set.push(i);
@@ -14,11 +24,15 @@ async function findMaxAndMinScore(c) {
   var top10 = [];
   var bottom10 = [];
   console.log('checking +/-' + combinations.length + ' combinations');
+  console.log('part ' + part + ' of ' + parts);
   while (combination = combinations.next()) {
     i++;
     if (i % percent === 0) {
       console.log(Math.round(i / percent) + '% completed');
       await sleep(50);
+    }
+    if (((i % parts) + 1) !== part) {
+      continue;
     }
     var baseCombinations = [combination];
     if (combination.includes(NECROMANCER)) {
