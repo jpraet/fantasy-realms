@@ -79,9 +79,7 @@ var deck = {
       penalty: null,
       bonusScore: function(hand) {
         var max = 0;
-        var nonBlankedCards = hand.nonBlankedCards();
-        for (var i = 0; i < nonBlankedCards.length; i++) {
-          var card = nonBlankedCards[i];
+        for (const card of hand.nonBlankedCards()) {
           if (card.suit === 'Weapon' || card.suit === 'Flood' || card.suit === 'Flame' || card.suit === 'Land' || card.suit === 'Weather') {
             if (card.strength > max) {
               max = card.strength;
@@ -496,9 +494,7 @@ var deck = {
       penalty: null,
       bonusScore: function(hand) {
         var total = 0;
-        var nonBlankedCards = hand.nonBlankedCards();
-        for (var i = 0; i < nonBlankedCards.length; i++) {
-          var card = nonBlankedCards[i];
+        for (const card of hand.nonBlankedCards()) {
           if (card.suit === 'Army') {
             total += card.strength;
           }
@@ -677,22 +673,19 @@ var deck = {
       bonus: '+10 for 3-card run, +30 for 4-card run, +60 for 5-card run, +100 for 6-card run, +150 for 7-card run. <br />(This refers to the base strength numbers.)',
       penalty: null,
       bonusScore: function(hand) {
-        var strengths = [];
-        var nonBlankedCards = hand.nonBlankedCards();
-        for (var i = 0; i < nonBlankedCards.length; i++) {
-          var card = nonBlankedCards[i];
-          strengths.push(card.strength);
-        }
-        var counts = [];
-        var count = 0;
-        for (var i = 0; i < 40; i++) {
+        var strengths = hand.nonBlankedCards().map(card => card.strength);
+        var maxRun = 0;
+        var currentRun = 0;
+        for (var i = 0; i <= 40; i++) {
           if (strengths.includes(i)) {
-            counts.push(++count);
+            currentRun++;
+            if (currentRun > maxRun) {
+              maxRun = currentRun;
+            }
           } else {
-            count = 0;
+            currentRun = 0;
           }
         }
-        var maxRun = Math.max.apply(null, counts);
         if (maxRun === 3) {
           return 10;
         } else if (maxRun === 4) {
@@ -719,9 +712,7 @@ var deck = {
       penalty: null,
       bonusScore: function(hand) {
         var suits = [];
-        var nonBlankedCards = hand.nonBlankedCards();
-        for (var i = 0; i < nonBlankedCards.length; i++) {
-          var card = nonBlankedCards[i];
+        for (const card of hand.nonBlankedCards()) {
           if (suits.includes(card.suit)) {
             return 0;
           }
@@ -791,8 +782,7 @@ var deck = {
     }
   ],
   getCardByName: function(cardName) {
-    for (var i = 0; i < this.cards.length; i++) {
-      var card = this.cards[i];
+    for (const card of this.cards) {
       if (card.name === cardName) {
         return card;
       }
@@ -803,8 +793,7 @@ var deck = {
   },
   getCardsBySuit: function(suits) {
     var cardsBySuit = {};
-    for (var i = 0; i < this.cards.length; i++) {
-      var card = this.cards[i];
+    for (const card of this.cards) {
       if (suits === undefined || suits.includes(card.suit)) {
         if (cardsBySuit[card.suit] === undefined) {
           cardsBySuit[card.suit] = [];
