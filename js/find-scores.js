@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  findMaxAndMinScore(4);
+  findMaxAndMinScore(2);
 });
 
 async function findMaxAndMinScore(c) {
@@ -11,19 +11,13 @@ async function findMaxAndMinScore(c) {
   var combination;
   var i = 0;
   var percent = Math.floor(combinations.length / 100);
-  var maxScore = 0;
-  var maxCardNames = '';
-  var maxToString = '';
-  var minScore = 1000;
-  var minCardNames = '';
-  var minToString = '';
+  var top10 = [];
+  var bottom10 = [];
   console.log('checking +/-' + combinations.length + ' combinations');
   while (combination = combinations.next()) {
     i++;
     if (i % percent === 0) {
       console.log(Math.round(i / percent) + '% completed');
-      console.log('maxScore: ' + maxScore + ' with ' + maxCardNames);
-      console.log('minScore: ' + minScore + ' with ' + minCardNames);
       await sleep(50);
     }
     var baseCombinations = [combination];
@@ -52,23 +46,59 @@ async function findMaxAndMinScore(c) {
         hand.clear();
         hand.loadFromString(variation);
         var score = hand.score();
-        if (score > maxScore) {
-          maxScore = score;
-          maxCardNames = hand.cardNames().join();
-          maxToString = hand.toString();
+        if (top10.length === 0 || score > top10[0].score) {
+          var topHand = {
+            score: score,
+            cardNames: hand.cardNames().join(),
+            code: hand.toString()
+          };
+          var add = true;
+          for (const existing of top10) {
+            if (existing.score === score) {
+              add = false;
+            }
+          }
+          if (add) {
+            console.log('New top 10 hand', topHand);
+            top10.push(topHand);
+            top10 = top10.sort(function(a, b) {
+              return a.score > b.score ? -1 : 1
+            });
+            top10 = top10.slice(0, 10);
+          }
         }
-        if (score < minScore) {
-          minScore = score;
-          minCardNames = hand.cardNames().join();
-          minToString = hand.toString();
+        if (bottom10.length === 0 || score < bottom10[0].score) {
+          var bottomHand = {
+            score: score,
+            cardNames: hand.cardNames().join(),
+            code: hand.toString()
+          };
+          var add = true;
+          for (const existing of bottom10) {
+            if (existing.score === score) {
+              add = false;
+            }
+          }
+          if (add) {
+            console.log('New bottom 10 hand', topHand);
+            bottom10.push(bottomHand);
+            bottom10 = bottom10.sort(function(a, b) {
+              return a.score > b.score ? 1 : -1
+            });
+            bottom10 = bottom10.slice(0, 10);
+          }
         }
       }
     }
   }
-  $('#scores').append('<li class="list-group-item list-group-item-success"><b>MAX SCORE:</b> &nbsp;<a href="index.html?hand=' +
-    maxToString + '">' + maxCardNames + '</a>&nbsp; scored ' + maxScore + ' points</li>');
-  $('#scores').append('<li class="list-group-item list-group-item-danger"><b>MIN SCORE:</b> &nbsp;<a href="index.html?hand=' +
-    minToString + '">' + minCardNames + '</a>&nbsp; scored ' + minScore + ' points</li>');
+  for (const topHand of top10) {
+    $('#scores').append('<li class="list-group-item list-group-item-success"><b>TOP SCORE:</b> &nbsp;<a href="index.html?hand=' +
+      topHand.code + '">' + topHand.cardNames + '</a>&nbsp; scored ' + topHand.score + ' points</li>');
+  }
+  for (const bottomHand of bottom10) {
+    $('#scores').append('<li class="list-group-item list-group-item-danger"><b>MIN SCORE:</b> &nbsp;<a href="index.html?hand=' +
+      bottomHand.code + '">' + bottomHand.cardNames + '</a>&nbsp; scored ' + bottomHand.score + ' points</li>');
+  }
 }
 
 function generateActionVariations(hand) {
@@ -83,32 +113,10 @@ function generateActionVariations(hand) {
     actionVariations[DOPPELGANGER].push('');
   }
   if (hand.containsId(MIRAGE)) {
-    var mirageActions = [];
-    var candidates = deck.getCardsBySuit(deck.getCardById(MIRAGE).relatedSuits);
-    for (const cards of Object.values(candidates)) {
-      for (const card of cards) {
-        // TODO: optimize for relatedSuits and relatedCards
-        mirageActions.push(MIRAGE + ':' + card.id);
-      }
-    }
-    if (mirageActions.length > 0) {
-      mirageActions.push('');
-      actionVariations[MIRAGE] = mirageActions;
-    }
+    generateDuplicatorVariations(MIRAGE, hand, actionVariations);
   }
   if (hand.containsId(SHAPESHIFTER)) {
-    var shapeshifterActions = [];
-    var candidates = deck.getCardsBySuit(deck.getCardById(SHAPESHIFTER).relatedSuits);
-    for (const cards of Object.values(candidates)) {
-      for (const card of cards) {
-        // TODO: optimize for relatedSuits and relatedCards
-        shapeshifterActions.push(SHAPESHIFTER + ':' + card.id);
-      }
-    }
-    if (shapeshifterActions.length > 0) {
-      shapeshifterActions.push('');
-      actionVariations[SHAPESHIFTER] = shapeshifterActions;
-    }
+    generateDuplicatorVariations(SHAPESHIFTER, hand, actionVariations);
   }
   if (hand.containsId(BOOK_OF_CHANGES)) {
     var bookOfChangesActions = [];
@@ -146,6 +154,34 @@ function generateActionVariations(hand) {
     return [];
   } else {
     return Combinatorics.cartesianProduct(...Object.values(actionVariations)).toArray();
+  }
+}
+
+function generateDuplicatorVariations(id, hand, variations) {
+  var actions = [];
+  var candidates = deck.getCardsBySuit(deck.getCardById(id).relatedSuits);
+  var suitsOfInterest = new Set();
+  var cardsOfInterest = new Set();
+  for (const card of hand.cards()) {
+    if (card.id !== id) {
+      for (const relatedSuit of card.relatedSuits) {
+        suitsOfInterest.add(relatedSuit);
+      }
+      for (const relatedCard of card.relatedCards) {
+        cardsOfInterest.add(relatedCard);
+      }
+    }
+  }
+  for (const cards of Object.values(candidates)) {
+    for (const card of cards) {
+      if (suitsOfInterest.has(card.suit) || cardsOfInterest.has(card.name)) {
+        actions.push(id + ':' + card.id);
+      }
+    }
+  }
+  if (actions.length > 0) {
+    actions.push('');
+    variations[id] = actions;
   }
 }
 
