@@ -65,6 +65,7 @@ async function findMaxAndMinScore(c) {
             top10 = top10.sort(function(a, b) {
               return a.score > b.score ? -1 : 1
             });
+            console.log('MAX', top10[0]);
             top10 = top10.slice(0, 10);
           }
         }
@@ -86,6 +87,7 @@ async function findMaxAndMinScore(c) {
             bottom10 = bottom10.sort(function(a, b) {
               return a.score > b.score ? 1 : -1
             });
+            console.log('MIN', top10[0]);
             bottom10 = bottom10.slice(0, 10);
           }
         }
