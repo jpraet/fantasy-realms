@@ -205,17 +205,19 @@ class Hand {
     this.clear();
     var parts = string.split('|');
     var cardIds = parts[0].split(',');
-    var cardActions = parts[1].split(',');
-    for (const cardId of cardIds) {
-      this.addCard(deck.getCardById(cardId));
-    }
-    for (const cardAction of cardActions) {
-      if (cardAction.length > 0) {
-        var actionParts = cardAction.split(':');
-        var cardId = parseInt(actionParts[0]);
-        var action = actionParts.slice(1);
-        var actionCard = this.getCardById(cardId);
-        this.cardsInHand[cardId] = new CardInHand(actionCard.card, action);
+    if (parts[1] !== undefined) {
+      var cardActions = parts[1].split(',');
+      for (const cardId of cardIds) {
+        this.addCard(deck.getCardById(cardId));
+      }
+      for (const cardAction of cardActions) {
+        if (cardAction.length > 0) {
+          var actionParts = cardAction.split(':');
+          var cardId = parseInt(actionParts[0]);
+          var action = actionParts.slice(1);
+          var actionCard = this.getCardById(cardId);
+          this.cardsInHand[cardId] = new CardInHand(actionCard.card, action);
+        }
       }
     }
   }
