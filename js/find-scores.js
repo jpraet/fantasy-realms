@@ -46,7 +46,8 @@ async function findMaxAndMinScore(c) {
         hand.clear();
         hand.loadFromString(variation);
         var score = hand.score();
-        if (top10.length === 0 || score > top10[0].score) {
+        if (top10.length === 0 || score > top10[top10.length - 1].score) {
+          if (top10.length === 0 || score > top10[0].score) {
           var topHand = {
             score: score,
             cardNames: hand.cardNames().join(),
@@ -67,7 +68,7 @@ async function findMaxAndMinScore(c) {
             top10 = top10.slice(0, 10);
           }
         }
-        if (bottom10.length === 0 || score < bottom10[0].score) {
+        if (bottom10.length === 0 || score < bottom10[bottom10.length - 1].score) {
           var bottomHand = {
             score: score,
             cardNames: hand.cardNames().join(),
