@@ -10,6 +10,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 60rem;
+  height: 100%;
 }
 
 #header {
@@ -25,7 +26,8 @@ body {
 
 #main {
   padding-top: 4rem;
-  height: 100%;
+  min-height: 100%;
+  display: flex;
 }
 
 #header-right {
@@ -55,14 +57,13 @@ span.separator {
 
 #left {
   width: 10rem;
-  float: left;
   background-color: #ccc0a8;
 }
 
 #right {
-  margin-left: 10rem;
   background-color: #e9e3c6;
   min-height: 100%;
+  width: calc(100% - 10rem);
 }
 
 li.list-group-item {
