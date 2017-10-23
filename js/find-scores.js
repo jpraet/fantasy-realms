@@ -1,16 +1,19 @@
 $(document).ready(function() {
-  findMaxAndMinScore(7);
+  findMaxAndMinScore(3);
 });
 
 async function findMaxAndMinScore(c) {
   var parts = 1;
   var part = 1;
+  var startFrom = 0;
   var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
   for (var i = 0; i < params.length; i++) {
     var param = params[i].split('=');
     if (param[0] === 'part') {
       part = parseInt(param[1].split('/')[0]);
       parts = parseInt(param[1].split('/')[1]);
+    } else if (param[0] === 'startFrom') {
+      startFrom = parseInt(param[1]);
     }
   }
   var set = [];
@@ -25,13 +28,14 @@ async function findMaxAndMinScore(c) {
   var bottom10 = [];
   console.log('checking +/-' + combinations.length + ' combinations');
   console.log('part ' + part + ' of ' + parts);
+  var startPosition = startFrom * percent;
   while (combination = combinations.next()) {
     i++;
     if (i % percent === 0) {
       console.log(Math.round(i / percent) + '% completed');
-      await sleep(50);
+      await sleep(20);
     }
-    if (((i % parts) + 1) !== part) {
+    if (((i % parts) + 1) !== part || i < startPosition) {
       continue;
     }
     var baseCombinations = [combination];
