@@ -49,7 +49,6 @@ async function findMaxAndMinScore(c) {
     }
     for (const baseCombination of baseCombinations) {
       var base = baseCombination.join() + '|';
-      hand.clear();
       hand.loadFromString(base);
       var variations = [base];
       var actionVariations = generateActionVariations(hand);
@@ -57,7 +56,6 @@ async function findMaxAndMinScore(c) {
         variations.push(base + actionVariation.join());
       }
       for (const variation of variations) {
-        hand.clear();
         hand.loadFromString(variation);
         var score = hand.score();
         if (top10.length === 0 || score > top10[top10.length - 1].score) {
@@ -189,8 +187,11 @@ function generateDuplicatorVariations(id, hand, variations) {
     }
   }
   for (const cards of Object.values(candidates)) {
+    if (suitsOfInterest.has(cards[0].suit)) {
+      actions.push(id + ':' + card.id);
+    }
     for (const card of cards) {
-      if (suitsOfInterest.has(card.suit) || cardsOfInterest.has(card.name)) {
+      if (cardsOfInterest.has(card.name)) {
         actions.push(id + ':' + card.id);
       }
     }
