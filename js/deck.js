@@ -258,7 +258,7 @@ var deck = {
       bonus: '+9 for each <span class="weapon">Weapon</span> and <span class="artifact">Artifact</span>.',
       penalty: null,
       bonusScore: function(hand) {
-        return 9 * (hand.countSuit('Weapon') && hand.countSuit('Artifact'));
+        return 9 * (hand.countSuit('Weapon') + hand.countSuit('Artifact'));
       },
       relatedSuits: ['Weapon', 'Artifact'],
       relatedCards: []
