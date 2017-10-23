@@ -33,15 +33,6 @@ class Hand {
   }
 
   deleteCardById(id) {
-    // if (id === BOOK_OF_CHANGES) {
-    //   var bookOfChanges = this.getCardById(id);
-    //   if (bookOfChanges.actionData !== undefined) {
-    //     var target = hand.getCardById(bookOfChanges.actionData[0]);
-    //     if (target !== undefined) {
-    //       target.suit = previousTarget.card.previousSuit;
-    //     }
-    //   }
-    // }
     delete this.cardsInHand[id];
   }
 
@@ -202,22 +193,23 @@ class Hand {
   }
 
   loadFromString(string) {
-    this.clear();
     var parts = string.split('|');
     var cardIds = parts[0].split(',');
-    if (parts[1] !== undefined) {
-      var cardActions = parts[1].split(',');
-      for (const cardId of cardIds) {
-        this.addCard(deck.getCardById(cardId));
-      }
-      for (const cardAction of cardActions) {
-        if (cardAction.length > 0) {
-          var actionParts = cardAction.split(':');
-          var cardId = parseInt(actionParts[0]);
-          var action = actionParts.slice(1);
-          var actionCard = this.getCardById(cardId);
-          this.cardsInHand[cardId] = new CardInHand(actionCard.card, action);
-        }
+    var cardActions = parts[1].split(',').map(action => action.split(':'));
+    this.loadFromArrays(cardIds, cardActions);
+  }
+
+  loadFromArrays(cardIds, cardActions) {
+    this.clear();
+    for (const cardId of cardIds) {
+      this.addCard(deck.getCardById(cardId));
+    }
+    for (const cardAction of cardActions) {
+      if (cardAction.length > 1) {
+        var cardId = parseInt(cardAction[0]);
+        var action = cardAction.slice(1);
+        var actionCard = this.getCardById(cardId);
+        this.cardsInHand[cardId] = new CardInHand(actionCard.card, action);
       }
     }
   }

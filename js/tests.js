@@ -4,7 +4,7 @@ $(document).ready(function() {
   assertScoreByName(['Candle', 'Smoke', 'Dwarvish Infantry', 'War Dirigible'], 44);
   assertScoreByCode('21,24,25,31,32,43,46|', 265);
   assertScoreByCode('6,7,8,9,10,11,26|', 326);
-  assertScoreByCode('18,22,31,32,43,46,47|', 342, 'Max score without special cards?');
+  assertScoreByCode('18,22,31,32,43,46,47|', 351, 'Max score without special cards?');
   assertScoreByCode('3,17,32,43,46,47,49|49:47:Wizard', 380, 'Rulebook example');
   assertScoreByCode('37,53|53:37', 0, '2 Basilisks should blank eachother');
   assertScoreByCode('24,53|53:24', 26, '2 Dwarvish Infantries should penalty eachother');

@@ -48,15 +48,11 @@ async function findMaxAndMinScore(c) {
       }
     }
     for (const baseCombination of baseCombinations) {
-      var base = baseCombination.join() + '|';
-      hand.loadFromString(base);
-      var variations = [base];
+      hand.loadFromArrays(baseCombination, []);
       var actionVariations = generateActionVariations(hand);
-      for (const actionVariation of actionVariations) {
-        variations.push(base + actionVariation.join());
-      }
-      for (const variation of variations) {
-        hand.loadFromString(variation);
+      actionVariations.push(baseCombination);
+      for (const variation of actionVariations) {
+        hand.loadFromArrays(baseCombination, variation);
         var score = hand.score();
         if (top10.length === 0 || score > top10[top10.length - 1].score) {
           var topHand = {
@@ -121,10 +117,10 @@ function generateActionVariations(hand) {
     actionVariations[DOPPELGANGER] = [];
     for (const card of hand.cards()) {
       if (card.id !== DOPPELGANGER) {
-        actionVariations[DOPPELGANGER].push(DOPPELGANGER + ':' + card.id);
+        actionVariations[DOPPELGANGER].push([DOPPELGANGER, card.id]);
       }
     }
-    actionVariations[DOPPELGANGER].push('');
+    actionVariations[DOPPELGANGER].push([]);
   }
   if (hand.containsId(MIRAGE)) {
     generateDuplicatorVariations(MIRAGE, hand, actionVariations);
@@ -143,24 +139,26 @@ function generateActionVariations(hand) {
     for (const card of hand.cards()) {
       if (card.id !== BOOK_OF_CHANGES) {
         for (const suit of suitsOfInterest) {
-          bookOfChangesActions.push(BOOK_OF_CHANGES + ':' + card.id + ':' + suit);
+          if (card.suit !== suit) {
+            bookOfChangesActions.push([BOOK_OF_CHANGES, card.id, suit]);
+          }
         }
       }
     }
     if (bookOfChangesActions.length > 0) {
-      bookOfChangesActions.push('');
+      bookOfChangesActions.push([]);
       actionVariations[BOOK_OF_CHANGES] = bookOfChangesActions;
     }
   }
   if (hand.containsId(ISLAND)) {
     var islandActions = [];
     for (const card of hand.cards()) {
-      if (card.suit === 'Flood' || card.suit === 'Flame' || hand.containsId(BOOK_OF_CHANGES)) {
-        islandActions.push(ISLAND + ':' + card.id);
+      if (((card.suit === 'Flood' || card.suit === 'Flame' || hand.containsId(BOOK_OF_CHANGES)) && card.penalty) || card.id === DOPPELGANGER) {
+        islandActions.push([ISLAND, + card.id]);
       }
     }
     if (islandActions.length > 0) {
-      islandActions.push('');
+      islandActions.push([]);
       actionVariations[ISLAND] = islandActions;
     }
   }
@@ -188,16 +186,16 @@ function generateDuplicatorVariations(id, hand, variations) {
   }
   for (const cards of Object.values(candidates)) {
     if (suitsOfInterest.has(cards[0].suit)) {
-      actions.push(id + ':' + card.id);
+      actions.push([id, cards[0].id]);
     }
     for (const card of cards) {
       if (cardsOfInterest.has(card.name)) {
-        actions.push(id + ':' + card.id);
+        actions.push([id, card.id]);
       }
     }
   }
   if (actions.length > 0) {
-    actions.push('');
+    actions.push([]);
     variations[id] = actions;
   }
 }
