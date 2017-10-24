@@ -515,7 +515,7 @@ var deck = {
         return 10 * hand.countSuit('Army');
       },
       penaltyScore: function(hand) {
-        return 5 * hand.countSuitExcluding('Leader', this.id);
+        return -5 * hand.countSuitExcluding('Leader', this.id);
       },
       relatedSuits: ['Army', 'Leader'],
       relatedCards: []
