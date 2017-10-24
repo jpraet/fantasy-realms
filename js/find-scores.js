@@ -1,8 +1,10 @@
 $(document).ready(function() {
-  findMaxAndMinScore(7);
+  findMaxAndMinScore();
 });
 
-async function findMaxAndMinScore(c) {
+async function findMaxAndMinScore() {
+  var necromancer = true;
+  var cards = 7;
   var parts = 1;
   var part = 1;
   var startFrom = 0;
@@ -14,21 +16,26 @@ async function findMaxAndMinScore(c) {
       parts = parseInt(param[1].split('/')[1]);
     } else if (param[0] === 'startFrom') {
       startFrom = parseInt(param[1]);
+    } else if (param[0] === 'cards') {
+      cards = parseInt(param[1]);
+    } else if (param[0] === 'necromancer') {
+      necromancer = (param[1] == 'true');
     }
   }
   var set = [];
   for (var i = 1; i <= 53; i++) {
     set.push(i);
   }
-  var combinations = Combinatorics.bigCombination(set, c);
+  var combinations = Combinatorics.bigCombination(set, cards);
   var combination;
   var i = 0;
   var percent = Math.floor(combinations.length / 100);
   var top10 = [];
   var bottom10 = [];
-  console.log('checking +/-' + combinations.length + ' combinations');
+  console.log('checking +/-' + combinations.length + ' ' + cards + '-card combinations');
   console.log('part ' + part + ' of ' + parts);
   var startPosition = startFrom * percent;
+  var totalVariations = 0;
   while (combination = combinations.next()) {
     i++;
     if (i % percent === 0) {
@@ -39,7 +46,7 @@ async function findMaxAndMinScore(c) {
       continue;
     }
     var baseCombinations = [combination];
-    if (combination.includes(NECROMANCER)) {
+    if (necromancer && combination.includes(NECROMANCER)) {
       var necromancerTargetCards = deck.getCardsBySuit(deck.getCardById(NECROMANCER).relatedSuits);
       for (const suit of Object.keys(necromancerTargetCards)) {
         for (const extraCard of necromancerTargetCards[suit]) {
@@ -54,7 +61,7 @@ async function findMaxAndMinScore(c) {
     for (const baseCombination of baseCombinations) {
       hand.loadFromArrays(baseCombination, []);
       var actionVariations = generateActionVariations(hand);
-      actionVariations.push(baseCombination);
+      totalVariations += actionVariations.length;
       for (const variation of actionVariations) {
         hand.loadFromArrays(baseCombination, variation);
         var score = hand.score();
@@ -105,6 +112,7 @@ async function findMaxAndMinScore(c) {
       }
     }
   }
+  console.log(totalVariations);
   for (const topHand of top10) {
     $('#scores').append('<li class="list-group-item list-group-item-success"><b>TOP SCORE:</b> &nbsp;<a href="index.html?hand=' +
       topHand.code + '">' + topHand.cardNames + '</a>&nbsp; scored ' + topHand.score + ' points</li>');
@@ -136,8 +144,10 @@ function generateActionVariations(hand) {
     var bookOfChangesActions = [];
     var suitsOfInterest = new Set();
     for (const card of hand.cards()) {
-      for (const suit of card.relatedSuits) {
-        suitsOfInterest.add(suit);
+      if (!(card.id === MIRAGE || card.id === SHAPESHIFTER)) {
+        for (const suit of card.relatedSuits) {
+          suitsOfInterest.add(suit);
+        }
       }
     }
     for (const card of hand.cards()) {
@@ -146,6 +156,10 @@ function generateActionVariations(hand) {
           if (card.suit !== suit) {
             bookOfChangesActions.push([BOOK_OF_CHANGES, card.id, suit]);
           }
+        }
+        if (!suitsOfInterest.has('Wild')) {
+          // turning a card into Wild may avoid a Penalty (there's never a Penalty for Wild suit)
+          bookOfChangesActions.push([BOOK_OF_CHANGES, card.id, 'Wild']);
         }
       }
     }
@@ -167,7 +181,7 @@ function generateActionVariations(hand) {
     }
   }
   if (Object.keys(actionVariations).length === 0) {
-    return [];
+    return [[]];
   } else {
     return Combinatorics.cartesianProduct(...Object.values(actionVariations)).toArray();
   }
