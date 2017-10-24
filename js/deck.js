@@ -779,6 +779,29 @@ var deck = {
       action: 'Pick a card from your hand to duplicate.',
       relatedSuits: [],
       relatedCards: []
+    },
+    {
+      id: 54,
+      suit: 'Wizard',
+      name: 'Jester',
+      strength: 3,
+      bonus: '+3 for each other card with an odd base value. <br />OR +50 if entire hand has odd base values.',
+      penalty: null,
+      bonusScore: function(hand) {
+        var oddCount = 0;
+        for (const card of hand.nonBlankedCards()) {
+          if (card.strength % 2 === 1) {
+            oddCount++;
+          }
+        }
+        if (oddCount === hand.size()) {
+          return 50;
+        } else {
+          return (oddCount - 1) * 3;
+        }
+      },
+      relatedSuits: [],
+      relatedCards: []
     }
   ],
   getCardByName: function(cardName) {
