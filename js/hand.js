@@ -189,11 +189,11 @@ class Hand {
         actions.push(card.id + ':' + card.actionData.join(':'));
       }
     }
-    return Object.keys(this.cardsInHand).join() + '|' + actions.join();
+    return Object.keys(this.cardsInHand).join() + '+' + actions.join();
   }
 
   loadFromString(string) {
-    var parts = string.split('|');
+    var parts = string.split('+');
     var cardIds = parts[0].split(',');
     var cardActions = parts[1].split(',').map(action => action.split(':'));
     this.loadFromArrays(cardIds, cardActions);

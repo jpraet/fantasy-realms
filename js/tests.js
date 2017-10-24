@@ -2,18 +2,19 @@ $(document).ready(function() {
   assertScoreByName(['Blizzard', 'Great Flood', 'Elven Archers'], 35);
   assertScoreByName(['Smoke', 'Dwarvish Infantry', 'War Dirigible'], 50);
   assertScoreByName(['Candle', 'Smoke', 'Dwarvish Infantry', 'War Dirigible'], 44);
-  assertScoreByCode('21,24,25,31,32,43,46|', 265);
-  assertScoreByCode('6,7,8,9,10,11,26|', 326);
-  assertScoreByCode('18,22,31,32,43,46,47|', 351, 'Max score without special cards?');
-  assertScoreByCode('3,17,32,43,46,47,49|49:47:Wizard', 380, 'Rulebook example');
-  assertScoreByCode('3,17,28,38,43,46,47,49|49:3:Leader', 397, 'Best hand ever?');
-  assertScoreByCode('2,3,5,17,26,28,47,49|49:17:Land', 388, 'Second best');
-  assertScoreByCode('3,17,28,32,43,46,47,49|49:3:Army', 388, 'Second best');
-  assertScoreByCode('27,28,29,30,35,49,51,53|49:29:Leader,51:26,53:29', -40, 'Worst hand ever?');
-  assertScoreByCode('37,53|53:37', 0, '2 Basilisks should blank eachother');
-  assertScoreByCode('24,53|53:24', 26, '2 Dwarvish Infantries should penalty eachother');
-  assertScoreByCode('9,12,16,37|9:16', 95, 'Island can be used even when blanked');
-  assertScoreByCode('10,53|53:10', 23, 'Elementals count their Doppelgänger')
+  assertScoreByCode('21,24,25,31,32,43,46+', 265);
+  assertScoreByCode('6,7,8,9,10,11,26+', 326);
+  assertScoreByCode('18,22,31,32,43,46,47+', 351, 'Max score without special cards?');
+  assertScoreByCode('1,8,13,14,15,16,52+52:11', 260, 'Rulebook example I')
+  assertScoreByCode('3,17,32,43,46,47,49+49:47:Wizard', 380, 'Rulebook example II');
+  assertScoreByCode('3,17,28,38,43,46,47,49+49:3:Leader', 397, 'Best hand ever?');
+  assertScoreByCode('2,3,5,17,26,28,47,49+49:17:Land', 388, 'Second best');
+  assertScoreByCode('3,17,28,32,43,46,47,49+49:3:Army', 388, 'Second best');
+  assertScoreByCode('27,28,29,30,35,49,51,53+49:29:Leader,51:26,53:29', -40, 'Worst hand ever?');
+  assertScoreByCode('37,53+53:37', 0, '2 Basilisks should blank eachother');
+  assertScoreByCode('24,53+53:24', 26, '2 Dwarvish Infantries should penalty eachother');
+  assertScoreByCode('9,12,16,37+9:16', 95, 'Island can be used even when blanked');
+  assertScoreByCode('10,53+53:10', 23, 'Elementals count their Doppelgänger')
 });
 
 function assertScoreByName(cardNames, expectedScore, message) {
