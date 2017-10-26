@@ -374,22 +374,18 @@ var deck = {
           }
           bySuit[suit][card.name] = card;
         }
-        var maxPerSuit = 0;
+        var bonus = 0;
         for (const suit of Object.values(bySuit)) {
           var count = Object.keys(suit).length;
-          if (count > maxPerSuit) {
-            maxPerSuit = count;
+          if (count === 3) {
+            bonus += 10;
+          } else if (count === 4) {
+            bonus += 40;
+          } else if (count >= 5) {
+            bonus += 100;
           }
         }
-        if (maxPerSuit === 3) {
-          return 10;
-        } else if (maxPerSuit === 4) {
-          return 40;
-        } else if (maxPerSuit >= 5) {
-          return 100;
-        } else {
-          return 0;
-        }
+        return bonus;
       },
       relatedSuits: allSuits(),
       relatedCards: []

@@ -14,7 +14,8 @@ $(document).ready(function() {
   assertScoreByCode('37,53+53:37', 0, '2 Basilisks should blank eachother');
   assertScoreByCode('24,53+53:24', 26, '2 Dwarvish Infantries should penalty eachother');
   assertScoreByCode('9,12,16,37+9:16', 95, 'Island can be used even when blanked');
-  assertScoreByCode('10,53+53:10', 23, 'Elementals count their Doppelgänger')
+  assertScoreByCode('10,53+53:10', 23, 'Elementals count their Doppelgänger');
+  assertScoreByCode('26,27,30,36,38,39,40+', 193, 'Collector can score multiple sets');
 });
 
 function assertScoreByName(cardNames, expectedScore, message) {
