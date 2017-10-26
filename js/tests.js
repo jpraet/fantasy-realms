@@ -10,7 +10,7 @@ $(document).ready(function() {
   assertScoreByCode('3,17,28,38,43,46,47,49+49:3:Leader', 397, 'Best hand ever?');
   assertScoreByCode('2,3,5,17,26,28,47,49+49:17:Land', 388, 'Second best');
   assertScoreByCode('3,17,28,32,43,46,47,49+49:3:Army', 388, 'Second best');
-  assertScoreByCode('27,28,29,30,35,49,51,53+49:29:Leader,51:26,53:29', -50, 'Worst hand ever?');
+  assertScoreByCode('28,29,31,32,34,35,51,53+51:31,53:29', -74, 'Worst hand ever?');
   assertScoreByCode('37,53+53:37', 0, '2 Basilisks should blank eachother');
   assertScoreByCode('24,53+53:24', 26, '2 Dwarvish Infantries should penalty eachother');
   assertScoreByCode('9,12,16,37+9:16', 95, 'Island can be used even when blanked');
