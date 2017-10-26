@@ -670,31 +670,31 @@ var deck = {
       penalty: null,
       bonusScore: function(hand) {
         var strengths = hand.nonBlankedCards().map(card => card.strength);
-        var maxRun = 0;
         var currentRun = 0;
+        var runs = [];
         for (var i = 0; i <= 40; i++) {
           if (strengths.includes(i)) {
             currentRun++;
-            if (currentRun > maxRun) {
-              maxRun = currentRun;
-            }
           } else {
+            runs.push(currentRun);
             currentRun = 0;
           }
         }
-        if (maxRun === 3) {
-          return 10;
-        } else if (maxRun === 4) {
-          return 30;
-        } else if (maxRun === 5) {
-          return 60;
-        } else if (maxRun === 6) {
-          return 100;
-        } else if (maxRun >= 7) {
-          return 150;
-        } else {
-          return 0;
+        var bonus = 0;
+        for (var run of runs) {
+          if (run === 3) {
+            bonus += 10;
+          } else if (run === 4) {
+            bonus += 30;
+          } else if (run === 5) {
+            bonus += 60;
+          } else if (run === 6) {
+            bonus += 100;
+          } else if (run >= 7) {
+            bonus += 150;
+          }
         }
+        return bonus;
       },
       relatedSuits: [],
       relatedCards: []

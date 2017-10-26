@@ -16,6 +16,7 @@ $(document).ready(function() {
   assertScoreByCode('9,12,16,37+9:16', 95, 'Island can be used even when blanked');
   assertScoreByCode('10,53+53:10', 23, 'Elementals count their Doppelgänger');
   assertScoreByCode('26,27,30,36,38,39,40+', 193, 'Collector can score multiple sets');
+  assertScoreByCode('22,31,36,43,44,46,47+', 206, 'Gem of Order can score multiple sets')
 });
 
 function assertScoreByName(cardNames, expectedScore, message) {
