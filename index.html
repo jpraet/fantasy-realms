@@ -61,9 +61,9 @@
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
     {{#each cardsInHand}}
-    <div id="card-{{id}}" class="card">
+    <div id="card-{{id}}" class="card" onclick="selectFromHand({{id}})">
       <ul class="list-group">
-        <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}" onclick="selectFromHand({{id}})">
+        <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}">
           <span class="badge badge-default">
             {{#if blanked}}
               BLANKED
@@ -95,7 +95,7 @@
         {{#if card.action}}
         <li class="list-group-item bonus">
             <span id="card-action-text-{{id}}" />
-            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="useCard({{id}})">Use</button>
+            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard({{id}});">Use</button>
         </li>
         {{/if}}
       </ul>

@@ -751,7 +751,7 @@ var deck = {
       bonus: '<b>Shapeshifter</b> may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span> or <span class="beast">Beast</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
       penalty: null,
       action: 'Pick a target card to duplicate.',
-      relatedSuits: ['Artifact', 'Leader', 'Wizard', 'Weapon', 'Beast'],
+      relatedSuits: ['Artifact', 'Leader', 'Wizard', 'Weapon', 'Beast'].sort(),
       relatedCards: []
     },
     {
@@ -762,7 +762,7 @@ var deck = {
       bonus: '<b>Mirage</b> may duplicate the name and suit of any one <span class="army">Army</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
       penalty: null,
       action: 'Pick a target card to duplicate.',
-      relatedSuits: ['Army', 'Land', 'Weather', 'Flood', 'Flame'],
+      relatedSuits: ['Army', 'Land', 'Weather', 'Flood', 'Flame'].sort(),
       relatedCards: []
     },
     {
@@ -820,12 +820,16 @@ var deck = {
         cardsBySuit[card.suit].push(card);
       }
     }
-    return cardsBySuit;
+    var ordered = {};
+    Object.keys(cardsBySuit).sort().forEach(function(key) {
+      ordered[key] = cardsBySuit[key];
+    });
+    return ordered;
   }
 };
 
 function allSuits() {
-  return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'];
+  return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'].sort();
 }
 
 var NONE = -1;

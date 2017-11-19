@@ -192,7 +192,6 @@ span.wild {
   color: grey;
   font-weight: normal;
   font-size: 0.8rem;
-  cursor: auto;
   border: 0;
 }
 
@@ -207,6 +206,7 @@ span.wild {
 
 #hand div.card {
   margin-bottom: 0.4rem;
+  cursor: pointer;
 }
 
 span.badge-default {
