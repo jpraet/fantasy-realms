@@ -370,13 +370,12 @@ var deck = {
         for (const card of hand.nonBlankedCards()) {
           var suit = card.suit;
           if (bySuit[suit] === undefined) {
-            bySuit[suit] = {};
+            bySuit[suit] = 0
           }
-          bySuit[suit][card.name] = card;
+          bySuit[suit]++
         }
         var bonus = 0;
-        for (const suit of Object.values(bySuit)) {
-          var count = Object.keys(suit).length;
+        for (const count of Object.values(bySuit)) {
           if (count === 3) {
             bonus += 10;
           } else if (count === 4) {
