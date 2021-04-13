@@ -77,7 +77,9 @@ function removeFromHand(id) {
 function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
   var score = hand.score();
-  var html = template(hand);
+  var html = template(hand, {
+    allowProtoMethodsByDefault: true
+  });
   $('#hand').html(html);
   if (score >= 0) {
     $('#points').text(('000' + score).slice(-3));
@@ -114,6 +116,8 @@ function useCard(id) {
     var template = Handlebars.compile($("#suit-selection-template").html());
     var html = template({
       suits: allSuits()
+    }, {
+      allowProtoMethodsByDefault: true
     });
     $('#cards').html(html);
   } else if (id === SHAPESHIFTER || id == MIRAGE) {
@@ -150,6 +154,8 @@ function showCards(suits) {
   var template = Handlebars.compile($("#cards-template").html());
   var html = template({
     suits: deck.getCardsBySuit(suits)
+  }, {
+    allowProtoMethodsByDefault: true
   });
   $('#cards').html(html);
 }

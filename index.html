@@ -25,9 +25,9 @@
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/handlebars-v4.0.10.js"></script>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/handlebars.min-v4.7.7.js"></script>
   <script src="js/deck.js"></script>
   <script src="js/hand.js"></script>
   <script src="js/app.js"></script>
@@ -43,7 +43,7 @@
       <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
         <ul class="list-group">
           {{#each this}}
-          <li class="list-group-item {{suit}}" onclick="addToHand({{id}})"><span class="badge badge-default">{{strength}}</span> {{name}}</li>
+          <li class="list-group-item {{suit}}" onclick="addToHand({{id}})"><span class="badge badge-secondary">{{strength}}</span> {{name}}</li>
           {{/each}}
         </ul>
       </div>
@@ -64,7 +64,7 @@
     <div id="card-{{id}}" class="card" onclick="selectFromHand({{id}})">
       <ul class="list-group">
         <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}">
-          <span class="badge badge-default">
+          <span class="badge badge-secondary">
             {{#if blanked}}
               BLANKED
             {{else}}
