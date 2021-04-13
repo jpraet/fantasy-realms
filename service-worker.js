@@ -7,6 +7,8 @@ var URLS = [
   '/fantasy-realms/manifest.json',
   '/fantasy-realms/favicon.ico',
   '/fantasy-realms/img/fantasy-realms.jpg',
+  '/fantasy-realms/img/background.jpg',
+  '/fantasy-realms/img/wizkids.png',
   '/fantasy-realms/css/style.css',
   '/fantasy-realms/css/bootstrap.min.css',
   '/fantasy-realms/service-worker.js',

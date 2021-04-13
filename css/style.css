@@ -1,9 +1,25 @@
 html {
   background-color: #ccc0a8;
+  min-height: 100%;
 }
 
 body {
-  background-color: #ccc0a8;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  background-image: url('../img/background.jpg');
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 10rem);
+  padding: 0.5rem;
+  color: #312b2f;
+  font-size: small;
+  height: 30px;
+  background-color: #e9e3c6;
+  text-align: center;
 }
 
 #container {
@@ -63,6 +79,7 @@ span.separator {
 #right {
   background-color: #e9e3c6;
   min-height: 100%;
+  margin-bottom: 30px;
   width: calc(100% - 10rem);
 }
 
