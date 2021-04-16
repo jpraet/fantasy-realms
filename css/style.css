@@ -1,3 +1,21 @@
+:root {
+  --land-color: #3b1d13;
+  --flood-color:  #41437c;
+  --weather-color: #a6bced;
+  --flame-color: #b44347;
+  --army-color: #312b2f;
+  --wizard-color: #e056a3;
+  --leader-color: #7b48a4;
+  --beast-color: #60a35c;
+  --weapon-color: #878586;
+  --artifact-color: #d24e37;
+  --wild-color: #c6c2c3;
+  --building-color: #463153;
+  --outsider-color: #fba934;
+  --undead-color: #004e4a;
+  --header-border: 6px;
+}
+
 html {
   background-color: #ccc0a8;
   min-height: 100%;
@@ -15,7 +33,7 @@ body {
   bottom: 0;
   width: calc(100% - 10rem);
   padding: 0.5rem;
-  color: #312b2f;
+  color: var(--army-color);
   font-size: small;
   height: 30px;
   background-color: #e9e3c6;
@@ -90,91 +108,171 @@ li.list-group-item {
 }
 
 li.Land {
-  background-color: #3b1d13;
+  background-color: var(--land-color);
 }
 
 span.land {
-  color: #3b1d13;
+  color: var(--land-color);
+}
+
+#LandHeader {
+  border-right: solid var(--land-color) var(--header-border);
 }
 
 li.Flood {
-  background-color: #41437c;
+  background-color: var(--flood-color);
 }
 
 span.flood {
-  color: #41437c;
+  color: var(--flood-color);
+}
+
+#FloodHeader {
+  border-right: solid var(--flood-color) var(--header-border);
 }
 
 li.Weather {
-  background-color: #a6bced;
+  background-color: var(--weather-color);
 }
 
 span.weather {
-  color: #a6bced;
+  color: var(--weather-color);
+}
+
+#WeatherHeader {
+  border-right: solid var(--weather-color) var(--header-border);
 }
 
 li.Flame {
-  background-color: #b44347;
+  background-color: var(--flame-color);
 }
 
 span.flame {
-  color: #b44347;
+  color: var(--flame-color);
+}
+
+#FlameHeader {
+  border-right: solid var(--flame-color) var(--header-border);
 }
 
 li.Army {
-  background-color: #312b2f;
+  background-color: var(--army-color);
 }
 
 span.army {
-  color: #312b2f;
+  color: var(--army-color);
+}
+
+#ArmyHeader {
+  border-right: solid var(--army-color) var(--header-border);
 }
 
 li.Wizard {
-  background-color: #e056a3;
+  background-color: var(--wizard-color);
 }
 
 span.wizard {
-  color: #e056a3;
+  color: var(--wizard-color);
+}
+
+#WizardHeader {
+  border-right: solid var(--wizard-color) var(--header-border);
 }
 
 li.Leader {
-  background-color: #7b48a4;
+  background-color: var(--leader-color);
 }
 
 span.leader {
-  color: #7b48a4;
+  color: var(--leader-color);
+}
+
+#LeaderHeader {
+  border-right: solid var(--leader-color) var(--header-border);
 }
 
 li.Beast {
-  background-color: #60a35c;
+  background-color: var(--beast-color);
 }
 
 span.beast {
-  color: #60a35c;
+  color: var(--beast-color);
+}
+
+#BeastHeader {
+  border-right: solid var(--beast-color) var(--header-border);
 }
 
 li.Weapon {
-  background-color: #878586;
+  background-color: var(--weapon-color);
 }
 
 span.weapon {
-  color: #878586;
+  color: var(--weapon-color);
+}
+
+#WeaponHeader {
+  border-right: solid var(--weapon-color) var(--header-border);
 }
 
 li.Artifact {
-  background-color: #d24e37;
+  background-color: var(--artifact-color);
 }
 
 span.artifact {
-  color: #d24e37;
+  color: var(--artifact-color);
+}
+
+#ArtifactHeader {
+  border-right: solid var(--artifact-color) var(--header-border);
 }
 
 li.Wild {
-  background-color: #c6c2c3;
+  background-color: var(--wild-color);
 }
 
 span.wild {
-  color: #c6c2c3;
+  color: var(--wild-color);
+}
+
+#WildHeader {
+  border-right: solid var(--wild-color) var(--header-border);
+}
+
+li.Building {
+  background-color: var(--building-color);
+}
+
+span.building {
+  color: var(--building-color);
+}
+
+#BuildingHeader {
+  border-right: solid var(--building-color) var(--header-border);
+}
+
+li.Outsider {
+  background-color: var(--outsider-color);
+}
+
+span.outsider {
+  color: var(--outsider-color);
+}
+
+#OutsiderHeader {
+  border-right: solid var(--outsider-color) var(--header-border);
+}
+
+li.Undead {
+  background-color: var(--undead-color);
+}
+
+span.undead {
+  color: var(--undead-color);
+}
+
+#UndeadHeader {
+  border-right: solid var(--undead-color) var(--header-border);
 }
 
 #cards {
