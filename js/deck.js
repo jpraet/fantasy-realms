@@ -801,8 +801,323 @@ var base = {
   }
 };
 
+var cursedHoard = {
+  'CH01': {
+    id: 'CH01',
+    suit: 'Building',
+    name: 'Dungeon',
+    strength: 7,
+    bonus: '+10 each for the first <span class="undead">Undead</span>, <span class="beast>Beast</span>, and <span class="artifact">Artifact</span>. <br />+5 for each additional card in any of these suits and <span class="wizard">Necromancer</span>, <span class="wizard">Warlock Lord</span>, <span class="outsider">Demon</span>.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Undead', 'Beast', 'Artifact'],
+    relatedCards: ['Necromancer', 'Warlock Lord', 'Demon']
+  },
+  'CH02': {
+    id: 'CH02',
+    suit: 'Building',
+    name: 'Castle',
+    strength: 10,
+    bonus: '+10 for the first <span class="leader">Leader</span>, <span class="army">Army</span>, <span class="land">Land</span>, and other <span class="building">Building</span>. <br />+5 for each additional <span class="building">Building</span>.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Leader', 'Army', 'Land', 'Building'],
+    relatedCards: []
+  },
+  'CH03': {
+    id: 'CH03',
+    suit: 'Building',
+    name: 'Crypt',
+    strength: 21,
+    bonus: 'The sum of the base strength of all <span class="undead">Undead</span>.',
+    penalty: 'BLANKs all <span class="leader">Leaders</span>.',
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    blanks: function(card, hand) {
+      return card.suit === 'Leader';
+    },
+    relatedSuits: ['Undead', 'Leader'],
+    relatedCards: []
+  },
+  'CH04': {
+    id: 'CH04',
+    suit: 'Building',
+    name: 'Chapel',
+    strength: 2,
+    bonus: '+40 if you have exactly two cards from among these suits: <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="outsider">Outsider</span>, and <span class="undead">Undead</span>.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Leader', 'Wizard', 'Outsider', 'Undead'],
+    relatedCards: []
+  },
+  'CH05': {
+    id: 'CH05',
+    suit: 'Land',
+    name: 'Garden',
+    strength: 11,
+    bonus: '+11 for each <span class="leader">Leader</span> and <span class="beast">Beast</span>.',
+    penalty: 'BLANKED by any <span class="undead">Undead</span>, <span class="wizard">Necromancer</span>, or <span class="outsider">Demon</span>.',
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Leader', 'Beast', 'Undead'],
+    relatedCards: ['Necromancer', 'Demon']
+  },
+  'CH06': {
+    id: 'CH06',
+    suit: 'Outsider',
+    name: 'Genie',
+    strength: -50,
+    bonus: '+10 per other player. <br />At the end of the game, look through the draw deck and put one card in your hand. <br />(Resolves after <span class="outsider">Leprechaun</span>.)',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: [],
+    relatedCards: ['Leprechaun']
+  },
+  'CH07': {
+    id: 'CH07',
+    suit: 'Outsider',
+    name: 'Judge',
+    strength: 11,
+    bonus: '+10 for each card that contains a Penalty that is not CLEARED.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: [],
+    relatedCards: []
+  },
+  'CH08': {
+    id: 'CH08',
+    suit: 'Outsider',
+    name: 'Angel',
+    strength: 16,
+    bonus: 'Prevent one other card from being BLANKED. This card can never be BLANKED.',
+    penalty: null,
+    relatedSuits: [],
+    relatedCards: []
+  },
+  'CH09': {
+    id: 'CH09',
+    suit: 'Outsider',
+    name: 'Leprechaun',
+    strength: 20,
+    bonus: 'Draw the top card from the deck at the end of the game and add it to your hand. <br />(Resolves before <span class="outsider">Genie</span>.)',
+    penalty: null,
+    relatedSuits: [],
+    relatedCards: []
+  },
+  'CH10': {
+    id: 'CH10',
+    suit: 'Outsider',
+    name: 'Demon',
+    strength: 45,
+    bonus: null,
+    penalty: 'For every non-<span class="outsider">Outsider</span> card: If that card is the only card you have in that suit, then that card is BLANKED. <br />This takes place before any other BLANKING.',
+    relatedSuits: ['Outsider'],
+    relatedCards: []
+  },
+  'CH11': {
+    id: 'CH11',
+    suit: 'Undead',
+    name: 'Dark Queen',
+    strength: 10,
+    bonus: '+5 for each <span class="land">Land</span>, <span class="flood">Flood</span>, <span class="flame">Flame</span>, <span class="weather">Weather</span>, and <span class="beast">Unicorn</span> in the discard area.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Land', 'Flood', 'Flame', 'Weather'],
+    relatedCards: ['Unicorn']
+  },
+  'CH12': {
+    id: 'CH12',
+    suit: 'Undead',
+    name: 'Ghoul',
+    strength: 8,
+    bonus: '+4 for each <span class="wizard">Wizard</span>, <span class="leader">Leader</span>, <span class="army">Army</span>, <span class="beast">Beast</span>, and <span class="undead">Undead</span> in the discard area.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Wizard', 'Leader', 'Army', 'Beast', 'Undead'],
+    relatedCards: []
+  },
+  'CH13': {
+    id: 'CH13',
+    suit: 'Undead',
+    name: 'Specter',
+    strength: 12,
+    bonus: '+6 for each <span class="wizard">Wizard</span>, <span class="artifact">Artifact</span>, and <span class="outsider">Outsider</span> in the discard area.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Wizard', 'Artifact', 'Outsider'],
+    relatedCards: []
+  },
+  'CH14': {
+    id: 'CH14',
+    suit: 'Undead',
+    name: 'Lich',
+    strength: 13,
+    bonus: '+10 for <span class="wizard">Necromancer</span> and each other <span class="undead">Undead</span>. <br /><span class="undead">Undead</span> may not be BLANKED.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Undead'],
+    relatedCards: ['Necromancer']
+  },
+  'CH15': {
+    id: 'CH15',
+    suit: 'Undead',
+    name: 'Death Knight',
+    strength: 14,
+    bonus: '+7 for each <span class="weapon">Weapon</span> and <span class="army">Army</span> in the discard area.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 0; // TODO
+    },
+    relatedSuits: ['Weapon', 'Army'],
+    relatedCards: []
+  },
+  'CH16': {
+    id: 'CH16',
+    suit: 'Land',
+    name: 'Bell Tower',
+    replaces: 'FR03',
+    strength: 8,
+    bonus: '+15 with any one <span class="wizard">Wizard</span> or <span class="undead">Undead</span>.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return (hand.containsSuit('Wizard') || hand.containsSuit('Undead')) ? 15 : 0;
+    },
+    relatedSuits: ['Wizard', 'Undead'],
+    relatedCards: []
+  },
+  'CH17': {
+    id: 'CH17',
+    suit: 'Flood',
+    name: 'Fountain of Life',
+    replaces: 'FR06',
+    strength: 1,
+    bonus: 'Add the base strength of any one <span class="building">Building</span>, <span class="weapon">Weapon</span>, <span class="flood">Flood</span>, <span class="flame">Flame</span>, <span class="land">Land</span> or <span class="weather">Weather</span> in your hand.',
+    penalty: null,
+    bonusScore: function(hand) {
+      var max = 0;
+      for (const card of hand.nonBlankedCards()) {
+        if (card.suit === 'Building' || card.suit === 'Weapon' || card.suit === 'Flood' || card.suit === 'Flame' || card.suit === 'Land' || card.suit === 'Weather') {
+          if (card.strength > max) {
+            max = card.strength;
+          }
+        }
+      }
+      return max;
+    },
+    relatedSuits: ['Building', 'Weapon', 'Flood', 'Flame', 'Land', 'Weather'],
+    relatedCards: []
+  },
+  'CH18': {
+    id: 'CH18',
+    suit: 'Flood',
+    name: 'Great Flood',
+    replaces: 'FR08',
+    strength: 32,
+    bonus: null,
+    penalty: 'BLANKS all <span class="army">Armies</span>, all <span class="building">Buildings</span>, all <span class="land">Lands</span> except <span class="land">Mountain</span>, and all <span class="flame">Flames</span> except <span class="flame">Lightning</span>.',
+    blanks: function(card, hand) {
+      return (card.suit === 'Army' && !(hand.containsId('FR25') || hand.containsId('FR41'))) || // these clear the word 'Army' from the penalty
+        (card.suit === 'Building') ||
+        (card.suit === 'Land' && card.name !== 'Mountain') ||
+        (card.suit === 'Flame' && card.name !== 'Lightning');
+    },
+    relatedSuits: ['Army', 'Building', 'Land', 'Flame'],
+    relatedCards: ['Mountain', 'Lightning']
+  },
+  'CH19': {
+    id: 'CH19',
+    suit: 'Army',
+    name: 'Rangers',
+    replaces: 'FR25',
+    strength: 5,
+    bonus: '+10 for each <span class="land">Land</span> and <span class="building">Building</span>. <br />CLEARS the word <span class="army">Army</span> from all Penalties.',
+    penalty: null,
+    bonusScore: function(hand) {
+      return 10 * (hand.countSuit('Land') + hand.countSuit('Building'));
+    },
+    relatedSuits: ['Land', 'Building', 'Army'],
+    relatedCards: []
+  },
+  'CH20': {
+    id: 'CH20',
+    suit: 'Wizard',
+    name: 'Necromancer',
+    replaces: 'FR28',
+    strength: 3,
+    bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> from the discard pile and add it to your hand as an eighth card.',
+    penalty: null,
+    relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast', 'Undead'],
+    relatedCards: []
+  },
+  'CH21': {
+    id: 'CH21',
+    suit: 'Artifact',
+    name: 'World Tree',
+    replaces: 'FR48',
+    strength: 2,
+    bonus: '+70 if every non-BLANKED card is a different suit.',
+    penalty: null,
+    bonusScore: function(hand) {
+      var suits = [];
+      for (const card of hand.nonBlankedCards()) {
+        if (suits.includes(card.suit)) {
+          return 0;
+        }
+        suits.push(card.suit);
+      }
+      return 70;
+    },
+    relatedSuits: allSuits(),
+    relatedCards: []
+  },
+  'CH22': {
+    id: 'CH22',
+    suit: 'Wild',
+    name: 'Shapeshifter',
+    replaces: 'FR51',
+    strength: 0,
+    bonus: '<b>Shapeshifter</b> may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
+    penalty: null,
+    action: 'Pick a target card to duplicate.',
+    relatedSuits: ['Artifact', 'Leader', 'Wizard', 'Weapon', 'Beast', 'Undead'].sort(),
+    relatedCards: []
+  },
+  'CH23': {
+    id: 'CH23',
+    suit: 'Wild',
+    name: 'Mirage',
+    replaces: 'FR52',
+    strength: 0,
+    bonus: '<b>Mirage</b> may duplicate the name and suit of any one <span class="army">Army</span>, <span class="building">Building</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
+    penalty: null,
+    action: 'Pick a target card to duplicate.',
+    relatedSuits: ['Army', 'Building', 'Land', 'Weather', 'Flood', 'Flame'].sort(),
+    relatedCards: []
+  },
+};
+
 var deck = {
-  cards: base,
+  cards: {...base, ...cursedHoard},
   getCardByName: function(cardName) {
     for (const id in this.cards) {
       const card = this.cards[id];
