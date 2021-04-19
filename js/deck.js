@@ -993,7 +993,7 @@ var cursedHoard = {
   },
   'CH16': {
     id: 'CH16',
-    suit: 'Land',
+    suit: 'Building',
     name: 'Bell Tower',
     replaces: 'FR03',
     strength: 8,
@@ -1048,7 +1048,7 @@ var cursedHoard = {
     id: 'CH19',
     suit: 'Army',
     name: 'Rangers',
-    replaces: 'FR25',
+    replaces: 'FR25', // TODO: Army penalty clearing is based on this ID
     strength: 5,
     bonus: '+10 for each <span class="land">Land</span> and <span class="building">Building</span>. <br />CLEARS the word <span class="army">Army</span> from all Penalties.',
     penalty: null,
@@ -1062,7 +1062,7 @@ var cursedHoard = {
     id: 'CH20',
     suit: 'Wizard',
     name: 'Necromancer',
-    replaces: 'FR28',
+    replaces: 'FR28', // TODO: Action ID
     strength: 3,
     bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> from the discard pile and add it to your hand as an eighth card.',
     penalty: null,
@@ -1094,7 +1094,7 @@ var cursedHoard = {
     id: 'CH22',
     suit: 'Wild',
     name: 'Shapeshifter',
-    replaces: 'FR51',
+    replaces: 'FR51', // TODO: Action ID
     strength: 0,
     bonus: '<b>Shapeshifter</b> may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
     penalty: null,
@@ -1106,7 +1106,7 @@ var cursedHoard = {
     id: 'CH23',
     suit: 'Wild',
     name: 'Mirage',
-    replaces: 'FR52',
+    replaces: 'FR52', // TODO: Action ID
     strength: 0,
     bonus: '<b>Mirage</b> may duplicate the name and suit of any one <span class="army">Army</span>, <span class="building">Building</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
     penalty: null,
