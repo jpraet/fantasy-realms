@@ -1113,8 +1113,155 @@ var cursedHoard = {
     action: 'Pick a target card to duplicate.',
     relatedSuits: ['Army', 'Building', 'Land', 'Weather', 'Flood', 'Flame'].sort(),
     relatedCards: []
-  },
+  }
 };
+
+var cursedItems = {
+  'CH24': {
+    id: 'CH24',
+    suit: 'Cursed Item',
+    name: 'Spyglass',
+    points: -1 // TODO: -10 in 2-player
+  },
+  'CH25': {
+    id: 'CH25',
+    suit: 'Cursed Item',
+    name: 'Sarcophagus',
+    points: 5
+  },
+  'CH26': {
+    id: 'CH26',
+    suit: 'Cursed Item',
+    name: 'Blindfold',
+    points: 5
+  },
+  'CH27': {
+    id: 'CH27',
+    suit: 'Cursed Item',
+    name: 'Book of Prophecy',
+    points: -1
+  },
+  'CH28': {
+    id: 'CH28',
+    suit: 'Cursed Item',
+    name: 'Crystal Ball',
+    points: -1
+  },
+  'CH29': {
+    id: 'CH29',
+    suit: 'Cursed Item',
+    name: 'Market Wagon',
+    points: -2
+  },
+  'CH30': {
+    id: 'CH30',
+    suit: 'Cursed Item',
+    name: 'Backpack',
+    points: -2
+  },
+  'CH31': {
+    id: 'CH31',
+    suit: 'Cursed Item',
+    name: 'Shovel',
+    points: -2
+  },
+  'CH32': {
+    id: 'CH32',
+    suit: 'Cursed Item',
+    name: 'Sealed Vault',
+    points: -4
+  },
+  'CH33': {
+    id: 'CH33',
+    suit: 'Cursed Item',
+    name: 'Crystal Lens',
+    points: -2
+  },
+  'CH34': {
+    id: 'CH34',
+    suit: 'Cursed Item',
+    name: 'Larcenous Gloves',
+    points: -3
+  },
+  'CH35': {
+    id: 'CH35',
+    suit: 'Cursed Item',
+    name: 'Junkyard Map',
+    points: -3
+  },
+  'CH36': {
+    id: 'CH36',
+    suit: 'Cursed Item',
+    name: 'Winged Boots',
+    points: -4
+  },
+  'CH37': {
+    id: 'CH37',
+    suit: 'Cursed Item',
+    name: 'Staff of Transmutation',
+    points: -4
+  },
+  'CH38': {
+    id: 'CH38',
+    suit: 'Cursed Item',
+    name: 'Rake',
+    points: -4
+  },
+  'CH39': {
+    id: 'CH39',
+    suit: 'Cursed Item',
+    name: 'Treasure Chest',
+    points: -5 // TODO: +25 if at least 3 other Cursed Items
+  },
+  'CH40': {
+    id: 'CH40',
+    suit: 'Cursed Item',
+    name: 'Fishhook',
+    points: -6
+  },
+  'CH41': {
+    id: 'CH41',
+    suit: 'Cursed Item',
+    name: 'Repair Kit',
+    points: -6
+  },
+  'CH42': {
+    id: 'CH42',
+    suit: 'Cursed Item',
+    name: 'Hourglass',
+    points: -7
+  },
+  'CH43': {
+    id: 'CH43',
+    suit: 'Cursed Item',
+    name: 'Gold Mirror',
+    points: -8
+  },
+  'CH44': {
+    id: 'CH44',
+    suit: 'Cursed Item',
+    name: 'Cauldron',
+    points: -9
+  },
+  'CH45': {
+    id: 'CH45',
+    suit: 'Cursed Item',
+    name: 'Lantern',
+    points: -10
+  },
+  'CH46': {
+    id: 'CH46',
+    suit: 'Cursed Item',
+    name: 'Portal',
+    points: -20 // TODO: +1 card
+  },
+  'CH47': {
+    id: 'CH47',
+    suit: 'Cursed Item',
+    name: 'Wishing Ring',
+    points: -30
+  }
+}
 
 var deck = {
   cards: {...base, ...cursedHoard},
