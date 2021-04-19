@@ -32,12 +32,19 @@ class Hand {
     }
   }
 
+  _normalizeId(id) {
+    if (id.match(/^[0-9+]+$/)) {
+      return 'FR' + id.padStart(2, '0');
+    }
+    return id;
+  }
+
   deleteCardById(id) {
-    delete this.cardsInHand[id];
+    delete this.cardsInHand[this._normalizeId(id)];
   }
 
   getCardById(id) {
-    return this.cardsInHand[id];
+    return this.cardsInHand[this._normalizeId(id)];
   }
 
   contains(cardName) {
@@ -50,6 +57,7 @@ class Hand {
   }
 
   containsId(cardId) {
+    cardId = this._normalizeId(cardId);
     return this.cardsInHand[cardId] !== undefined && !this.cardsInHand[cardId].blanked;
   }
 
@@ -206,7 +214,7 @@ class Hand {
     }
     for (const cardAction of cardActions) {
       if (cardAction.length > 1) {
-        var cardId = parseInt(cardAction[0]);
+        var cardId = this._normalizeId(cardAction[0]);
         var action = cardAction.slice(1);
         var actionCard = this.getCardById(cardId);
         this.cardsInHand[cardId] = new CardInHand(actionCard.card, action);

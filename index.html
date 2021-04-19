@@ -43,7 +43,7 @@
       <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
         <ul class="list-group">
           {{#each this}}
-          <li class="list-group-item {{suit}}" onclick="addToHand({{id}})"><span class="badge badge-secondary">{{strength}}</span> {{name}}</li>
+          <li class="list-group-item {{suit}}" onclick="addToHand('{{id}}')"><span class="badge badge-secondary">{{strength}}</span> {{name}}</li>
           {{/each}}
         </ul>
       </div>
@@ -61,7 +61,7 @@
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
     {{#each cardsInHand}}
-    <div id="card-{{id}}" class="card" onclick="selectFromHand({{id}})">
+    <div id="card-{{id}}" class="card" onclick="selectFromHand('{{id}}')">
       <ul class="list-group">
         <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}">
           <span class="badge badge-secondary">
@@ -95,7 +95,7 @@
         {{#if card.action}}
         <li class="list-group-item bonus">
             <span id="card-action-text-{{id}}" />
-            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard({{id}});">Use</button>
+            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard('{{id}}');">Use</button>
         </li>
         {{/if}}
       </ul>
