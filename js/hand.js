@@ -70,6 +70,15 @@ class Hand {
     return false;
   }
 
+  containsSuitExcluding(suitName, excludingCardId) {
+    for (const card of this.nonBlankedCards()) {
+      if (card.suit === suitName && card.id !== excludingCardId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   countSuit(suitName) {
     var count = 0;
     for (const card of this.nonBlankedCards()) {

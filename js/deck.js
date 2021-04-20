@@ -807,10 +807,15 @@ var cursedHoard = {
     suit: 'Building',
     name: 'Dungeon',
     strength: 7,
-    bonus: '+10 each for the first <span class="undead">Undead</span>, <span class="beast>Beast</span>, and <span class="artifact">Artifact</span>. <br />+5 for each additional card in any of these suits and <span class="wizard">Necromancer</span>, <span class="wizard">Warlock Lord</span>, <span class="outsider">Demon</span>.',
+    bonus: '+10 each for the first <span class="undead">Undead</span>, <span class="beast">Beast</span>, and <span class="artifact">Artifact</span>. <br />+5 for each additional card in any of these suits and <span class="wizard">Necromancer</span>, <span class="wizard">Warlock Lord</span>, <span class="outsider">Demon</span>.',
     penalty: null,
     bonusScore: function(hand) {
-      return 0; // TODO
+      return (hand.containsSuit('Undead') ? 10 + (hand.countSuit('Undead') - 1) * 5: 0) +
+        (hand.containsSuit('Beast') ? 10 + (hand.countSuit('Beast') - 1) * 5: 0) +
+        (hand.containsSuit('Artifact') ? 10 + (hand.countSuit('Artifact') - 1) * 5: 0) +
+        (hand.contains('Necromancer') ? 5: 0) +
+        (hand.contains('Warlock Lord') ? 5: 0) +
+        (hand.contains('Demon') ? 5: 0);
     },
     relatedSuits: ['Undead', 'Beast', 'Artifact'],
     relatedCards: ['Necromancer', 'Warlock Lord', 'Demon']
@@ -823,7 +828,10 @@ var cursedHoard = {
     bonus: '+10 for the first <span class="leader">Leader</span>, <span class="army">Army</span>, <span class="land">Land</span>, and other <span class="building">Building</span>. <br />+5 for each additional <span class="building">Building</span>.',
     penalty: null,
     bonusScore: function(hand) {
-      return 0; // TODO
+      return (hand.containsSuit('Leader') ? 10: 0) +
+        (hand.containsSuit('Army') ? 10: 0) +
+        (hand.containsSuit('Land') ? 10: 0) +
+        (hand.containsSuitExcluding('Building', this.id) ? 10 + (hand.countSuitExcluding('Building', this.id) - 1) * 5: 0);
     },
     relatedSuits: ['Leader', 'Army', 'Land', 'Building'],
     relatedCards: []
@@ -836,7 +844,13 @@ var cursedHoard = {
     bonus: 'The sum of the base strength of all <span class="undead">Undead</span>.',
     penalty: 'BLANKs all <span class="leader">Leaders</span>.',
     bonusScore: function(hand) {
-      return 0; // TODO
+      var total = 0;
+      for (const card of hand.nonBlankedCards()) {
+        if (card.suit === 'Undead') {
+          total += card.strength;
+        }
+      }
+      return total;
     },
     blanks: function(card, hand) {
       return card.suit === 'Leader';
@@ -852,7 +866,11 @@ var cursedHoard = {
     bonus: '+40 if you have exactly two cards from among these suits: <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="outsider">Outsider</span>, and <span class="undead">Undead</span>.',
     penalty: null,
     bonusScore: function(hand) {
-      return 0; // TODO
+      if (hand.countSuit('Leader') + hand.countSuit('Wizard') + hand.countSuit('Outsider') + hand.countSuit('Undead') === 2) {
+        return 40;
+      } else {
+        return 0;
+      }
     },
     relatedSuits: ['Leader', 'Wizard', 'Outsider', 'Undead'],
     relatedCards: []
@@ -865,7 +883,10 @@ var cursedHoard = {
     bonus: '+11 for each <span class="leader">Leader</span> and <span class="beast">Beast</span>.',
     penalty: 'BLANKED by any <span class="undead">Undead</span>, <span class="wizard">Necromancer</span>, or <span class="outsider">Demon</span>.',
     bonusScore: function(hand) {
-      return 0; // TODO
+      return 11 * (hand.countSuit('Leader') + hand.countSuit('Beast'));
+    },
+    blankedIf: function(hand) {
+      return hand.containsSuit('Undead') || hand.contains('Necromancer') || hand.contains('Demon');
     },
     relatedSuits: ['Leader', 'Beast', 'Undead'],
     relatedCards: ['Necromancer', 'Demon']
