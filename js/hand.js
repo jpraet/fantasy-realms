@@ -195,7 +195,7 @@ class Hand {
   }
 
   limit() {
-    return this.containsId(NECROMANCER) ? 8 : 7;
+    return 7 + (cursedHoardSuits ? 1: 0) + (this.containsId(NECROMANCER) ? 1: 0);
   }
 
   toString() {

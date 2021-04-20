@@ -58,6 +58,10 @@ body {
   vertical-align: middle;
 }
 
+#header label {
+  color: #ccc0a8;
+}
+
 #main {
   padding-top: 4rem;
   min-height: 100%;

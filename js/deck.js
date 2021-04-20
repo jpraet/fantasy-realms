@@ -1285,7 +1285,19 @@ var cursedItems = {
 }
 
 var deck = {
-  cards: {...base, ...cursedHoard},
+  cards: {...base},
+  enableCursedHoardSuits: function() {
+    this.cards = {...base, ...cursedHoard};
+    for (const id in cursedHoard) {
+      const card = this.cards[id];
+      if (card.replaces) {
+        delete this.cards[card.replaces];
+      }
+    }
+  },
+  disableCursedHoardSuits: function() {
+    this.cards = {...base}
+  },
   getCardByName: function(cardName) {
     for (const id in this.cards) {
       const card = this.cards[id];

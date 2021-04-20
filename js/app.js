@@ -1,6 +1,13 @@
 $(document).ready(function() {
+  configureSelectedExpansions();
   showCards();
   getHandFromQueryString();
+  $('#ch_items').change(function() {
+    toggleCursedHoardItems();
+  });
+  $('#ch_suits').change(function() {
+    toggleCursedHoardSuits();
+  });
 });
 
 var click = new Audio('sound/click.mp3');
@@ -10,6 +17,41 @@ var magic = new Audio('sound/magic.mp3');
 var actionId = NONE;
 var bookOfChangesSelectedCard = NONE;
 var bookOfChangesSelectedSuit = undefined;
+var cursedHoardItems = false;
+var cursedHoardSuits = false;
+
+function configureSelectedExpansions() {
+  var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  for (var i = 0; i < params.length; i++) {
+    var param = params[i].split('=');
+    if (param[0] === 'expansions') {
+      if (param[1].indexOf('ch_items') > -1) {
+        cursedHoardItems = true;
+        $('#ch_items').prop('checked', true);
+      }
+      if (param[1].indexOf('ch_suits') > -1) {
+        cursedHoardSuits = true;
+        deck.enableCursedHoardSuits();
+        $('#ch_suits').prop('checked', true);
+      }
+    }
+  }
+}
+
+function toggleCursedHoardItems() {
+  cursedHoardItems = !cursedHoardItems;
+}
+
+function toggleCursedHoardSuits() {
+  cursedHoardSuits = !cursedHoardSuits;
+  if (cursedHoardSuits) {
+    deck.enableCursedHoardSuits();
+  } else {
+    deck.disableCursedHoardSuits();
+  }
+  clearHand();
+  showCards();
+}
 
 function clearHand() {
   clear.play();
@@ -101,9 +143,9 @@ function getHandFromQueryString() {
     var param = params[i].split('=');
     if (param[0] === 'hand') {
       hand.loadFromString(param[1]);
-      updateHandView();
     }
   }
+  updateHandView();
 }
 
 function useCard(id) {
