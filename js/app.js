@@ -21,29 +21,45 @@ var cursedHoardItems = false;
 var cursedHoardSuits = false;
 
 function configureSelectedExpansions() {
-  var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-  for (var i = 0; i < params.length; i++) {
-    var param = params[i].split('=');
-    if (param[0] === 'expansions') {
-      if (param[1].indexOf('ch_items') > -1) {
-        cursedHoardItems = true;
-        $('#ch_items').prop('checked', true);
+  if (window.location.search) {
+    var params = window.location.search.substring(1).split('&');
+    for (var i = 0; i < params.length; i++) {
+      var param = params[i].split('=');
+      if (param[0] === 'expansions') {
+        if (param[1].indexOf('ch_items') > -1) {
+          cursedHoardItems = true;
+          $('#ch_items').prop('checked', true);
+        }
+        if (param[1].indexOf('ch_suits') > -1) {
+          cursedHoardSuits = true;
+          deck.enableCursedHoardSuits();
+          $('#ch_suits').prop('checked', true);
+        }
       }
-      if (param[1].indexOf('ch_suits') > -1) {
-        cursedHoardSuits = true;
-        deck.enableCursedHoardSuits();
-        $('#ch_suits').prop('checked', true);
-      }
+    }
+  } else {
+    if (localStorage.getItem('ch_items')) {
+      cursedHoardItems = true;
+      $('#ch_items').prop('checked', true);
+    }
+    if (localStorage.getItem('ch_suits')) {
+      cursedHoardSuits = true;
+      deck.enableCursedHoardSuits();
+      $('#ch_suits').prop('checked', true);
     }
   }
 }
 
 function toggleCursedHoardItems() {
   cursedHoardItems = !cursedHoardItems;
+  localStorage.setItem('ch_items', cursedHoardSuits);
+  clearHand();
+  showCards();
 }
 
 function toggleCursedHoardSuits() {
   cursedHoardSuits = !cursedHoardSuits;
+  localStorage.setItem('ch_suits', cursedHoardSuits);
   if (cursedHoardSuits) {
     deck.enableCursedHoardSuits();
   } else {
@@ -130,8 +146,26 @@ function updateHandView() {
   }
   $('#cardCount').text(hand.size());
   $('#cardLimit').text(hand.limit());
+  updateUrl();
+}
+
+function updateUrl() {
+  var params = [];
+  if (cursedHoardItems || cursedHoardSuits) {
+    var expansions = [];
+    if (cursedHoardItems) {
+      expansions.push('ch_items');
+    }
+    if (cursedHoardSuits) {
+      expansions.push('ch_suits')
+    }
+    params.push('expansions=' + expansions.join(','));
+  }
   if (hand.size() > 0) {
-    history.replaceState(null, null, "index.html?hand=" + hand.toString());
+    params.push('hand=' + hand.toString());
+  }
+  if (params.length > 0) {
+    history.replaceState(null, null, "index.html?" + params.join('&'));
   } else {
     history.replaceState(null, null, "index.html");
   }
