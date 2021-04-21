@@ -103,9 +103,8 @@
     {{/each}}
   </script>
   <div id="container">
-    <div id="header">
+    <header>
       <a href="https://wizkids.com/fantasy-realms/"><img src="img/fantasy-realms.jpg" style="height: 3rem;"></img></a>
-      <!--<a href="https://wizkids.com/"><img src="img/wizkids.png" style="margin-left: 2.5rem; height: 1.5rem;"></img></a> -->
       <img src="img/cursed-hoard.png" style="margin-left: 2.5rem; height: 3rem;"></img>
       <div style="display: inline-block;">
       <div class="custom-control custom-switch">
@@ -124,19 +123,24 @@
         </div>
         <button id="clear" type="button" class="btn btn-success" onclick="clearHand()">Reset</button>
       </div>
-    </div>
-    <div id="main">
+    </header>
+    <main>
       <div id="left">
         <div id="cards" class="panel" role="tablist" aria-multiselectable="true"></div>
       </div>
       <div id="right">
         <div id="hand">
         </div>
-        <div id="footer">
-          ©2021 WizKids/NECA LLC. WizKids and related marks and logos are trademarks of WizKids. All rights reserved.
-        </div>
       </div>
-    </div>
+    </main>
+    <footer>
+      <div id="wizkids-logo">
+        <a href="https://wizkids.com/"><img src="img/wizkids.png" style="height: 1.75rem;"></img></a>
+      </div>
+      <div id="legal-text">
+        ©2021 WizKids/NECA LLC. WizKids and related marks and logos are trademarks of WizKids. All rights reserved.
+      </div>
+    </footer>
   </div>
 </body>
 
