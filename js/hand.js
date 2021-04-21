@@ -15,9 +15,9 @@ class Hand {
   _canAdd(newCard) {
     if (this.cardsInHand[newCard.id] !== undefined) {
       return false;
-    } else if (this.size() < 7) {
+    } else if (this.size() < (cursedHoardSuits ? 8: 7)) {
       return true;
-    } else if (this.size() > 7) {
+    } else if (this.size() > (cursedHoardSuits ? 8: 7)) {
       return false;
     } else if (this.containsId(NECROMANCER) || newCard.id === NECROMANCER) {
       var targetFound = false;
@@ -27,6 +27,14 @@ class Hand {
         }
       }
       return targetFound || this.containsId(NECROMANCER) && deck.getCardById(NECROMANCER).relatedSuits.includes(newCard.suit);
+    } else if (this.containsId(CH_NECROMANCER) || newCard.id === CH_NECROMANCER) {
+      var targetFound = false;
+      for (const card of this.cards()) {
+        if (card.card.id !== CH_NECROMANCER && deck.getCardById(CH_NECROMANCER).relatedSuits.includes(card.card.suit)) {
+          targetFound = true;
+        }
+      }
+      return targetFound || this.containsId(CH_NECROMANCER) && deck.getCardById(CH_NECROMANCER).relatedSuits.includes(newCard.suit);
     } else {
       return false;
     }
@@ -195,7 +203,7 @@ class Hand {
   }
 
   limit() {
-    return 7 + (cursedHoardSuits ? 1: 0) + (this.containsId(NECROMANCER) ? 1: 0);
+    return 7 + (cursedHoardSuits ? 1: 0) + ((this.containsId(NECROMANCER) || this.containsId(CH_NECROMANCER))? 1: 0);
   }
 
   toString() {

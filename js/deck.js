@@ -411,7 +411,7 @@ var base = {
     suit: 'Wizard',
     name: 'Necromancer',
     strength: 3,
-    bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand as an eighth card.',
+    bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand.',
     penalty: null,
     relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast'],
     relatedCards: []
@@ -1083,9 +1083,10 @@ var cursedHoard = {
     id: 'CH20',
     suit: 'Wizard',
     name: 'Necromancer',
-    replaces: 'FR28', // TODO: Action ID
+    replaces: 'FR28',
     strength: 3,
-    bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> from the discard pile and add it to your hand as an eighth card.',
+    bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> from the discard pile and add it to your hand. <br /><span class="undead">Undead</span> may not be blanked.',
+    // TODO: Undead may not be blanked
     penalty: null,
     relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast', 'Undead'],
     relatedCards: []
@@ -1115,7 +1116,7 @@ var cursedHoard = {
     id: 'CH22',
     suit: 'Wild',
     name: 'Shapeshifter',
-    replaces: 'FR51', // TODO: Action ID
+    replaces: 'FR51',
     strength: 0,
     bonus: '<b>Shapeshifter</b> may duplicate the name and suit of any one <span class="artifact">Artifact</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="weapon">Weapon</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
     penalty: null,
@@ -1127,7 +1128,7 @@ var cursedHoard = {
     id: 'CH23',
     suit: 'Wild',
     name: 'Mirage',
-    replaces: 'FR52', // TODO: Action ID
+    replaces: 'FR52',
     strength: 0,
     bonus: '<b>Mirage</b> may duplicate the name and suit of any one <span class="army">Army</span>, <span class="building">Building</span>, <span class="land">Land</span>, <span class="weather">Weather</span>, <span class="flood">Flood</span> or <span class="flame">Flame</span> in the game. <br />Does not take the bonus, penalty, or base strength of the card duplicated.',
     penalty: null,
@@ -1343,4 +1344,8 @@ var SHAPESHIFTER = 'FR51';
 var MIRAGE = 'FR52';
 var DOPPELGANGER = 'FR53';
 
-var ACTION_ORDER = [DOPPELGANGER, MIRAGE, SHAPESHIFTER, BOOK_OF_CHANGES, ISLAND];
+var CH_NECROMANCER = 'CH20';
+var CH_SHAPESHIFTER = 'CH22';
+var CH_MIRAGE = 'CH22';
+
+var ACTION_ORDER = [DOPPELGANGER, MIRAGE, CH_MIRAGE, SHAPESHIFTER, CH_SHAPESHIFTER, BOOK_OF_CHANGES, ISLAND];
