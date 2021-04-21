@@ -8,6 +8,7 @@ var URLS = [
   '/fantasy-realms/favicon.ico',
   '/fantasy-realms/img/fantasy-realms.jpg',
   '/fantasy-realms/img/background.jpg',
+  '/fantasy-realms/img/cursed-hoard.png',
   '/fantasy-realms/img/wizkids.png',
   '/fantasy-realms/css/style.css',
   '/fantasy-realms/css/bootstrap.min.css',
