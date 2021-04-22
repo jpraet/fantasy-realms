@@ -1,3 +1,6 @@
+cursedHoardItems = false;
+cursedHoardSuits = false;
+
 $(document).ready(function() {
   assertScoreByName(['Blizzard', 'Great Flood', 'Elven Archers'], 35);
   assertScoreByName(['Smoke', 'Dwarvish Infantry', 'War Dirigible'], 50);
