@@ -912,7 +912,13 @@ var cursedHoard = {
     bonus: '+10 for each card that contains a Penalty that is not CLEARED.',
     penalty: null,
     bonusScore: function(hand) {
-      return 0; // TODO
+      var bonus = 0;
+      for (const card of hand.nonBlankedCards()) {
+        if (card.penalty && !card.penaltyCleared) {
+          bonus += 10;
+        }
+      }
+      return bonus;
     },
     relatedSuits: [],
     relatedCards: []
