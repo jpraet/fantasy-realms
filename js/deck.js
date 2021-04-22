@@ -100,7 +100,7 @@ var base = {
     penalty: '-3 for each <span class="army">Army</span> and <span class="flame">Flame</span>.',
     penaltyScore: function(hand) {
       var penaltyCards = hand.countSuit('Flame');
-      if (!(hand.containsId('FR25') || hand.containsId('FR41'))) { // these clear the word 'Army' from the penalty
+      if (!(hand.containsId('FR25') || hand.containsId('CH19') || hand.containsId('FR41'))) { // these clear the word 'Army' from the penalty
         penaltyCards += hand.countSuit('Army');
       }
       return -3 * penaltyCards;
@@ -116,7 +116,7 @@ var base = {
     bonus: null,
     penalty: 'BLANKS all <span class="army">Armies</span>, all <span class="land">Lands</span> except <span class="land">Mountain</span>, and all <span class="flame">Flames</span> except <span class="flame">Lightning</span>.',
     blanks: function(card, hand) {
-      return (card.suit === 'Army' && !(hand.containsId('FR25') || hand.containsId('FR41'))) || // these clear the word 'Army' from the penalty
+      return (card.suit === 'Army' && !(hand.containsId('FR25') || hand.containsId('CH19') || hand.containsId('FR41'))) || // these clear the word 'Army' from the penalty
         (card.suit === 'Land' && card.name !== 'Mountain') ||
         (card.suit === 'Flame' && card.name !== 'Lightning');
     },
@@ -172,7 +172,7 @@ var base = {
     penalty: 'BLANKS all <span class="flood">Floods</span>. <br />-5 for each <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="beast">Beast</span>, and <span class="flame">Flame</span>.',
     penaltyScore: function(hand) {
       var penaltyCards = hand.countSuit('Leader') + hand.countSuit('Beast') + hand.countSuit('Flame');
-      if (!hand.containsId('FR25')) { // clears the word 'Army' from the penalty
+      if (!(hand.containsId('FR25') || hand.containsId('CH19'))) { // clears the word 'Army' from the penalty
         penaltyCards += hand.countSuit('Army');
       }
       return -5 * penaltyCards;
@@ -337,7 +337,7 @@ var base = {
     bonus: null,
     penalty: '-2 for each other <span class="army">Army</span>.',
     penaltyScore: function(hand) {
-      if (!hand.containsId('FR25')) { // clears the word 'Army' from the penalty
+      if (!(hand.containsId('FR25') || hand.containsId('CH19'))) { // clears the word 'Army' from the penalty
         return -2 * hand.countSuitExcluding('Army', this.id);
       }
       return 0;
@@ -537,7 +537,7 @@ var base = {
     bonus: null,
     penalty: 'BLANKS all <span class="army">Armies</span>, <span class="leader">Leaders</span>, and other <span class="beast">Beasts</span>.',
     blanks: function(card, hand) {
-      return (card.suit === 'Army' && !hand.containsId('FR25')) || // clears the word 'Army' from the penalty
+      return (card.suit === 'Army' && !(hand.containsId('FR25') || hand.containsId('CH19'))) || // clears the word 'Army' from the penalty
         card.suit === 'Leader' ||
         (card.suit === 'Beast' && card.id !== this.id);
     },
@@ -1066,7 +1066,7 @@ var cursedHoard = {
     bonus: null,
     penalty: 'BLANKS all <span class="army">Armies</span>, all <span class="building">Buildings</span>, all <span class="land">Lands</span> except <span class="land">Mountain</span>, and all <span class="flame">Flames</span> except <span class="flame">Lightning</span>.',
     blanks: function(card, hand) {
-      return (card.suit === 'Army' && !(hand.containsId('FR25') || hand.containsId('FR41'))) || // these clear the word 'Army' from the penalty
+      return (card.suit === 'Army' && !(hand.containsId('FR25') || hand.containsId('CH19') || hand.containsId('FR41'))) || // these clear the word 'Army' from the penalty
         (card.suit === 'Building') ||
         (card.suit === 'Land' && card.name !== 'Mountain') ||
         (card.suit === 'Flame' && card.name !== 'Lightning');
@@ -1078,7 +1078,7 @@ var cursedHoard = {
     id: 'CH19',
     suit: 'Army',
     name: 'Rangers',
-    replaces: 'FR25', // TODO: Army penalty clearing is based on this ID
+    replaces: 'FR25',
     strength: 5,
     bonus: '+10 for each <span class="land">Land</span> and <span class="building">Building</span>. <br />CLEARS the word <span class="army">Army</span> from all Penalties.',
     penalty: null,
