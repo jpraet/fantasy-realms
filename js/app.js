@@ -80,7 +80,7 @@ function clearHand() {
 }
 
 function addToHand(id) {
-  if (actionId === SHAPESHIFTER || actionId === MIRAGE) {
+  if ([SHAPESHIFTER, CH_SHAPESHIFTER, MIRAGE, CH_MIRAGE].includes(actionId)) {
     click.play();
     magic.play();
     var duplicator = hand.getCardById(actionId);
@@ -196,7 +196,7 @@ function useCard(id) {
       allowProtoMethodsByDefault: true
     });
     $('#cards').html(html);
-  } else if (id === SHAPESHIFTER || id == MIRAGE) {
+  } else if ([SHAPESHIFTER, CH_SHAPESHIFTER, MIRAGE, CH_MIRAGE].includes(id)) {
     hand.undoCardAction(id);
     var duplicator = hand.getCardById(id);
     showCards(duplicator.card.relatedSuits);

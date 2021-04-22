@@ -287,7 +287,7 @@ class CardInHand {
           target.suit = suit;
           target.magic = true;
         }
-      } else if (this.id === SHAPESHIFTER || this.id === MIRAGE) {
+      } else if ([SHAPESHIFTER, CH_SHAPESHIFTER, MIRAGE, CH_MIRAGE].includes(this.id)) {
         var selectedCard = deck.getCardById(this.actionData[0]);
         this.name = selectedCard.name;
         this.suit = selectedCard.suit;
