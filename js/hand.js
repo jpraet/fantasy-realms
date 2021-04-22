@@ -163,8 +163,19 @@ class Hand {
   }
 
   _applyBlanking() {
-    for (const card of this.cards()) {
-      if (card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
+    // Demon blanking takes place before any other blanking
+    if (this.containsId(CH_DEMON)) {
+      const demon = this.getCardById(CH_DEMON);
+      if (!demon.penaltyCleared) {
+        for (const target of this.cards()) {
+          if (demon.blanks(target, this)) {
+            target.blanked = true;
+          }
+        }
+      }
+    }
+    for (const card of this.nonBlankedCards()) {
+      if (card.id !== CH_DEMON && card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
         for (const target of this.cards()) {
           if (card.blanks(target, this)) {
             target.blanked = true;
@@ -172,7 +183,7 @@ class Hand {
         }
       }
     }
-    for (const card of this.cards()) {
+    for (const card of this.nonBlankedCards()) {
       if (card.blankedIf !== undefined && !card.penaltyCleared) {
         if (card.blankedIf(this)) {
           card.blanked = true;

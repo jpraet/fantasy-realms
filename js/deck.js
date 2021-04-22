@@ -944,6 +944,9 @@ var cursedHoard = {
     strength: 45,
     bonus: null,
     penalty: 'For every non-<span class="outsider">Outsider</span> card: If that card is the only card you have in that suit, then that card is BLANKED. <br />This takes place before any other BLANKING.',
+    blanks: function(card, hand) {
+      return card.suit !== 'Outsider' && hand.countSuit(card.suit) === 1;
+    },
     relatedSuits: ['Outsider'],
     relatedCards: []
   },
@@ -1347,5 +1350,6 @@ var DOPPELGANGER = 'FR53';
 var CH_NECROMANCER = 'CH20';
 var CH_SHAPESHIFTER = 'CH22';
 var CH_MIRAGE = 'CH22';
+var CH_DEMON = 'CH10';
 
 var ACTION_ORDER = [DOPPELGANGER, MIRAGE, CH_MIRAGE, SHAPESHIFTER, CH_SHAPESHIFTER, BOOK_OF_CHANGES, ISLAND];
