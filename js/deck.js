@@ -414,7 +414,8 @@ var base = {
     bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, or <span class="beast">Beast</span> from the discard pile and add it to your hand.',
     penalty: null,
     relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast'],
-    relatedCards: []
+    relatedCards: [],
+    extraCard: true
   },
   'FR29': {
     id: 'FR29',
@@ -902,7 +903,8 @@ var cursedHoard = {
       return 0; // TODO
     },
     relatedSuits: [],
-    relatedCards: ['Leprechaun']
+    relatedCards: ['Leprechaun'],
+    extraCard: true
   },
   'CH07': {
     id: 'CH07',
@@ -942,7 +944,8 @@ var cursedHoard = {
     bonus: 'Draw the top card from the deck at the end of the game and add it to your hand. <br />(Resolves before <span class="outsider">Genie</span>.)',
     penalty: null,
     relatedSuits: [],
-    relatedCards: []
+    relatedCards: [],
+    extraCard: true
   },
   'CH10': {
     id: 'CH10',
@@ -1099,7 +1102,8 @@ var cursedHoard = {
     bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> from the discard pile and add it to your hand. <br /><span class="undead">Undead</span> may not be blanked.',
     penalty: null,
     relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast', 'Undead'],
-    relatedCards: []
+    relatedCards: [],
+    extraCard: true
   },
   'CH21': {
     id: 'CH21',
@@ -1285,7 +1289,8 @@ var cursedItems = {
     id: 'CH46',
     suit: 'Cursed Item',
     name: 'Portal',
-    points: -20 // TODO: +1 card
+    points: -20,
+    extraCard: true
   },
   'CH47': {
     id: 'CH47',

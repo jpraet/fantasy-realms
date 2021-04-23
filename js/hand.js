@@ -13,12 +13,12 @@ class Hand {
   }
 
   _canAdd(newCard) {
-    if (this.cardsInHand[newCard.id] !== undefined) {
+    if (this.cardsInHand[newCard.id] !== undefined || this.size() > this._defaultLimit()) {
       return false;
-    } else if (this.size() < (cursedHoardSuits ? 8: 7)) {
+    } else if (this.size() < this._limitWithoutNecromancer()) {
       return true;
-    } else if (this.size() > (cursedHoardSuits ? 8: 7)) {
-      return false;
+    } else if (![NECROMANCER, CH_NECROMANCER].includes(newCard.id) && newCard.extraCard) {
+      return true;
     } else if (this.containsId(NECROMANCER) || newCard.id === NECROMANCER) {
       var targetFound = false;
       for (const card of this.cards()) {
@@ -220,7 +220,29 @@ class Hand {
   }
 
   limit() {
-    return 7 + (cursedHoardSuits ? 1: 0) + ((this.containsId(NECROMANCER) || this.containsId(CH_NECROMANCER))? 1: 0);
+    var limit = this._defaultLimit();
+    for (const card of this.nonBlankedCards()) {
+      if (card.extraCard) {
+        limit++;
+        break;
+      }
+    }
+    return limit;
+  }
+
+  _defaultLimit() {
+    return 7 + (cursedHoardSuits ? 1: 0);
+  }
+
+  _limitWithoutNecromancer() {
+    var limit = this._defaultLimit();
+    for (const card of this.nonBlankedCards()) {
+      if (card.extraCard && ![NECROMANCER, CH_NECROMANCER].includes(card.id)) {
+        limit++;
+        break;
+      }
+    }
+    return limit;
   }
 
   toString() {
@@ -285,6 +307,7 @@ class CardInHand {
     this.action = card.action;
     this.relatedSuits = card.relatedSuits;
     this.relatedCards = card.relatedCards;
+    this.extraCard = card.extraCard;
 
     this.blanked = false;
     this.penaltyCleared = false;
