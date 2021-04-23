@@ -168,7 +168,7 @@ class Hand {
       const demon = this.getCardById(CH_DEMON);
       if (!demon.penaltyCleared) {
         for (const target of this.cards()) {
-          if (demon.blanks(target, this)) {
+          if (demon.blanks(target, this) && !this._cannotBeBlanked(target)) {
             target.blanked = true;
           }
         }
@@ -177,7 +177,7 @@ class Hand {
     for (const card of this.nonBlankedCards()) {
       if (card.id !== CH_DEMON && card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
         for (const target of this.cards()) {
-          if (card.blanks(target, this)) {
+          if (card.blanks(target, this) && !this._cannotBeBlanked(target)) {
             target.blanked = true;
           }
         }
@@ -185,7 +185,7 @@ class Hand {
     }
     for (const card of this.nonBlankedCards()) {
       if (card.blankedIf !== undefined && !card.penaltyCleared) {
-        if (card.blankedIf(this)) {
+        if (card.blankedIf(this) && !this._cannotBeBlanked(target)) {
           card.blanked = true;
         }
       }
@@ -203,6 +203,10 @@ class Hand {
       }
     }
     return false;
+  }
+
+  _cannotBeBlanked(card) {
+    return card.suit === 'Undead' && (this.containsId(CH_LICH) || this.containsId(CH_NECROMANCER));
   }
 
   clear() {

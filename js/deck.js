@@ -1003,7 +1003,7 @@ var cursedHoard = {
     bonus: '+10 for <span class="wizard">Necromancer</span> and each other <span class="undead">Undead</span>. <br /><span class="undead">Undead</span> may not be BLANKED.',
     penalty: null,
     bonusScore: function(hand) {
-      return 0; // TODO
+      return (hand.contains('Necromancer') ? 10 : 0) + 10 * hand.countSuitExcluding('Undead', this.id);
     },
     relatedSuits: ['Undead'],
     relatedCards: ['Necromancer']
@@ -1095,7 +1095,6 @@ var cursedHoard = {
     replaces: 'FR28',
     strength: 3,
     bonus: 'At the end of the game, you may take one <span class="army">Army</span>, <span class="leader">Leader</span>, <span class="wizard">Wizard</span>, <span class="beast">Beast</span>, or <span class="undead">Undead</span> from the discard pile and add it to your hand. <br /><span class="undead">Undead</span> may not be blanked.',
-    // TODO: Undead may not be blanked
     penalty: null,
     relatedSuits: ['Army', 'Leader', 'Wizard', 'Beast', 'Undead'],
     relatedCards: []
@@ -1357,5 +1356,6 @@ var CH_NECROMANCER = 'CH20';
 var CH_SHAPESHIFTER = 'CH22';
 var CH_MIRAGE = 'CH22';
 var CH_DEMON = 'CH10';
+var CH_LICH = 'CH14';
 
 var ACTION_ORDER = [DOPPELGANGER, MIRAGE, CH_MIRAGE, SHAPESHIFTER, CH_SHAPESHIFTER, BOOK_OF_CHANGES, ISLAND];
