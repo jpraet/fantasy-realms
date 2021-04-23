@@ -15,6 +15,7 @@ var URLS = [
   '/fantasy-realms/service-worker.js',
   '/fantasy-realms/js/app.js',
   '/fantasy-realms/js/deck.js',
+  '/fantasy-realms/js/discard.js',
   '/fantasy-realms/js/hand.js',
   '/fantasy-realms/js/bootstrap.bundle.min.js',
   '/fantasy-realms/js/handlebars.min-v4.7.7.js',

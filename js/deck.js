@@ -963,8 +963,9 @@ var cursedHoard = {
     strength: 10,
     bonus: '+5 for each <span class="land">Land</span>, <span class="flood">Flood</span>, <span class="flame">Flame</span>, <span class="weather">Weather</span>, and <span class="beast">Unicorn</span> in the discard area.',
     penalty: null,
-    bonusScore: function(hand) {
-      return 0; // TODO
+    bonusScore: function(hand, discard) {
+      return (5 * (discard.countSuit('Land') + discard.countSuit('Flood') + discard.countSuit('Flame') + discard.countSuit('Weather')))
+        + discard.contains('Unicorn') ? 5 : 0;
     },
     relatedSuits: ['Land', 'Flood', 'Flame', 'Weather'],
     relatedCards: ['Unicorn']
@@ -976,8 +977,8 @@ var cursedHoard = {
     strength: 8,
     bonus: '+4 for each <span class="wizard">Wizard</span>, <span class="leader">Leader</span>, <span class="army">Army</span>, <span class="beast">Beast</span>, and <span class="undead">Undead</span> in the discard area.',
     penalty: null,
-    bonusScore: function(hand) {
-      return 0; // TODO
+    bonusScore: function(hand, discard) {
+      return 4 * (discard.countSuit('Wizard') + discard.countSuit('Leader') + discard.countSuit('Army') + discard.countSuit('Beast') + discard.countSuit('Undead'));
     },
     relatedSuits: ['Wizard', 'Leader', 'Army', 'Beast', 'Undead'],
     relatedCards: []
@@ -989,8 +990,8 @@ var cursedHoard = {
     strength: 12,
     bonus: '+6 for each <span class="wizard">Wizard</span>, <span class="artifact">Artifact</span>, and <span class="outsider">Outsider</span> in the discard area.',
     penalty: null,
-    bonusScore: function(hand) {
-      return 0; // TODO
+    bonusScore: function(hand, discard) {
+      return 6 * (discard.countSuit('Wizard') + discard.countSuit('Artifact') + discard.countSuit('Outsider'));
     },
     relatedSuits: ['Wizard', 'Artifact', 'Outsider'],
     relatedCards: []
@@ -1015,8 +1016,8 @@ var cursedHoard = {
     strength: 14,
     bonus: '+7 for each <span class="weapon">Weapon</span> and <span class="army">Army</span> in the discard area.',
     penalty: null,
-    bonusScore: function(hand) {
-      return 0; // TODO
+    bonusScore: function(hand, discard) {
+      return 7 * (discard.countSuit('Weapon') + discard.countSuit('Army'));
     },
     relatedSuits: ['Weapon', 'Army'],
     relatedCards: []

@@ -134,7 +134,7 @@ function removeFromHand(id) {
 
 function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
-  var score = hand.score();
+  var score = hand.score(discard);
   var html = template(hand, {
     allowProtoMethodsByDefault: true
   });

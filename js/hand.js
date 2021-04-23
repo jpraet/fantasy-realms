@@ -123,14 +123,14 @@ class Hand {
     });
   }
 
-  score() {
+  score(discard) {
     var score = 0;
     this._resetHand();
     this._performCardActions();
     this._clearPenalties();
     this._applyBlanking();
     for (const card of this.nonBlankedCards()) {
-      score += card.score(this);
+      score += card.score(this, discard);
     }
     return score;
   }
@@ -335,17 +335,17 @@ class CardInHand {
     }
   }
 
-  score(hand) {
+  score(hand, discard) {
     if (this.blanked) {
       return 0;
     }
     if (this.bonusScore !== undefined) {
-      this.bonusPoints = this.bonusScore(hand);
+      this.bonusPoints = this.bonusScore(hand, discard);
     } else {
       this.bonusPoints = 0;
     }
     if (this.penaltyScore !== undefined && !this.penaltyCleared) {
-      this.penaltyPoints = this.penaltyScore(hand);
+      this.penaltyPoints = this.penaltyScore(hand, discard);
     } else {
       this.penaltyPoints = 0;
     }
