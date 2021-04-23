@@ -929,6 +929,7 @@ var cursedHoard = {
     name: 'Angel',
     strength: 16,
     bonus: 'Prevent one other card from being BLANKED. This card can never be BLANKED.',
+    action: 'Pick a target card from your hand.',
     penalty: null,
     relatedSuits: [],
     relatedCards: []
@@ -1358,5 +1359,6 @@ var CH_SHAPESHIFTER = 'CH22';
 var CH_MIRAGE = 'CH22';
 var CH_DEMON = 'CH10';
 var CH_LICH = 'CH14';
+var CH_ANGEL = 'CH08';
 
-var ACTION_ORDER = [DOPPELGANGER, MIRAGE, CH_MIRAGE, SHAPESHIFTER, CH_SHAPESHIFTER, BOOK_OF_CHANGES, ISLAND];
+var ACTION_ORDER = [DOPPELGANGER, MIRAGE, CH_MIRAGE, SHAPESHIFTER, CH_SHAPESHIFTER, BOOK_OF_CHANGES, ISLAND, CH_ANGEL];

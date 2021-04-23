@@ -206,7 +206,9 @@ class Hand {
   }
 
   _cannotBeBlanked(card) {
-    return card.suit === 'Undead' && (this.containsId(CH_LICH) || this.containsId(CH_NECROMANCER));
+    return (card.suit === 'Undead' && (this.containsId(CH_LICH) || this.containsId(CH_NECROMANCER)))
+      || card.id === CH_ANGEL
+      || (card.magic && this.containsId(CH_ANGEL) && this.getCardById(CH_ANGEL).actionData[0] === card.id);
   }
 
   clear() {
@@ -331,6 +333,9 @@ class CardInHand {
           }
           selectedCard.magic = true;
         }
+      } else if (this.id === CH_ANGEL) {
+        var selectedCard = hand.getCardById(this.actionData[0]);
+        selectedCard.magic = true;
       }
     }
   }

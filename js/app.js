@@ -121,6 +121,13 @@ function selectFromHand(id) {
       island.actionData = [id];
       updateHandView();
     }
+  } else if (actionId === CH_ANGEL) {
+    actionId = NONE;
+    click.play();
+    magic.play();
+    var angel = hand.getCardById(CH_ANGEL);
+    angel.actionData = [id];
+    updateHandView();  
   } else {
     removeFromHand(id);
   }
@@ -200,9 +207,7 @@ function useCard(id) {
     hand.undoCardAction(id);
     var duplicator = hand.getCardById(id);
     showCards(duplicator.card.relatedSuits);
-  } else if (id === DOPPELGANGER) {
-    hand.undoCardAction(id);
-  } else if (id === ISLAND) {
+  } else if ([DOPPELGANGER, ISLAND, CH_ANGEL].includes(id)) {
     hand.undoCardAction(id);
   }
   updateHandView();
