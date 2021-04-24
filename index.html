@@ -44,7 +44,7 @@
       <div id="{{@key}}" class="collapse" role="tabpanel" data-parent="#cards" aria-labelledby="{{@key}}Header">
         <ul class="list-group">
           {{#each this}}
-          <li class="list-group-item {{suit}}" onclick="addToHand('{{id}}')"><span class="badge badge-secondary">{{strength}}</span> {{name}}</li>
+          <li class="list-group-item {{suit}}" onclick="addToView('{{id}}')"><span class="badge badge-secondary">{{strength}}</span> {{name}}</li>
           {{/each}}
         </ul>
       </div>
@@ -101,7 +101,7 @@
         {{/if}}
         {{#if card.referencesPlayerCount}}
         <li class="list-group-item bonus">
-          <span id="card-action-text-CH06">
+          <span id="card-action-text-{{id}}">
             Player count ({{../playerCount}}):
             {{#each ../playerCounts}}
               <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); setPlayerCount({{this}});">{{this}}</button>
@@ -109,6 +109,27 @@
           </span>
         </li>
         {{/if}}
+        {{#if card.referencesDiscardArea}}
+        <li class="list-group-item bonus">
+          <span id="card-action-text-{{id}}" />
+          <button type="button" onclick="event.stopPropagation(); switchToDiscardArea('{{id}}');" class="btn btn-sm btn-primary float-right">Discard Area</button>
+        </li>
+        {{/if}}
+      </ul>
+    </div>
+    {{/each}}
+  </script>
+  <script id="discard-template" type="text/x-handlebars-template">
+    <div id="discard-header">
+      <span>Discard Area</span>
+      <button type="button" onclick="event.stopPropagation(); switchToHand();" class="btn btn-sm btn-primary float-right">Back to Hand</button>
+    </div>
+    {{#each discard}}
+    <div id="discard-{{id}}" class="card" onclick="removeFromDiscard('{{id}}')">
+      <ul class="list-group">
+        <li class="list-group-item {{suit}}">
+          {{name}}
+        </li>
       </ul>
     </div>
     {{/each}}
@@ -132,7 +153,7 @@
           <span id="cardCount">0</span><span class="separator">/</span><span id="cardLimit">7</span>
           <span id="points">000</span>
         </div>
-        <button id="clear" type="button" class="btn btn-success" onclick="clearHand()">Reset</button>
+        <button id="clear" type="button" class="btn btn-success" onclick="reset()">Reset</button>
       </div>
     </header>
     <main>
@@ -141,6 +162,8 @@
       </div>
       <div id="right">
         <div id="hand">
+        </div>
+        <div id="discard">
         </div>
       </div>
     </main>

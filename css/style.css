@@ -299,20 +299,28 @@ span.undead {
   background-color: #ccc0a8;
 }
 
-#cards .card-header, #hand .card-header {
+#cards .card-header, #hand .card-header, #discard .card-header {
   padding: 0.4rem;
   font-weight: bold;
   background-color: #ccc0a8;
   cursor: pointer;
 }
 
-#hand {
+#hand, #discard {
   background-color: #e9e3c6;
   padding: 0.4rem;
   font-weight: bold;
 }
 
-#cards li, #hand li {
+#discard {
+  display: none;
+}
+
+#discard-header {
+  height: 2.5rem;
+}
+
+#cards li, #hand li, #discard li {
   font-weight: bold;
   padding: 0.4rem;
   cursor: pointer;
@@ -339,7 +347,7 @@ span.undead {
   filter: grayscale(100%);
 }
 
-#hand div.card {
+#hand div.card, #discard div.card {
   margin-bottom: 0.4rem;
   cursor: pointer;
 }

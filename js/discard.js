@@ -13,7 +13,7 @@ class Discard {
   }
 
   _canAdd(newCard) {
-    if (this.discardedCards[newCard.id] !== undefined) {
+    if (this.discardedCards[newCard.id] !== undefined || hand.containsId(newCard.id)) {
       return false;
     } else if (this.size() > 12) {
       return false;
@@ -63,7 +63,7 @@ class Discard {
   }
 
   cards() {
-    return Object.values(this.cards);
+    return Object.values(this.discardedCards);
   }
 
   cardNames() {
@@ -73,7 +73,7 @@ class Discard {
   }
 
   clear() {
-    this.cards = {};
+    this.discardedCards = {};
   }
 
   size() {
@@ -89,7 +89,7 @@ class Discard {
     this.loadFromArray(cardIds);
   }
 
-  loadFromArrays(cardIds) {
+  loadFromArray(cardIds) {
     this.clear();
     for (const cardId of cardIds) {
       this.addCard(deck.getCardById(cardId));

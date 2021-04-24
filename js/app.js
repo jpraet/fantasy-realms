@@ -2,6 +2,7 @@ $(document).ready(function() {
   configureSelectedPlayerCount();
   configureSelectedExpansions();
   showCards();
+  getDiscardFromQueryString();
   getHandFromQueryString();
   $('#ch_items').change(function() {
     toggleCursedHoardItems();
@@ -21,6 +22,7 @@ var bookOfChangesSelectedSuit = undefined;
 var cursedHoardItems = false;
 var cursedHoardSuits = false;
 var playerCount = 2;
+var inputDiscardArea = false;
 
 function configureSelectedExpansions() {
   if (window.location.search) {
@@ -69,7 +71,7 @@ function configureSelectedPlayerCount() {
 function toggleCursedHoardItems() {
   cursedHoardItems = !cursedHoardItems;
   localStorage.setItem('ch_items', cursedHoardSuits);
-  clearHand();
+  reset();
   showCards();
 }
 
@@ -92,29 +94,43 @@ function setPlayerCount(count) {
   updateHandView();
 }
 
-function clearHand() {
+function reset() {
   clear.play();
+  discard.clear();
   hand.clear();
   showCards();
   updateHandView();
   actionId = NONE;
   bookOfChangesSelectedCard = NONE;
   bookOfChangesSelectedSuit = undefined;
+  inputDiscardArea = false;
+  $("#discard").hide();
+  $("#hand").show();
 }
 
-function addToHand(id) {
-  if ([SHAPESHIFTER, CH_SHAPESHIFTER, MIRAGE, CH_MIRAGE].includes(actionId)) {
-    click.play();
-    magic.play();
-    var duplicator = hand.getCardById(actionId);
-    duplicator.actionData = [id];
-    showCards();
-    updateHandView();
-    actionId = NONE;
-  } else if (hand.addCard(deck.getCardById(id))) {
-    click.play();
-    updateHandView();
-    actionId = NONE;
+function addToView(id) {
+  if (inputDiscardArea) {
+    if (discard.addCard(deck.getCardById(id))) {
+      click.play();
+      updateDiscardAreaView();
+    }
+  } else {
+    if ([SHAPESHIFTER, CH_SHAPESHIFTER, MIRAGE, CH_MIRAGE].includes(actionId)) {
+      click.play();
+      magic.play();
+      var duplicator = hand.getCardById(actionId);
+      duplicator.actionData = [id];
+      showCards();
+      updateHandView();
+      actionId = NONE;
+    } else if (hand.addCard(deck.getCardById(id))) {
+      click.play();
+      updateHandView();
+      actionId = NONE;
+      if (discard.containsId(id)) {
+        discard.deleteCardById(id);
+      }
+    }
   }
 }
 
@@ -162,6 +178,12 @@ function removeFromHand(id) {
   updateHandView();
 }
 
+function removeFromDiscard(id) {
+  swoosh.play();
+  discard.deleteCardById(id);
+  updateDiscardAreaView();
+}
+
 function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
   var score = hand.score(discard);
@@ -183,6 +205,23 @@ function updateHandView() {
   updateUrl();
 }
 
+function updateDiscardAreaView() {
+  var template = Handlebars.compile($("#discard-template").html());
+  var score = hand.score(discard);
+  var html = template({
+    discard: discard.cards()
+  }, {
+    allowProtoMethodsByDefault: true
+  });
+  $('#discard').html(html);
+  if (score >= 0) {
+    $('#points').text(('000' + score).slice(-3));
+  } else {
+    $('#points').text('-' + ('000' + Math.abs(score)).slice(-3));
+  }
+  updateUrl();
+}
+
 function updateUrl() {
   var params = [];
   if (cursedHoardItems || cursedHoardSuits) {
@@ -198,6 +237,9 @@ function updateUrl() {
   }
   if (hand.size() > 0) {
     params.push('hand=' + hand.toString());
+  }
+  if (discard.size() > 0) {
+    params.push('discard=' + discard.toString());
   }
   if (params.length > 0) {
     history.replaceState(null, null, "index.html?" + params.join('&'));
@@ -215,6 +257,16 @@ function getHandFromQueryString() {
     }
   }
   updateHandView();
+}
+
+function getDiscardFromQueryString() {
+  var params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  for (var i = 0; i < params.length; i++) {
+    var param = params[i].split('=');
+    if (param[0] === 'discard') {
+      discard.loadFromString(param[1]);
+    }
+  }
 }
 
 function useCard(id) {
@@ -257,6 +309,24 @@ function selectSuit(suit) {
   click.play();
   bookOfChangesSelectedSuit = suit;
   performBookOfChanges();
+}
+
+function switchToDiscardArea() {
+  click.play();
+  inputDiscardArea = true;
+  updateDiscardAreaView();
+  showCards();
+  $("#hand").hide();
+  $("#discard").show();
+}
+
+function switchToHand() {
+  click.play();
+  inputDiscardArea = false;
+  updateHandView();
+  showCards();
+  $("#discard").hide();
+  $("#hand").show();
 }
 
 function showCards(suits) {

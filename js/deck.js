@@ -970,10 +970,11 @@ var cursedHoard = {
     penalty: null,
     bonusScore: function(hand, discard) {
       return (5 * (discard.countSuit('Land') + discard.countSuit('Flood') + discard.countSuit('Flame') + discard.countSuit('Weather')))
-        + discard.contains('Unicorn') ? 5 : 0;
+        + (discard.contains('Unicorn') ? 5 : 0);
     },
     relatedSuits: ['Land', 'Flood', 'Flame', 'Weather'],
-    relatedCards: ['Unicorn']
+    relatedCards: ['Unicorn'],
+    referencesDiscardArea: true
   },
   'CH12': {
     id: 'CH12',
@@ -986,7 +987,8 @@ var cursedHoard = {
       return 4 * (discard.countSuit('Wizard') + discard.countSuit('Leader') + discard.countSuit('Army') + discard.countSuit('Beast') + discard.countSuit('Undead'));
     },
     relatedSuits: ['Wizard', 'Leader', 'Army', 'Beast', 'Undead'],
-    relatedCards: []
+    relatedCards: [],
+    referencesDiscardArea: true
   },
   'CH13': {
     id: 'CH13',
@@ -999,7 +1001,8 @@ var cursedHoard = {
       return 6 * (discard.countSuit('Wizard') + discard.countSuit('Artifact') + discard.countSuit('Outsider'));
     },
     relatedSuits: ['Wizard', 'Artifact', 'Outsider'],
-    relatedCards: []
+    relatedCards: [],
+    referencesDiscardArea: true
   },
   'CH14': {
     id: 'CH14',
@@ -1025,7 +1028,8 @@ var cursedHoard = {
       return 7 * (discard.countSuit('Weapon') + discard.countSuit('Army'));
     },
     relatedSuits: ['Weapon', 'Army'],
-    relatedCards: []
+    relatedCards: [],
+    referencesDiscardArea: true
   },
   'CH16': {
     id: 'CH16',

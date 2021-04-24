@@ -309,6 +309,7 @@ class CardInHand {
     this.relatedCards = card.relatedCards;
     this.extraCard = card.extraCard;
     this.referencesPlayerCount = card.referencesPlayerCount;
+    this.referencesDiscardArea = card.referencesDiscardArea;
 
     this.blanked = false;
     this.penaltyCleared = false;
