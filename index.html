@@ -38,10 +38,10 @@
   <script id="cards-template" type="text/x-handlebars-template">
     {{#each suits}}
     <div class="card">
-      <div class="card-header" role="tab" id="{{@key}}Header" data-toggle="collapse" data-parent="#cards" href="#{{@key}}" aria-expanded="false" aria-controls="{{@key}}">
+      <div class="card-header" role="tab" id="{{@key}}Header" data-toggle="collapse" data-target="#{{@key}}" data-parent="#cards" href="#{{@key}}" aria-expanded="false" aria-controls="{{@key}}">
         <a>{{@key}}</a>
       </div>
-      <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
+      <div id="{{@key}}" class="collapse" role="tabpanel" data-parent="#cards" aria-labelledby="{{@key}}Header">
         <ul class="list-group">
           {{#each this}}
           <li class="list-group-item {{suit}}" onclick="addToHand('{{id}}')"><span class="badge badge-secondary">{{strength}}</span> {{name}}</li>
