@@ -1345,11 +1345,19 @@ var deck = {
       ordered[key] = cardsBySuit[key];
     });
     return ordered;
+  },
+  suits: function() {
+    var suits = {};
+    for (const id in this.cards) {
+      const card = this.cards[id];
+      suits[card.suit] = card.suit;
+    }
+    return Object.keys(suits).sort();
   }
 };
 
 function allSuits() {
-  return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild'].sort();
+    return ['Land', 'Flood', 'Weather', 'Flame', 'Army', 'Wizard', 'Leader', 'Beast', 'Weapon', 'Artifact', 'Wild', 'Building', 'Outsider', 'Undead'].sort();
 }
 
 var NONE = -1;

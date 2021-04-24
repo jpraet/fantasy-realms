@@ -226,7 +226,7 @@ function useCard(id) {
     hand.undoCardAction(id);
     var template = Handlebars.compile($("#suit-selection-template").html());
     var html = template({
-      suits: allSuits()
+      suits: deck.suits()
     }, {
       allowProtoMethodsByDefault: true
     });
