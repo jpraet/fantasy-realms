@@ -61,7 +61,7 @@
     {{/each}}
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
-    {{#each cardsInHand}}
+    {{#each hand.cardsInHand}}
     <div id="card-{{id}}" class="card" onclick="selectFromHand('{{id}}')">
       <ul class="list-group">
         <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}">
@@ -97,6 +97,16 @@
         <li class="list-group-item bonus">
             <span id="card-action-text-{{id}}" />
             <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard('{{id}}');">Use</button>
+        </li>
+        {{/if}}
+        {{#if card.referencesPlayerCount}}
+        <li class="list-group-item bonus">
+          <span id="card-action-text-CH06">
+            Player count ({{../playerCount}}):
+            {{#each ../playerCounts}}
+              <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); setPlayerCount({{this}});">{{this}}</button>
+            {{/each}}
+          </span>
         </li>
         {{/if}}
       </ul>

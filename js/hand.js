@@ -308,6 +308,7 @@ class CardInHand {
     this.relatedSuits = card.relatedSuits;
     this.relatedCards = card.relatedCards;
     this.extraCard = card.extraCard;
+    this.referencesPlayerCount = card.referencesPlayerCount;
 
     this.blanked = false;
     this.penaltyCleared = false;

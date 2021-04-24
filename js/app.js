@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  configureSelectedPlayerCount();
   configureSelectedExpansions();
   showCards();
   getHandFromQueryString();
@@ -19,6 +20,7 @@ var bookOfChangesSelectedCard = NONE;
 var bookOfChangesSelectedSuit = undefined;
 var cursedHoardItems = false;
 var cursedHoardSuits = false;
+var playerCount = 2;
 
 function configureSelectedExpansions() {
   if (window.location.search) {
@@ -50,6 +52,20 @@ function configureSelectedExpansions() {
   }
 }
 
+function configureSelectedPlayerCount() {
+  if (window.location.search) {
+    var params = window.location.search.substring(1).split('&');
+    for (var i = 0; i < params.length; i++) {
+      var param = params[i].split('=');
+      if (param[0] === 'playerCount') {
+        playerCount = param[1];
+      }
+    }
+  } else if (localStorage.getItem('playerCount')) {
+      playerCount = localStorage.getItem('playerCount');
+  }
+}
+
 function toggleCursedHoardItems() {
   cursedHoardItems = !cursedHoardItems;
   localStorage.setItem('ch_items', cursedHoardSuits);
@@ -67,6 +83,13 @@ function toggleCursedHoardSuits() {
   }
   clearHand();
   showCards();
+}
+
+function setPlayerCount(count) {
+  click.play();
+  playerCount = count;
+  localStorage.setItem('playerCount', playerCount);
+  updateHandView();
 }
 
 function clearHand() {
@@ -142,7 +165,11 @@ function removeFromHand(id) {
 function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
   var score = hand.score(discard);
-  var html = template(hand, {
+  var html = template({
+    hand: hand,
+    playerCount: playerCount,
+    playerCounts: [2, 3, 4, 5, 6]
+  }, {
     allowProtoMethodsByDefault: true
   });
   $('#hand').html(html);
@@ -167,6 +194,7 @@ function updateUrl() {
       expansions.push('ch_suits')
     }
     params.push('expansions=' + expansions.join(','));
+    params.push('playerCount=' + playerCount);
   }
   if (hand.size() > 0) {
     params.push('hand=' + hand.toString());

@@ -900,11 +900,12 @@ var cursedHoard = {
     bonus: '+10 per other player. <br />At the end of the game, look through the draw deck and put one card in your hand. <br />(Resolves after <span class="outsider">Leprechaun</span>.)',
     penalty: null,
     bonusScore: function(hand) {
-      return 0; // TODO
+      return 10 * playerCount;
     },
     relatedSuits: [],
     relatedCards: ['Leprechaun'],
-    extraCard: true
+    extraCard: true,
+    referencesPlayerCount: true
   },
   'CH07': {
     id: 'CH07',
