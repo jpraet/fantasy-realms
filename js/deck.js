@@ -1403,7 +1403,7 @@ var deck = {
       }
     }
     var ordered = {};
-    if (Object.keys(cursedItems).length > 0 && suits === undefined) {
+    if (Object.keys(this.cursedItems).length > 0 && suits === undefined) {
       ordered['Cursed Item'] = [];
       for (const id in this.cursedItems) {
         ordered['Cursed Item'].push(this.cursedItems[id]);
