@@ -1,33 +1,66 @@
-html {
-  background-color: #ccc0a8;
+:root {
+  --land-color: #3b1d13;
+  --flood-color:  #41437c;
+  --weather-color: #a6bced;
+  --flame-color: #b44347;
+  --army-color: #312b2f;
+  --wizard-color: #e056a3;
+  --leader-color: #7b48a4;
+  --beast-color: #60a35c;
+  --weapon-color: #878586;
+  --artifact-color: #d24e37;
+  --wild-color: #c6c2c3;
+  --building-color: #463153;
+  --outsider-color: #fba934;
+  --undead-color: #004e4a;
+  --cursed-item-color: #900c3f; 
+  --header-border: 6px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background-color: #ccc0a8;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+  background-image: url('../img/background.jpg');
 }
 
 #container {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   width: 100%;
   max-width: 60rem;
-  height: 100%;
 }
 
-#header {
+header {
   position: fixed;
+  z-index: 1;
   background-color: #6f292b;
   height: 4rem;
   padding: 0.5rem;
   width: 100%;
   max-width: 60rem;
-  z-index: 1;
   vertical-align: middle;
 }
 
-#main {
+header label {
+  color: #ccc0a8;
+}
+
+main {
   padding-top: 4rem;
   min-height: 100%;
   display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 
 #header-right {
@@ -66,118 +99,241 @@ span.separator {
   width: calc(100% - 10rem);
 }
 
+footer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #e9e3c6;
+}
+
+#wizkids-logo {
+  width: 10rem;
+  background-color: #ccc0a8;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+#legal-text {
+  width: calc(100% - 10rem);
+  font-size: small;
+  text-align: center;
+  color: #312b2f;
+  margin-top: auto;
+  margin-bottom: 5px;
+}
+
 li.list-group-item {
   color: white;
   display: block;
   font-size: 0.9rem;
 }
 
-li.Land {
-  background-color: #3b1d13;
+li.land {
+  background-color: var(--land-color);
 }
 
 span.land {
-  color: #3b1d13;
+  color: var(--land-color);
 }
 
-li.Flood {
-  background-color: #41437c;
+#land-header {
+  border-right: solid var(--land-color) var(--header-border);
+}
+
+li.flood {
+  background-color: var(--flood-color);
 }
 
 span.flood {
-  color: #41437c;
+  color: var(--flood-color);
 }
 
-li.Weather {
-  background-color: #a6bced;
+#flood-header {
+  border-right: solid var(--flood-color) var(--header-border);
+}
+
+li.weather {
+  background-color: var(--weather-color);
 }
 
 span.weather {
-  color: #a6bced;
+  color: var(--weather-color);
 }
 
-li.Flame {
-  background-color: #b44347;
+#weather-header {
+  border-right: solid var(--weather-color) var(--header-border);
+}
+
+li.flame {
+  background-color: var(--flame-color);
 }
 
 span.flame {
-  color: #b44347;
+  color: var(--flame-color);
 }
 
-li.Army {
-  background-color: #312b2f;
+#flame-header {
+  border-right: solid var(--flame-color) var(--header-border);
+}
+
+li.army {
+  background-color: var(--army-color);
 }
 
 span.army {
-  color: #312b2f;
+  color: var(--army-color);
 }
 
-li.Wizard {
-  background-color: #e056a3;
+#army-header {
+  border-right: solid var(--army-color) var(--header-border);
+}
+
+li.wizard {
+  background-color: var(--wizard-color);
 }
 
 span.wizard {
-  color: #e056a3;
+  color: var(--wizard-color);
 }
 
-li.Leader {
-  background-color: #7b48a4;
+#wizard-header {
+  border-right: solid var(--wizard-color) var(--header-border);
+}
+
+li.leader {
+  background-color: var(--leader-color);
 }
 
 span.leader {
-  color: #7b48a4;
+  color: var(--leader-color);
 }
 
-li.Beast {
-  background-color: #60a35c;
+#leader-header {
+  border-right: solid var(--leader-color) var(--header-border);
+}
+
+li.beast {
+  background-color: var(--beast-color);
 }
 
 span.beast {
-  color: #60a35c;
+  color: var(--beast-color);
 }
 
-li.Weapon {
-  background-color: #878586;
+#beast-header {
+  border-right: solid var(--beast-color) var(--header-border);
+}
+
+li.weapon {
+  background-color: var(--weapon-color);
 }
 
 span.weapon {
-  color: #878586;
+  color: var(--weapon-color);
 }
 
-li.Artifact {
-  background-color: #d24e37;
+#weapon-header {
+  border-right: solid var(--weapon-color) var(--header-border);
+}
+
+li.artifact {
+  background-color: var(--artifact-color);
 }
 
 span.artifact {
-  color: #d24e37;
+  color: var(--artifact-color);
 }
 
-li.Wild {
-  background-color: #c6c2c3;
+#artifact-header {
+  border-right: solid var(--artifact-color) var(--header-border);
+}
+
+li.wild {
+  background-color: var(--wild-color);
 }
 
 span.wild {
-  color: #c6c2c3;
+  color: var(--wild-color);
+}
+
+#wild-header {
+  border-right: solid var(--wild-color) var(--header-border);
+}
+
+li.building {
+  background-color: var(--building-color);
+}
+
+span.building {
+  color: var(--building-color);
+}
+
+#building-header {
+  border-right: solid var(--building-color) var(--header-border);
+}
+
+li.outsider {
+  background-color: var(--outsider-color);
+}
+
+span.outsider {
+  color: var(--outsider-color);
+}
+
+#outsider-header {
+  border-right: solid var(--outsider-color) var(--header-border);
+}
+
+li.undead {
+  background-color: var(--undead-color);
+}
+
+span.undead {
+  color: var(--undead-color);
+}
+
+#undead-header {
+  border-right: solid var(--undead-color) var(--header-border);
+}
+
+li.cursed-item {
+  background-color: var(--cursed-item-color);
+}
+
+span.cursed-item {
+  color: var(--cursed-item-color);
+}
+
+#cursed-item-header {
+  border-right: solid var(--cursed-item-color) var(--header-border);
 }
 
 #cards {
   background-color: #ccc0a8;
 }
 
-#cards .card-header, #hand .card-header {
+#cards .card-header, #hand .card-header, #discard .card-header {
   padding: 0.4rem;
   font-weight: bold;
   background-color: #ccc0a8;
   cursor: pointer;
 }
 
-#hand {
+#hand, #discard {
   background-color: #e9e3c6;
   padding: 0.4rem;
   font-weight: bold;
 }
 
-#cards li, #hand li {
+#discard {
+  display: none;
+}
+
+#discard-header {
+  height: 2.5rem;
+}
+
+#cards li, #hand li, #discard li {
   font-weight: bold;
   padding: 0.4rem;
   cursor: pointer;
@@ -204,7 +360,7 @@ span.wild {
   filter: grayscale(100%);
 }
 
-#hand div.card {
+#hand div.card, #discard div.card {
   margin-bottom: 0.4rem;
   cursor: pointer;
 }

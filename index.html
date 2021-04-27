@@ -1,4 +1,4 @@
-<html lang="en" manifest="/fantasy-realms/fantasy-realms.appcache">
+<html lang="en" manifest="fantasy-realms.appcache">
 
 <head>
   <meta charset="utf-8">
@@ -25,10 +25,11 @@
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/handlebars-v4.0.10.js"></script>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/handlebars.min-v4.7.7.js"></script>
   <script src="js/deck.js"></script>
+  <script src="js/discard.js"></script>
   <script src="js/hand.js"></script>
   <script src="js/app.js"></script>
 </head>
@@ -37,13 +38,13 @@
   <script id="cards-template" type="text/x-handlebars-template">
     {{#each suits}}
     <div class="card">
-      <div class="card-header" role="tab" id="{{@key}}Header" data-toggle="collapse" data-parent="#cards" href="#{{@key}}" aria-expanded="false" aria-controls="{{@key}}">
+      <div class="card-header" role="tab" id="{{normalize @key}}-header" data-toggle="collapse" data-target="#{{normalize @key}}" data-parent="#cards" href="#{{normalize @key}}" aria-expanded="false" aria-controls="{{normalize @key}}">
         <a>{{@key}}</a>
       </div>
-      <div id="{{@key}}" class="collapse" role="tabpanel" aria-labelledby="{{@key}}Header">
+      <div id="{{normalize @key}}" class="collapse" role="tabpanel" data-parent="#cards" aria-labelledby="{{normalize @key}}-header">
         <ul class="list-group">
           {{#each this}}
-          <li class="list-group-item {{suit}}" onclick="addToHand({{id}})"><span class="badge badge-default">{{strength}}</span> {{name}}</li>
+          <li class="list-group-item {{normalize suit}}" onclick="addToView('{{id}}')"><span class="badge badge-secondary">{{strength}}</span> {{name}}</li>
           {{/each}}
         </ul>
       </div>
@@ -60,11 +61,11 @@
     {{/each}}
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
-    {{#each cardsInHand}}
-    <div id="card-{{id}}" class="card" onclick="selectFromHand({{id}})">
+    {{#each hand.cardsInHand}}
+    <div id="card-{{id}}" class="card" onclick="selectFromHand('{{id}}')">
       <ul class="list-group">
-        <li class="list-group-item {{suit}} {{#if blanked}}blanked{{/if}}">
-          <span class="badge badge-default">
+        <li class="list-group-item {{normalize suit}} {{#if blanked}}blanked{{/if}}">
+          <span class="badge badge-secondary">
             {{#if blanked}}
               BLANKED
             {{else}}
@@ -95,39 +96,91 @@
         {{#if card.action}}
         <li class="list-group-item bonus">
             <span id="card-action-text-{{id}}" />
-            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard({{id}});">Use</button>
+            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard('{{id}}');">Use</button>
+        </li>
+        {{/if}}
+        {{#if card.referencesPlayerCount}}
+        <li class="list-group-item bonus">
+          <span id="card-action-text-{{id}}">
+            Player count ({{../playerCount}}):
+            {{#each ../playerCounts}}
+              <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); setPlayerCount({{this}});">{{this}}</button>
+            {{/each}}
+          </span>
+        </li>
+        {{/if}}
+        {{#if card.referencesDiscardArea}}
+        <li class="list-group-item bonus">
+          <span id="card-action-text-{{id}}" />
+          <button type="button" onclick="event.stopPropagation(); switchToDiscardArea('{{id}}');" class="btn btn-sm btn-primary float-right">Discard Area</button>
         </li>
         {{/if}}
       </ul>
     </div>
     {{/each}}
   </script>
+  <script id="discard-template" type="text/x-handlebars-template">
+    <div id="discard-header">
+      <span>Discard Area</span>
+      <button type="button" onclick="event.stopPropagation(); switchToHand();" class="btn btn-sm btn-primary float-right">Back to Hand</button>
+    </div>
+    {{#each discard}}
+    <div id="discard-{{id}}" class="card" onclick="removeFromDiscard('{{id}}')">
+      <ul class="list-group">
+        <li class="list-group-item {{normalize suit}}">
+          {{name}}
+        </li>
+      </ul>
+    </div>
+    {{/each}}
+  </script>
   <div id="container">
-    <div id="header">
-      <img src="img/fantasy-realms.jpg" style="height: 3rem;"></img>
+    <header>
+      <a href="https://wizkids.com/fantasy-realms/"><img src="img/fantasy-realms.jpg" style="height: 3rem;"></img></a>
+      <img src="img/cursed-hoard.png" style="margin-left: 2.5rem; height: 3rem;"></img>
+      <div style="display: inline-block;">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="ch_items">
+        <label class="custom-control-label" for="ch_items">Cursed Items</label>
+      </div>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="ch_suits">
+        <label class="custom-control-label" for="ch_suits">Buildings/Outsiders/Undead</label>
+      </div>
+      </div>
       <div id="header-right">
         <div id="hand-info">
           <span id="cardCount">0</span><span class="separator">/</span><span id="cardLimit">7</span>
           <span id="points">000</span>
         </div>
-        <button id="clear" type="button" class="btn btn-success" onclick="clearHand()">Reset</button>
+        <button id="clear" type="button" class="btn btn-success" onclick="reset()">Reset</button>
       </div>
-    </div>
-    <div id="main">
+    </header>
+    <main>
       <div id="left">
         <div id="cards" class="panel" role="tablist" aria-multiselectable="true"></div>
       </div>
       <div id="right">
         <div id="hand">
         </div>
+        <div id="discard">
+        </div>
       </div>
-    </div>
+    </main>
+    <footer>
+      <div id="wizkids-logo">
+        <a href="https://wizkids.com/"><img src="img/wizkids.png" style="height: 1.75rem;"></img></a>
+      </div>
+      <div id="legal-text">
+        ©2021 WizKids/NECA LLC. WizKids and related marks and logos are trademarks of WizKids. All rights reserved.
+      </div>
+    </footer>
   </div>
 </body>
 
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/fantasy-realms/service-worker.js', {scope: '/fantasy-realms/'});
+    navigator.serviceWorker.register('/service-worker.js'});
   }
 </script>
 

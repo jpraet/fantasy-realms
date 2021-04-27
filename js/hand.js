@@ -13,12 +13,12 @@ class Hand {
   }
 
   _canAdd(newCard) {
-    if (this.cardsInHand[newCard.id] !== undefined) {
+    if (this.cardsInHand[newCard.id] !== undefined || this.size() > this._defaultLimit()) {
       return false;
-    } else if (this.size() < 7) {
+    } else if (this.size() < this._limitWithoutNecromancer()) {
       return true;
-    } else if (this.size() > 7) {
-      return false;
+    } else if (![NECROMANCER, CH_NECROMANCER].includes(newCard.id) && newCard.extraCard) {
+      return true;
     } else if (this.containsId(NECROMANCER) || newCard.id === NECROMANCER) {
       var targetFound = false;
       for (const card of this.cards()) {
@@ -27,17 +27,32 @@ class Hand {
         }
       }
       return targetFound || this.containsId(NECROMANCER) && deck.getCardById(NECROMANCER).relatedSuits.includes(newCard.suit);
+    } else if (this.containsId(CH_NECROMANCER) || newCard.id === CH_NECROMANCER) {
+      var targetFound = false;
+      for (const card of this.cards()) {
+        if (card.card.id !== CH_NECROMANCER && deck.getCardById(CH_NECROMANCER).relatedSuits.includes(card.card.suit)) {
+          targetFound = true;
+        }
+      }
+      return targetFound || this.containsId(CH_NECROMANCER) && deck.getCardById(CH_NECROMANCER).relatedSuits.includes(newCard.suit);
     } else {
       return false;
     }
   }
 
+  _normalizeId(id) {
+    if (id.match(/^[0-9+]+$/)) {
+      return 'FR' + id.padStart(2, '0');
+    }
+    return id;
+  }
+
   deleteCardById(id) {
-    delete this.cardsInHand[id];
+    delete this.cardsInHand[this._normalizeId(id)];
   }
 
   getCardById(id) {
-    return this.cardsInHand[id];
+    return this.cardsInHand[this._normalizeId(id)];
   }
 
   contains(cardName) {
@@ -50,12 +65,22 @@ class Hand {
   }
 
   containsId(cardId) {
+    cardId = this._normalizeId(cardId);
     return this.cardsInHand[cardId] !== undefined && !this.cardsInHand[cardId].blanked;
   }
 
   containsSuit(suitName) {
     for (const card of this.nonBlankedCards()) {
       if (card.suit === suitName) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  containsSuitExcluding(suitName, excludingCardId) {
+    for (const card of this.nonBlankedCards()) {
+      if (card.suit === suitName && card.id !== excludingCardId) {
         return true;
       }
     }
@@ -98,14 +123,14 @@ class Hand {
     });
   }
 
-  score() {
+  score(discard) {
     var score = 0;
     this._resetHand();
     this._performCardActions();
     this._clearPenalties();
     this._applyBlanking();
     for (const card of this.nonBlankedCards()) {
-      score += card.score(this);
+      score += card.score(this, discard);
     }
     return score;
   }
@@ -138,18 +163,29 @@ class Hand {
   }
 
   _applyBlanking() {
-    for (const card of this.cards()) {
-      if (card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
+    // Demon blanking takes place before any other blanking
+    if (this.containsId(CH_DEMON)) {
+      const demon = this.getCardById(CH_DEMON);
+      if (!demon.penaltyCleared) {
         for (const target of this.cards()) {
-          if (card.blanks(target, this)) {
+          if (demon.blanks(target, this) && !this._cannotBeBlanked(target)) {
             target.blanked = true;
           }
         }
       }
     }
-    for (const card of this.cards()) {
+    for (const card of this.nonBlankedCards()) {
+      if (card.id !== CH_DEMON && card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
+        for (const target of this.cards()) {
+          if (card.blanks(target, this) && !this._cannotBeBlanked(target)) {
+            target.blanked = true;
+          }
+        }
+      }
+    }
+    for (const card of this.nonBlankedCards()) {
       if (card.blankedIf !== undefined && !card.penaltyCleared) {
-        if (card.blankedIf(this)) {
+        if (card.blankedIf(this) && !this._cannotBeBlanked(card)) {
           card.blanked = true;
         }
       }
@@ -169,6 +205,12 @@ class Hand {
     return false;
   }
 
+  _cannotBeBlanked(card) {
+    return (card.suit === 'Undead' && (this.containsId(CH_LICH) || this.containsId(CH_NECROMANCER)))
+      || card.id === CH_ANGEL
+      || (card.magic && this.containsId(CH_ANGEL) && this.getCardById(CH_ANGEL).actionData[0] === card.id);
+  }
+
   clear() {
     this.cardsInHand = {};
   }
@@ -178,7 +220,29 @@ class Hand {
   }
 
   limit() {
-    return this.containsId(NECROMANCER) ? 8 : 7;
+    var limit = this._defaultLimit();
+    for (const card of this.nonBlankedCards()) {
+      if (card.extraCard) {
+        limit++;
+        break;
+      }
+    }
+    return limit;
+  }
+
+  _defaultLimit() {
+    return 7 + (cursedHoardSuits ? 1: 0);
+  }
+
+  _limitWithoutNecromancer() {
+    var limit = this._defaultLimit();
+    for (const card of this.nonBlankedCards()) {
+      if (card.extraCard && ![NECROMANCER, CH_NECROMANCER].includes(card.id)) {
+        limit++;
+        break;
+      }
+    }
+    return limit;
   }
 
   toString() {
@@ -206,7 +270,7 @@ class Hand {
     }
     for (const cardAction of cardActions) {
       if (cardAction.length > 1) {
-        var cardId = parseInt(cardAction[0]);
+        var cardId = this._normalizeId(cardAction[0]);
         var action = cardAction.slice(1);
         var actionCard = this.getCardById(cardId);
         this.cardsInHand[cardId] = new CardInHand(actionCard.card, action);
@@ -243,6 +307,9 @@ class CardInHand {
     this.action = card.action;
     this.relatedSuits = card.relatedSuits;
     this.relatedCards = card.relatedCards;
+    this.extraCard = card.extraCard;
+    this.referencesPlayerCount = card.referencesPlayerCount;
+    this.referencesDiscardArea = card.referencesDiscardArea;
 
     this.blanked = false;
     this.penaltyCleared = false;
@@ -262,7 +329,7 @@ class CardInHand {
           target.suit = suit;
           target.magic = true;
         }
-      } else if (this.id === SHAPESHIFTER || this.id === MIRAGE) {
+      } else if ([SHAPESHIFTER, CH_SHAPESHIFTER, MIRAGE, CH_MIRAGE].includes(this.id)) {
         var selectedCard = deck.getCardById(this.actionData[0]);
         this.name = selectedCard.name;
         this.suit = selectedCard.suit;
@@ -291,21 +358,24 @@ class CardInHand {
           }
           selectedCard.magic = true;
         }
+      } else if (this.id === CH_ANGEL) {
+        var selectedCard = hand.getCardById(this.actionData[0]);
+        selectedCard.magic = true;
       }
     }
   }
 
-  score(hand) {
+  score(hand, discard) {
     if (this.blanked) {
       return 0;
     }
     if (this.bonusScore !== undefined) {
-      this.bonusPoints = this.bonusScore(hand);
+      this.bonusPoints = this.bonusScore(hand, discard);
     } else {
       this.bonusPoints = 0;
     }
     if (this.penaltyScore !== undefined && !this.penaltyCleared) {
-      this.penaltyPoints = this.penaltyScore(hand);
+      this.penaltyPoints = this.penaltyScore(hand, discard);
     } else {
       this.penaltyPoints = 0;
     }
