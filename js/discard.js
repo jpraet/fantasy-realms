@@ -15,7 +15,7 @@ class Discard {
   _canAdd(newCard) {
     if (this.discardedCards[newCard.id] !== undefined || hand.containsId(newCard.id)) {
       return false;
-    } else if (this.size() > 12) {
+    } else if (this.size() > 12) { // Cursed Items "Hourglass", "Fishhook", "Winged Boots" allow for a 13th discard card
       return false;
     } else {
       return true;
