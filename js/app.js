@@ -144,7 +144,10 @@ function addToView(id) {
 }
 
 function selectFromHand(id) {
-  if (actionId === BOOK_OF_CHANGES) {
+  const card = hand.getCardById(id);
+  if (card.cursedItem) {
+    removeFromHand(id);
+  } else if (actionId === BOOK_OF_CHANGES) {
     if (id !== BOOK_OF_CHANGES) {
       click.play();
       bookOfChangesSelectedCard = id;
@@ -197,7 +200,7 @@ function updateHandView() {
   var template = Handlebars.compile($("#hand-template").html());
   var score = hand.score(discard);
   var html = template({
-    hand: hand,
+    playerCards: hand.faceDownCursedItems().concat(hand.cards()),
     playerCount: playerCount,
     playerCounts: [2, 3, 4, 5, 6]
   }, {
@@ -244,7 +247,7 @@ function updateUrl() {
     params.push('expansions=' + expansions.join(','));
     params.push('playerCount=' + playerCount);
   }
-  if (hand.size() > 0) {
+  if (!hand.empty()) {
     params.push('hand=' + hand.toString());
   }
   if (discard.size() > 0) {
@@ -324,7 +327,7 @@ function switchToDiscardArea() {
   click.play();
   inputDiscardArea = true;
   updateDiscardAreaView();
-  showCards();
+  showCards(allSuits());
   $("#hand").hide();
   $("#discard").show();
 }

@@ -61,7 +61,7 @@
     {{/each}}
   </script>
   <script id="hand-template" type="text/x-handlebars-template">
-    {{#each hand.cardsInHand}}
+    {{#each playerCards}}
     <div id="card-{{id}}" class="card" onclick="selectFromHand('{{id}}')">
       <ul class="list-group">
         <li class="list-group-item {{normalize suit}} {{#if blanked}}blanked{{/if}}">
@@ -77,6 +77,11 @@
           {{/if}}
           <span class="float-right points">{{points}}</span>
         </li>
+        {{#if timing}}
+        <li class="list-group-item timing">
+          <b>{{{timing}}}:</b>
+        </li>
+        {{/if}}
         {{#if bonus}}
         <li class="list-group-item bonus {{#if blanked}}blanked{{/if}}">
           {{{bonus}}}

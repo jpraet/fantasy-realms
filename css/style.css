@@ -343,12 +343,17 @@ span.cursed-item {
   padding-right: 0;
 }
 
-#hand li.bonus, #hand li.penalty {
+#hand li.bonus, #hand li.penalty, #hand li.timing {
   background-color: #fffafa;
   color: grey;
   font-weight: normal;
   font-size: 0.8rem;
   border: 0;
+}
+
+#hand li.timing {
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 #hand li span {

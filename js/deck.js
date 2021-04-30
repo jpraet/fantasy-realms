@@ -1161,198 +1161,227 @@ var cursedItems = {
   'CH24': {
     id: 'CH24',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Spyglass',
     timing: 'ANY TIME',
-    description: 'Look at another player’s hand. <br />(*This item’s base value is -10 in 2-player game)',
-    points: -1 // TODO: -10 in 2-player
+    bonus: 'Look at another player’s hand.',
+    penalty: '(*This item’s base value is -10 in 2-player game)',
+    penaltyScore: function() {
+      return playerCount === 2 ? -9 : 0;
+    },
+    strength: -1,
+    referencesPlayerCount: true
   },
   'CH25': {
     id: 'CH25',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Sarcophagus',
     timing: 'REPLACE TURN',
-    description: 'Take the top card from the deck and place it directly in the discard area, then end your turn. <br />(The makeup of your hand will not change this turn.)',
-    points: 5
+    bonus: 'Take the top card from the deck and place it directly in the discard area, then end your turn. <br />(The makeup of your hand will not change this turn.)',
+    strength: 5
   },
   'CH26': {
     id: 'CH26',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Blindfold',
     timing: 'REPLACE TURN',
-    description: 'Reverse normal turn order: discard a card first, then draw a card from the deck.',
-    points: 5
+    bonus: 'Reverse normal turn order: discard a card first, then draw a card from the deck.',
+    strength: 5
   },
   'CH27': {
     id: 'CH27',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Book of Prophecy',
     timing: 'ANY TIME',
-    description: 'Look at the bottom seven cards of the deck, then replace them there.',
-    points: -1
+    bonus: 'Look at the bottom seven cards of the deck, then replace them there.',
+    strength: -1
   },
   'CH28': {
     id: 'CH28',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Crystal Ball',
     timing: 'ANY TIME',
-    description: 'Name a suit. All other players must reveal all cards they possess of that suit.',      
-    points: -1
+    bonus: 'Name a suit. All other players must reveal all cards they possess of that suit.',      
+    strength: -1
   },
   'CH29': {
     id: 'CH29',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Market Wagon',
     timing: 'REPLACE TURN',
-    description: 'Reveal a card from your hand. Any other player may reveal up to 3 cards to offer in exchange. <br />You may choose to trade your card for one of them; if no offer is acceptable, keep your card or discard it and draw from the deck.',    
-    points: -2
+    bonus: 'Reveal a card from your hand. Any other player may reveal up to 3 cards to offer in exchange. <br />You may choose to trade your card for one of them; if no offer is acceptable, keep your card or discard it and draw from the deck.',    
+    strength: -2
   },
   'CH30': {
     id: 'CH30',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Backpack',
     timing: 'ANY TIME',
-    description: 'Draw three <span class="cursed-item">Cursed Items</span> and set them aside face up. <br />The next three times you would draw a new <span class="cursed-item">Cursed Item</span> from the deck, you must take one of these cards instead.',    
-    points: -2
+    bonus: 'Draw three <span class="cursed-item">Cursed Items</span> and set them aside face up. <br />The next three times you would draw a new <span class="cursed-item">Cursed Item</span> from the deck, you must take one of these cards instead.',    
+    strength: -2
   },
   'CH31': {
     id: 'CH31',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Shovel',
     timing: 'ANY TIME',
-    description: 'Put a card from the discard area on the bottom of the deck.',    
-    points: -2
+    bonus: 'Put a card from the discard area on the bottom of the deck.',    
+    strength: -2
   },
   'CH32': {
     id: 'CH32',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Sealed Vault',
     timing: 'ANY TIME',
-    description: 'Cover two cards in the discard area with this card. They still count towards the end of the game and give bonuses to <span class="undead">Undead</span>, but no one but you may take them, and they are immune to <span class="cursed-item">Shovel</span> and <span>Gold Mirror</span>.',
-    points: -4
+    bonus: 'Cover two cards in the discard area with this card. They still count towards the end of the game and give bonuses to <span class="undead">Undead</span>, but no one but you may take them, and they are immune to <span class="cursed-item">Shovel</span> and <span>Gold Mirror</span>.',
+    strength: -4
   },
   'CH33': {
     id: 'CH33',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Crystal Lens',
     timing: 'ANY TIME',
-    description: 'You may peek at the top card of the deck before deciding whether to draw from the deck or discard area.',    
-    points: -2
+    bonus: 'You may peek at the top card of the deck before deciding whether to draw from the deck or discard area.',    
+    strength: -2
   },
   'CH34': {
     id: 'CH34',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Larcenous Gloves',
     timing: 'ANY TIME',
-    description: 'Steal a face-up <span class="cursed-item">Cursed Item</span> from another player. You must use it immediately. <br />The player you stole from must immediately draw a replacement from the <span class="cursed-item">Cursed Item</span> deck.',    
-    points: -3
+    bonus: 'Steal a face-up <span class="cursed-item">Cursed Item</span> from another player. You must use it immediately. <br />The player you stole from must immediately draw a replacement from the <span class="cursed-item">Cursed Item</span> deck.',    
+    strength: -3
   },
   'CH35': {
     id: 'CH35',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Junkyard Map',
     timing: 'ANY TIME',
-    description: 'Take one of the top three discarded <span class="cursed-item">Cursed Item</span> cards and play it immediately.',  
-    points: -3
+    bonus: 'Take one of the top three discarded <span class="cursed-item">Cursed Item</span> cards and play it immediately.',  
+    strength: -3
   },
   'CH36': {
     id: 'CH36',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Winged Boots',
     timing: 'ANY TIME',
-    description: 'Put the top card of the deck directly into the discard area.',    
-    points: -4
+    bonus: 'Put the top card of the deck directly into the discard area.',    
+    strength: -4
   },
   'CH37': {
     id: 'CH37',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Staff of Transmutation',
     timing: 'REPLACE TURN',
-    description: 'Return 3-8 cards from your hand to the bottom of the deck and replace them from the top of the deck.',    
-    points: -4
+    bonus: 'Return 3-8 cards from your hand to the bottom of the deck and replace them from the top of the deck.',    
+    strength: -4
   },
   'CH38': {
     id: 'CH38',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Rake',
     timing: 'REPLACE TURN',
-    description: 'Draw two cards from the discard area, then discard two cards.',    
-    points: -4
+    bonus: 'Draw two cards from the discard area, then discard two cards.',    
+    strength: -4
   },
   'CH39': {
     id: 'CH39',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Treasure Chest',
     timing: 'ANY TIME',
-    description: 'Worth +25 points at the end of the game if you have at least three other <span class="cursed-item">Cursed Items</span> facedown.',
+    bonus: 'Worth +25 points at the end of the game if you have at least three other <span class="cursed-item">Cursed Items</span> facedown.',
     bonusScore: function(hand) {
-      return hand.countSuitExcluding('Cursed Item', this.id) >= 3 ? 25: 0;
+      return hand.faceDownCursedItems().length > 3 ? 25: 0;
     },
-    points: -5 // TODO: +25 if at least 3 other Cursed Items
+    strength: -5
   },
   'CH40': {
     id: 'CH40',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Fishhook',
     timing: 'REPLACE TURN',
-    description: 'Draw two cards from the deck, then discard any two cards.',    
-    points: -6
+    bonus: 'Draw two cards from the deck, then discard any two cards.',    
+    strength: -6
   },
   'CH41': {
     id: 'CH41',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Repair Kit',
     timing: 'COPY TIMING OF COPIED CARD',
-    description: 'Copy the ability of any <span class="cursed-item">Cursed Item</span> you have already played other than <span class="cursed-item">Backpack</span>, <span class="cursed-item">Sarcophagus</span>, <span class="cursed-item">Blindfold</span>, and <span class="cursed-item">Treasure Chest</span>. <br />Discard and redraw if you have no facedown <span class="cursed-item">Cursed Items</span>.',    
-    points: -6
+    bonus: 'Copy the ability of any <span class="cursed-item">Cursed Item</span> you have already played other than <span class="cursed-item">Backpack</span>, <span class="cursed-item">Sarcophagus</span>, <span class="cursed-item">Blindfold</span>, and <span class="cursed-item">Treasure Chest</span>. <br />Discard and redraw if you have no facedown <span class="cursed-item">Cursed Items</span>.',    
+    strength: -6
   },
   'CH42': {
     id: 'CH42',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Hourglass',
     timing: 'AFTER TURN',
-    description: 'Take an extra turn. Do not replace this card with a new <span class="cursed-item">Cursed Item</span> until after your second turn.',    
-    points: -7
+    bonus: 'Take an extra turn. Do not replace this card with a new <span class="cursed-item">Cursed Item</span> until after your second turn.',    
+    strength: -7
   },
   'CH43': {
     id: 'CH43',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Gold Mirror',
     timing: 'ANY TIME',
-    description: 'Put three cards from the discard area on the bottom of the deck. <br />Replace them with the top three cards of the deck.',    
-    points: -8
+    bonus: 'Put three cards from the discard area on the bottom of the deck. <br />Replace them with the top three cards of the deck.',    
+    strength: -8
   },
   'CH44': {
     id: 'CH44',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Cauldron',
     timing: 'REPLACE TURN',
-    description: 'Instead of drawing a card from the deck, draw three cards, then place two of them on the top or bottom of the deck (or one each) before you discard normally.',    
-    points: -9
+    bonus: 'Instead of drawing a card from the deck, draw three cards, then place two of them on the top or bottom of the deck (or one each) before you discard normally.',    
+    strength: -9
   },
   'CH45': {
     id: 'CH45',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Lantern',
     timing: 'REPLACE TURN',
-    description: 'Name a suit. Draw from the deck until you draw a card from that suit, or until you have drawn ten cards. (Wild cards do not count.) <br />If you draw a card from the named suit, keep it and discard a different card from your hand. <br />Show the other cards you drew and reshuffle them into the deck.',    
-    points: -10
+    bonus: 'Name a suit. Draw from the deck until you draw a card from that suit, or until you have drawn ten cards. (Wild cards do not count.) <br />If you draw a card from the named suit, keep it and discard a different card from your hand. <br />Show the other cards you drew and reshuffle them into the deck.',    
+    strength: -10
   },
   'CH46': {
     id: 'CH46',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Portal',
     timing: 'ANY TIME',
-    description: 'Skip your discard phase this turn. <br />(You will have one extra card in your hand from now on.)',    
-    points: -20,
-    extraCard: true // TODO: support this
+    bonus: 'Skip your discard phase this turn. <br />(You will have one extra card in your hand from now on.)',    
+    strength: -20,
+    extraCard: true
   },
   'CH47': {
     id: 'CH47',
     suit: 'Cursed Item',
+    cursedItem: true,
     name: 'Wishing Ring',
     timing: 'ANY TIME',
-    description: 'Look through the deck and place any card you wish on top. <br />(You may do this immediately before you draw.) <br />Reshuffle the deck at the end of your turn.',
-    points: -30
+    bonus: 'Look through the deck and place any card you wish on top. <br />(You may do this immediately before you draw.) <br />Reshuffle the deck at the end of your turn.',
+    strength: -30
   }
 }
 
@@ -1384,12 +1413,18 @@ var deck = {
         return card;
       }
     }
+    for (const id in this.cursedItems) {
+      const card = this.cursedItems[id];
+      if (card.name === cardName) {
+        return card;
+      }
+    }
   },
   getCardById: function(id) {
     if (id.match(/^[0-9+]+$/)) {
       id = 'FR' + id.padStart(2, '0')
     }
-    return this.cards[id];
+    return this.cards[id] || this.cursedItems[id];
   },
   getCardsBySuit: function(suits) {
     var cardsBySuit = {};
@@ -1403,7 +1438,7 @@ var deck = {
       }
     }
     var ordered = {};
-    if (Object.keys(this.cursedItems).length > 0 && suits === undefined) {
+    if (Object.keys(this.cursedItems).length > 0 && (suits === undefined || suits.includes('Cursed Item'))) {
       ordered['Cursed Item'] = [];
       for (const id in this.cursedItems) {
         ordered['Cursed Item'].push(this.cursedItems[id]);

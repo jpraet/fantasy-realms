@@ -2,18 +2,25 @@ class Hand {
 
   constructor() {
     this.cardsInHand = {};
+    this.cursedItems = {};
   }
 
   addCard(card) {
     if (this._canAdd(card)) {
-      this.cardsInHand[card.id] = new CardInHand(card);
+      if (card.cursedItem) {
+        this.cursedItems[card.id] = new CardInHand(card);
+      } else {
+        this.cardsInHand[card.id] = new CardInHand(card);
+      }
       return true;
     }
     return false;
   }
 
   _canAdd(newCard) {
-    if (this.cardsInHand[newCard.id] !== undefined || this.size() > this._defaultLimit()) {
+    if (newCard.cursedItem) {
+      return this.cursedItems[newCard.id] === undefined;
+    } else if (this.cardsInHand[newCard.id] !== undefined || this.size() > this._defaultLimit()) {
       return false;
     } else if (this.size() < this._limitWithoutNecromancer()) {
       return true;
@@ -48,11 +55,14 @@ class Hand {
   }
 
   deleteCardById(id) {
-    delete this.cardsInHand[this._normalizeId(id)];
+    var normalizedId = this._normalizeId(id);
+    delete this.cardsInHand[normalizedId];
+    delete this.cursedItems[normalizedId];
   }
 
   getCardById(id) {
-    return this.cardsInHand[this._normalizeId(id)];
+    var normalizedId = this._normalizeId(id);
+    return this.cardsInHand[normalizedId] || this.cursedItems[normalizedId];
   }
 
   contains(cardName) {
@@ -113,6 +123,10 @@ class Hand {
     });
   }
 
+  faceDownCursedItems() {
+    return Object.values(this.cursedItems);
+  }
+
   cards() {
     return Object.values(this.cardsInHand);
   }
@@ -131,6 +145,9 @@ class Hand {
     this._applyBlanking();
     for (const card of this.nonBlankedCards()) {
       score += card.score(this, discard);
+    }
+    for (const cursedItem of this.faceDownCursedItems()) {
+      score += cursedItem.score(this, discard);
     }
     return score;
   }
@@ -213,18 +230,27 @@ class Hand {
 
   clear() {
     this.cardsInHand = {};
+    this.cursedItems = {};
   }
 
   size() {
     return Object.keys(this.cardsInHand).length;
   }
 
+  empty() {
+    return this.size() === 0 && Object.keys(this.cursedItems).length === 0;
+  }
+
   limit() {
     var limit = this._defaultLimit();
     for (const card of this.nonBlankedCards()) {
       if (card.extraCard) {
-        limit++;
-        break;
+        return limit + 1;
+      }
+    }
+    for (const cursedItem of this.faceDownCursedItems()) {
+      if (cursedItem.extraCard) {
+        return limit + 1;
       }
     }
     return limit;
@@ -238,8 +264,12 @@ class Hand {
     var limit = this._defaultLimit();
     for (const card of this.nonBlankedCards()) {
       if (card.extraCard && ![NECROMANCER, CH_NECROMANCER].includes(card.id)) {
-        limit++;
-        break;
+        return limit + 1;
+      }
+    }
+    for (const cursedItem of this.faceDownCursedItems()) {
+      if (cursedItem.extraCard) {
+        return limit + 1;
       }
     }
     return limit;
@@ -253,7 +283,7 @@ class Hand {
         actions.push(card.id + ':' + card.actionData.join(':'));
       }
     }
-    return Object.keys(this.cardsInHand).join() + '+' + actions.join();
+    return Object.keys({...this.cardsInHand, ...this.cursedItems}).join() + '+' + actions.join();
   }
 
   loadFromString(string) {
@@ -310,6 +340,8 @@ class CardInHand {
     this.extraCard = card.extraCard;
     this.referencesPlayerCount = card.referencesPlayerCount;
     this.referencesDiscardArea = card.referencesDiscardArea;
+    this.timing = card.timing;
+    this.cursedItem = card.cursedItem;
 
     this.blanked = false;
     this.penaltyCleared = false;
