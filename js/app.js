@@ -25,7 +25,7 @@ var bookOfChangesSelectedCard = NONE;
 var bookOfChangesSelectedSuit = undefined;
 var cursedHoardItems = false;
 var cursedHoardSuits = false;
-var playerCount = 2;
+var playerCount = 4;
 var inputDiscardArea = false;
 
 function configureSelectedExpansions() {
