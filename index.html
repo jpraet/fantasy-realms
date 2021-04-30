@@ -142,17 +142,6 @@
   <div id="container">
     <header>
       <a href="https://wizkids.com/fantasy-realms/"><img src="img/fantasy-realms.jpg" style="height: 3rem;"></img></a>
-      <img src="img/cursed-hoard.png" style="margin-left: 2.5rem; height: 3rem;"></img>
-      <div style="display: inline-block;">
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="ch_items">
-        <label class="custom-control-label" for="ch_items">Cursed Items</label>
-      </div>
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="ch_suits">
-        <label class="custom-control-label" for="ch_suits">Buildings/Outsiders/Undead</label>
-      </div>
-      </div>
       <div id="header-right">
         <div id="hand-info">
           <span id="cardCount">0</span><span class="separator">/</span><span id="cardLimit">7</span>
@@ -166,6 +155,19 @@
         <div id="cards" class="panel" role="tablist" aria-multiselectable="true"></div>
       </div>
       <div id="right">
+        <div id="expansions" style="display: none;">
+          <img src="img/cursed-hoard.png" style="height: 3.5rem;"></img>
+          <div style="display: inline-block;">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="ch_items">
+              <label class="custom-control-label" for="ch_items">Cursed Items</label>
+            </div>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="ch_suits">
+              <label class="custom-control-label" for="ch_suits">Buildings/Outsiders/Undead</label>
+            </div>
+          </div>
+        </div>
         <div id="hand">
         </div>
         <div id="discard">

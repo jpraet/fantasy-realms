@@ -319,7 +319,7 @@ span.cursed-item {
   cursor: pointer;
 }
 
-#hand, #discard {
+#hand, #discard, #expansions {
   background-color: #e9e3c6;
   padding: 0.4rem;
   font-weight: bold;
