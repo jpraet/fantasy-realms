@@ -1,5 +1,5 @@
 var APP_PREFIX = 'fantasy-realms-';
-var VERSION = '1.0.1';
+var VERSION = '1.0.2';
 var CACHE_NAME = APP_PREFIX + VERSION;
 var URLS = [
   '/',
@@ -10,6 +10,7 @@ var URLS = [
   'img/background.jpg',
   'img/cursed-hoard.png',
   'img/wizkids.png',
+  'img/globe.png',
   'css/style.css',
   'css/bootstrap.min.css',
   'service-worker.js',
@@ -19,7 +20,11 @@ var URLS = [
   'js/hand.js',
   'js/bootstrap.bundle.min.js',
   'js/handlebars.min-v4.7.7.js',
+  'js/jquery.i18n.properties.min.js',
   'js/jquery-3.6.0.min.js',
+  'i18n/Messages.properties',
+  'i18n/Messages_en.properties',
+  'i18n/Messages_de.properties',
   'sound/clear.mp3',
   'sound/click.mp3',
   'sound/magic.mp3',

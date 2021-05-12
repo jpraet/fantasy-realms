@@ -1,18 +1,45 @@
-Handlebars.registerHelper('normalize', function(str) {
-  return str.replace(/\s+/g, '-').toLowerCase();
+Handlebars.registerHelper('i18n', function() {
+  var key = '';
+  for (var arg in arguments) {
+    if (typeof arguments[arg] != 'object') {
+        key += arguments[arg];
+    }
+  }
+  try {
+    return jQuery.i18n.prop(key);
+  } catch (e) {
+    return key;
+  }
 });
 
+var languages = {
+  'en': 'English',
+  'de': 'Deutsch'
+}
+
 $(document).ready(function() {
-  configureSelectedPlayerCount();
-  configureSelectedExpansions();
-  showCards();
-  getDiscardFromQueryString();
-  getHandFromQueryString();
-  $('#ch_items').change(function() {
-    toggleCursedHoardItems();
-  });
-  $('#ch_suits').change(function() {
-    toggleCursedHoardSuits();
+  const lang = localStorage.getItem('language') || 'en'; 
+  jQuery.i18n.properties({
+    name:'Messages', 
+    path:'i18n/', 
+    mode:'map',
+    cache: true,
+    language: lang,
+    async: true,
+    callback: function() {
+      configureSelectedPlayerCount();
+      configureSelectedExpansions();
+      showCards();
+      getDiscardFromQueryString();
+      getHandFromQueryString();
+      $('#ch_items').change(function() {
+        toggleCursedHoardItems();
+      });
+      $('#ch_suits').change(function() {
+        toggleCursedHoardSuits();
+      });
+      updateLabels(lang);
+    }
   });
 });
 
@@ -27,6 +54,32 @@ var cursedHoardItems = false;
 var cursedHoardSuits = false;
 var playerCount = 4;
 var inputDiscardArea = false;
+
+function selectLanguage(lang) {
+  localStorage.setItem('language', lang);
+  jQuery.i18n.properties({
+    name:'Messages', 
+    path:'i18n/', 
+    mode:'map',
+    cache: true,
+    language: lang,
+    async: true,
+    callback: function() {
+      showCards();
+      updateLabels(lang);
+    }
+  });
+  return false;
+}
+
+function updateLabels(lang) {
+  $('#clear').html(jQuery.i18n.prop('button.reset'));
+  $('#lbl_ch_items').html(jQuery.i18n.prop('label.cursed-hoard.items'));
+  $('#lbl_ch_suits').html(jQuery.i18n.prop('label.cursed-hoard.suits'));
+  $('#selected-language').html(languages[lang]);
+  $('#language .dropdown-item').removeClass('active');
+  $('#lang-' + lang).addClass('active');
+}
 
 function configureSelectedExpansions() {
   if (window.location.search) {
@@ -165,7 +218,7 @@ function selectFromHand(id) {
   } else if (actionId === ISLAND) {
     var selectedCard = hand.getCardById(id);
     var island = hand.getCardById(ISLAND);
-    if (selectedCard.suit === 'Flood' || selectedCard.suit === 'Flame') {
+    if (selectedCard.suit === 'flood' || selectedCard.suit === 'flame') {
       actionId = NONE;
       click.play();
       magic.play();
@@ -215,9 +268,9 @@ function updateHandView() {
   $('#cardCount').text(hand.size());
   $('#cardLimit').text(hand.limit());
   if (hand.empty()) {
-    $('#expansions').show();
+    $('#settings').show();
   } else {
-    $('#expansions').hide();
+    $('#settings').hide();
   }
   updateUrl();
 }
@@ -308,7 +361,7 @@ function useCard(id) {
     hand.undoCardAction(id);
   }
   updateHandView();
-  $('#card-action-text-' + id).text(deck.getCardById(id).action);
+  $('#card-action-text-' + id).text(jQuery.i18n.prop(id + '.action'));
 }
 
 function performBookOfChanges() {

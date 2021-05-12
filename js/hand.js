@@ -223,7 +223,7 @@ class Hand {
   }
 
   _cannotBeBlanked(card) {
-    return (card.suit === 'Undead' && (this.containsId(CH_LICH) || this.containsId(CH_NECROMANCER)))
+    return (card.suit === 'undead' && (this.containsId(CH_LICH) || this.containsId(CH_NECROMANCER)))
       || card.id === CH_ANGEL
       || (card.magic && this.containsId(CH_ANGEL) && this.getCardById(CH_ANGEL).actionData[0] === card.id);
   }
@@ -357,7 +357,7 @@ class CardInHand {
         if (target === undefined) {
           this.actionData = undefined;
         } else {
-          var suit = this.actionData[1];
+          var suit = this.actionData[1].toLowerCase();
           target.suit = suit;
           target.magic = true;
         }
@@ -382,7 +382,7 @@ class CardInHand {
         }
       } else if (this.id === ISLAND) {
         var selectedCard = hand.getCardById(this.actionData[0]);
-        if (selectedCard === undefined || !(selectedCard.suit === 'Flood' || selectedCard.suit === 'Flame')) {
+        if (selectedCard === undefined || !(selectedCard.suit === 'flood' || selectedCard.suit === 'flame')) {
           this.actionData = undefined;
         } else {
           this.clearsPenalty = function(card) {
