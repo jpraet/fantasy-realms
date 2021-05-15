@@ -65,11 +65,11 @@ function selectLanguage(lang) {
     language: lang,
     async: true,
     callback: function() {
+      swoosh.play();
       showCards();
       updateLabels(lang);
     }
   });
-  return false;
 }
 
 function updateLabels(lang) {
@@ -97,20 +97,20 @@ function configureSelectedExpansions() {
           deck.enableCursedHoardSuits();
           $('#ch_suits').prop('checked', true);
         }
+        return;
       }
     }
-  } else {
-    if (localStorage.getItem('ch_items')) {
-      cursedHoardItems = true;
-      deck.enableCursedHoardItems();
-      $('#ch_items').prop('checked', true);
-    }
-    if (localStorage.getItem('ch_suits')) {
-      cursedHoardSuits = true;
-      deck.enableCursedHoardSuits();
-      $('#ch_suits').prop('checked', true);
-    }
+  } 
+  if (localStorage.getItem('ch_items') === true || localStorage.getItem('ch_items') === 'true') {
+    cursedHoardItems = true;
+    deck.enableCursedHoardItems();
+    $('#ch_items').prop('checked', true);
   }
+  if (localStorage.getItem('ch_suits') === true || localStorage.getItem('ch_suits') === 'true') {
+    cursedHoardSuits = true;
+    deck.enableCursedHoardSuits();
+    $('#ch_suits').prop('checked', true);
+  }  
 }
 
 function configureSelectedPlayerCount() {
@@ -120,9 +120,11 @@ function configureSelectedPlayerCount() {
       var param = params[i].split('=');
       if (param[0] === 'playerCount') {
         playerCount = param[1];
+        return;
       }
     }
-  } else if (localStorage.getItem('playerCount')) {
+  } 
+  if (localStorage.getItem('playerCount')) {
       playerCount = localStorage.getItem('playerCount');
   }
 }

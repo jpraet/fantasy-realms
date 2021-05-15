@@ -89,14 +89,14 @@ span.separator {
 }
 
 #left {
-  width: 8rem;
+  width: 10rem;
   background-color: #ccc0a8;
 }
 
 #right {
   background-color: #e9e3c6;
   min-height: 100%;
-  width: calc(100% - 8rem);
+  width: calc(100% - 10rem);
 }
 
 footer {
@@ -107,14 +107,14 @@ footer {
 }
 
 #wizkids-logo {
-  width: 8rem;
+  width: 10rem;
   background-color: #ccc0a8;
   text-align: center;
   padding: 0.5rem;
 }
 
 #legal-text {
-  width: calc(100% - 8rem);
+  width: calc(100% - 10rem);
   font-size: x-small;
   text-align: center;
   color: #312b2f;
