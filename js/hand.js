@@ -74,6 +74,16 @@ class Hand {
     return false;
   }
 
+  countCardName(cardName) {
+    var count = 0;
+    for (const card of this.nonBlankedCards()) {
+      if (card.name === cardName) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   containsId(cardId) {
     cardId = this._normalizeId(cardId);
     return this.cardsInHand[cardId] !== undefined && !this.cardsInHand[cardId].blanked;

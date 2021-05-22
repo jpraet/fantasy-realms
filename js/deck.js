@@ -814,9 +814,9 @@ var cursedHoard = {
       return (hand.containsSuit('undead') ? 10 + (hand.countSuit('undead') - 1) * 5: 0) +
         (hand.containsSuit('beast') ? 10 + (hand.countSuit('beast') - 1) * 5: 0) +
         (hand.containsSuit('artifact') ? 10 + (hand.countSuit('artifact') - 1) * 5: 0) +
-        (hand.contains('Necromancer') ? 5: 0) +
-        (hand.contains('Warlock Lord') ? 5: 0) +
-        (hand.contains('Demon') ? 5: 0);
+        (hand.countCardName('Necromancer') * 5) +
+        (hand.countCardName('Warlock Lord') * 5) +
+        (hand.countCardName('Demon') * 5);
     },
     relatedSuits: ['undead', 'beast', 'artifact'],
     relatedCards: ['Necromancer', 'Warlock Lord', 'Demon']
