@@ -93,7 +93,12 @@
         {{/if}}
         {{#if penalty}}
         <li class="list-group-item penalty {{#if blanked}}blanked{{/if}} {{#if penaltyCleared}}cleared{{/if}}">
-          {{{i18n id '.penalty'}}}
+          {{#if card.penalty}}
+            {{{i18n id '.penalty'}}}
+          {{else}}
+            <!-- Doppelgänger penalty -->
+            {{{i18n actionData.[0] '.penalty'}}}
+          {{/if}}
           {{#if penaltyPoints}}
           <span class="float-right penalty">{{penaltyPoints}}</span>
           {{/if}}
