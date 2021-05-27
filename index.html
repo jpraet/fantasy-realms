@@ -113,7 +113,7 @@
         {{#if card.referencesPlayerCount}}
         <li class="list-group-item bonus">
           <span id="card-action-text-{{id}}">
-            {{i18n label.player-count}} ({{../playerCount}}):
+            {{i18n 'label.player-count'}} ({{../playerCount}}):
             {{#each ../playerCounts}}
               <button type="button" class="btn btn-sm btn-primary" onclick="event.stopPropagation(); setPlayerCount({{this}});">{{this}}</button>
             {{/each}}
