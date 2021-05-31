@@ -26,22 +26,22 @@ class Hand {
       return true;
     } else if (![NECROMANCER, CH_NECROMANCER].includes(newCard.id) && newCard.extraCard) {
       return true;
-    } else if (this.containsId(NECROMANCER) || newCard.id === NECROMANCER) {
+    } else if (this.containsId(NECROMANCER, true) || newCard.id === NECROMANCER) {
       var targetFound = false;
       for (const card of this.cards()) {
         if (card.card.id !== NECROMANCER && deck.getCardById(NECROMANCER).relatedSuits.includes(card.card.suit)) {
           targetFound = true;
         }
       }
-      return targetFound || this.containsId(NECROMANCER) && deck.getCardById(NECROMANCER).relatedSuits.includes(newCard.suit);
-    } else if (this.containsId(CH_NECROMANCER) || newCard.id === CH_NECROMANCER) {
+      return targetFound || this.containsId(NECROMANCER, true) && deck.getCardById(NECROMANCER).relatedSuits.includes(newCard.suit);
+    } else if (this.containsId(CH_NECROMANCER, true) || newCard.id === CH_NECROMANCER) {
       var targetFound = false;
       for (const card of this.cards()) {
         if (card.card.id !== CH_NECROMANCER && deck.getCardById(CH_NECROMANCER).relatedSuits.includes(card.card.suit)) {
           targetFound = true;
         }
       }
-      return targetFound || this.containsId(CH_NECROMANCER) && deck.getCardById(CH_NECROMANCER).relatedSuits.includes(newCard.suit);
+      return targetFound || this.containsId(CH_NECROMANCER, true) && deck.getCardById(CH_NECROMANCER).relatedSuits.includes(newCard.suit);
     } else {
       return false;
     }
@@ -84,9 +84,9 @@ class Hand {
     return count;
   }
 
-  containsId(cardId) {
+  containsId(cardId, allowBlanked) {
     cardId = this._normalizeId(cardId);
-    return this.cardsInHand[cardId] !== undefined && !this.cardsInHand[cardId].blanked;
+    return this.cardsInHand[cardId] !== undefined && (!this.cardsInHand[cardId].blanked || allowBlanked);
   }
 
   containsSuit(suitName) {
@@ -253,7 +253,7 @@ class Hand {
 
   limit() {
     var limit = this._defaultLimit();
-    for (const card of this.nonBlankedCards()) {
+    for (const card of this.cards()) {
       if (card.extraCard) {
         return limit + 1;
       }
@@ -272,7 +272,7 @@ class Hand {
 
   _limitWithoutNecromancer() {
     var limit = this._defaultLimit();
-    for (const card of this.nonBlankedCards()) {
+    for (const card of this.cards()) {
       if (card.extraCard && ![NECROMANCER, CH_NECROMANCER].includes(card.id)) {
         return limit + 1;
       }
