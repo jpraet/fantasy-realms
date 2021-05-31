@@ -350,6 +350,7 @@ class CardInHand {
     this.extraCard = card.extraCard;
     this.referencesPlayerCount = card.referencesPlayerCount;
     this.referencesDiscardArea = card.referencesDiscardArea;
+    this.impersonator = card.impersonator;
     this.timing = card.timing;
     this.cursedItem = card.cursedItem;
 
@@ -402,7 +403,11 @@ class CardInHand {
         }
       } else if (this.id === CH_ANGEL) {
         var selectedCard = hand.getCardById(this.actionData[0]);
-        selectedCard.magic = true;
+        if (selectedCard === undefined) {
+          this.actionData = undefined;
+        } else {
+          selectedCard.magic = true;
+        }
       }
     }
   }

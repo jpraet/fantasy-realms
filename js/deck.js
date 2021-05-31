@@ -751,6 +751,7 @@ var base = {
     strength: 0,
     bonus: true,
     penalty: false,
+    impersonator: true,
     action: true,
     relatedSuits: ['artifact', 'leader', 'wizard', 'weapon', 'beast'].sort(),
     relatedCards: []
@@ -762,6 +763,7 @@ var base = {
     strength: 0,
     bonus: true,
     penalty: false,
+    impersonator: true,
     action: true,
     relatedSuits: ['army', 'land', 'weather', 'flood', 'flame'].sort(),
     relatedCards: []
@@ -773,6 +775,7 @@ var base = {
     strength: 0,
     bonus: true,
     penalty: false,
+    impersonator: true,
     action: true,
     relatedSuits: [],
     relatedCards: []
@@ -1139,6 +1142,7 @@ var cursedHoard = {
     strength: 0,
     bonus: true,
     penalty: false,
+    impersonator: true,
     action: true,
     relatedSuits: ['artifact', 'leader', 'wizard', 'weapon', 'beast', 'undead'].sort(),
     relatedCards: []
@@ -1151,6 +1155,7 @@ var cursedHoard = {
     strength: 0,
     bonus: true,
     penalty: false,
+    impersonator: true,
     action: true,
     relatedSuits: ['army', 'building', 'land', 'weather', 'flood', 'flame'].sort(),
     relatedCards: []

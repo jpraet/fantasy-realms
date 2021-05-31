@@ -234,7 +234,7 @@ function selectFromHand(id) {
     var angel = hand.getCardById(CH_ANGEL);
     angel.actionData = [id];
     updateHandView();  
-  } else {
+  } else if (actionId === NONE) {
     removeFromHand(id);
   }
 }
@@ -341,13 +341,14 @@ function getDiscardFromQueryString() {
   }
 }
 
-function useCard(id) {
+function useCardAction(id) {
   click.play();
   actionId = id;
+  hand.undoCardAction(id);
+  showCards();
   if (id === BOOK_OF_CHANGES) {
     bookOfChangesSelectedCard = NONE;
     bookOfChangesSelectedSuit = undefined;
-    hand.undoCardAction(id);
     var template = Handlebars.compile($("#suit-selection-template").html());
     var html = template({
       suits: deck.suits()
@@ -356,14 +357,24 @@ function useCard(id) {
     });
     $('#cards').html(html);
   } else if ([SHAPESHIFTER, CH_SHAPESHIFTER, MIRAGE, CH_MIRAGE].includes(id)) {
-    hand.undoCardAction(id);
     var duplicator = hand.getCardById(id);
     showCards(duplicator.card.relatedSuits);
-  } else if ([DOPPELGANGER, ISLAND, CH_ANGEL].includes(id)) {
-    hand.undoCardAction(id);
   }
   updateHandView();
   $('#card-action-text-' + id).text(jQuery.i18n.prop(id + '.action'));
+  $('#card-action-use-' + id).hide();
+  $('#card-action-cancel-' + id).show();}
+
+function cancelCardAction(id) {
+  click.play();
+  hand.undoCardAction(id)
+  actionId = NONE;
+  bookOfChangesSelectedCard = NONE;
+  bookOfChangesSelectedSuit = undefined;
+  $('#card-action-cancel-' + id).hide();
+  $('#card-action-use-' + id).show();
+  showCards();
+  updateHandView();
 }
 
 function performBookOfChanges() {

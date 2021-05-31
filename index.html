@@ -72,7 +72,16 @@
             {{else}}
               {{strength}}
             {{/if}}
-          </span> {{i18n id '.name'}}
+          </span> 
+          {{#if impersonator}}
+            {{#if magic}}
+              {{i18n actionData.[0] '.name'}}
+            {{else}}
+              {{i18n id '.name'}}
+            {{/if}}
+          {{else}}
+            {{i18n id '.name'}}
+          {{/if}}
           {{#if magic}}
           *
           {{/if}}
@@ -106,8 +115,9 @@
         {{/if}}
         {{#if card.action}}
         <li class="list-group-item bonus">
-            <span id="card-action-text-{{id}}" />
-            <button id="card-action-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCard('{{id}}');">{{i18n 'button.use'}}</button>
+            <span id="card-action-text-{{id}}"></span>
+            <button id="card-action-use-{{id}}" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); useCardAction('{{id}}');">{{i18n 'button.use'}}</button>
+            <button id="card-action-cancel-{{id}}" style="display: none;" type="button" class="btn btn-sm btn-primary float-right" onclick="event.stopPropagation(); cancelCardAction('{{id}}');">{{i18n 'button.cancel'}}</button>
         </li>
         {{/if}}
         {{#if card.referencesPlayerCount}}
@@ -122,7 +132,6 @@
         {{/if}}
         {{#if card.referencesDiscardArea}}
         <li class="list-group-item bonus">
-          <span id="card-action-text-{{id}}" />
           <button type="button" onclick="event.stopPropagation(); switchToDiscardArea('{{id}}');" class="btn btn-sm btn-primary float-right">{{i18n 'button.discard-area'}}</button>
         </li>
         {{/if}}
