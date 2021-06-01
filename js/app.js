@@ -363,7 +363,8 @@ function useCardAction(id) {
   updateHandView();
   $('#card-action-text-' + id).text(jQuery.i18n.prop(id + '.action'));
   $('#card-action-use-' + id).hide();
-  $('#card-action-cancel-' + id).show();}
+  $('#card-action-cancel-' + id).show();
+}
 
 function cancelCardAction(id) {
   click.play();
