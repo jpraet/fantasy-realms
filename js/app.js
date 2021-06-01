@@ -189,11 +189,11 @@ function addToView(id) {
       actionId = NONE;
     } else if (hand.addCard(deck.getCardById(id))) {
       click.play();
-      updateHandView();
-      actionId = NONE;
       if (discard.containsId(id)) {
         discard.deleteCardById(id);
       }
+      updateHandView();
+      actionId = NONE;
     }
   }
 }
