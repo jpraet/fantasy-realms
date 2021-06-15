@@ -100,7 +100,7 @@ var base = {
     penalty: true,
     penaltyScore: function(hand) {
       var penaltyCards = hand.countSuit('flame');
-      if (!(hand.containsId('FR25') || hand.containsId('CH19') || hand.containsId('FR41'))) { // these clear the word 'army' from the penalty
+      if (!isArmyClearedFromPenalty(this, hand)) {
         penaltyCards += hand.countSuit('army');
       }
       return -3 * penaltyCards;
@@ -116,7 +116,7 @@ var base = {
     bonus: false,
     penalty: true,
     blanks: function(card, hand) {
-      return (card.suit === 'army' && !(hand.containsId('FR25') || hand.containsId('CH19') || hand.containsId('FR41'))) || // these clear the word 'army' from the penalty
+      return (card.suit === 'army' && !isArmyClearedFromPenalty(this, hand)) ||
         (card.suit === 'land' && card.name !== 'Mountain') ||
         (card.suit === 'flame' && card.name !== 'Lightning');
     },
@@ -172,7 +172,7 @@ var base = {
     penalty: true,
     penaltyScore: function(hand) {
       var penaltyCards = hand.countSuit('leader') + hand.countSuit('beast') + hand.countSuit('flame');
-      if (!(hand.containsId('FR25') || hand.containsId('CH19'))) { // clears the word 'army' from the penalty
+      if (!isArmyClearedFromPenalty(this, hand)) {
         penaltyCards += hand.countSuit('army');
       }
       return -5 * penaltyCards;
@@ -337,7 +337,7 @@ var base = {
     bonus: false,
     penalty: true,
     penaltyScore: function(hand) {
-      if (!(hand.containsId('FR25') || hand.containsId('CH19'))) { // clears the word 'army' from the penalty
+      if (!isArmyClearedFromPenalty(this, hand)) {
         return -2 * hand.countSuitExcluding('army', this.id);
       }
       return 0;
@@ -538,7 +538,7 @@ var base = {
     bonus: false,
     penalty: true,
     blanks: function(card, hand) {
-      return (card.suit === 'army' && !(hand.containsId('FR25') || hand.containsId('CH19'))) || // clears the word 'army' from the penalty
+      return (card.suit === 'army' && !isArmyClearedFromPenalty(this, hand)) ||
         card.suit === 'leader' ||
         (card.suit === 'beast' && card.id !== this.id);
     },
@@ -1079,7 +1079,7 @@ var cursedHoard = {
     bonus: false,
     penalty: true,
     blanks: function(card, hand) {
-      return (card.suit === 'army' && !(hand.containsId('FR25') || hand.containsId('CH19') || hand.containsId('FR41'))) || // these clear the word 'army' from the penalty
+      return (card.suit === 'army' && !isArmyClearedFromPenalty(this, hand)) ||
         (card.suit === 'building') ||
         (card.suit === 'land' && card.name !== 'Mountain') ||
         (card.suit === 'flame' && card.name !== 'Lightning');
@@ -1463,6 +1463,12 @@ var deck = {
     return Object.keys(suits).sort();
   }
 };
+
+function isArmyClearedFromPenalty(card, hand) {
+  // FR25, CH19: Rangers: CLEARS the word Army from all Penalties
+  // FR41: Warship: CLEARS the word Army from all Penalties of all Floods
+  return hand.containsId('FR25') || hand.containsId('CH19') || (card.suit === 'flood' && hand.containsId('FR41'));
+}
 
 function allSuits() {
     return ['land', 'flood', 'weather', 'flame', 'army', 'wizard', 'leader', 'beast', 'weapon', 'artifact', 'wild', 'building', 'outsider', 'undead'].sort();
