@@ -233,9 +233,9 @@ class Hand {
   }
 
   _cannotBeBlanked(card) {
-    return (card.suit === 'undead' && (this.containsId(CH_LICH) || this.containsId(CH_NECROMANCER)))
+    return (card.suit === 'undead' && (this.containsId(CH_LICH, true) || this.containsId(CH_NECROMANCER, true)))
       || card.id === CH_ANGEL
-      || (card.magic && this.containsId(CH_ANGEL) && this.getCardById(CH_ANGEL).actionData && this.getCardById(CH_ANGEL).actionData[0] === card.id);
+      || (card.magic && this.containsId(CH_ANGEL, true) && this.getCardById(CH_ANGEL).actionData && this.getCardById(CH_ANGEL).actionData[0] === card.id);
   }
 
   clear() {

@@ -1467,7 +1467,7 @@ var deck = {
 function isArmyClearedFromPenalty(card, hand) {
   // FR25, CH19: Rangers: CLEARS the word Army from all Penalties
   // FR41: Warship: CLEARS the word Army from all Penalties of all Floods
-  return hand.containsId('FR25') || hand.containsId('CH19') || (card.suit === 'flood' && hand.containsId('FR41'));
+  return hand.containsId('FR25', true) || hand.containsId('CH19', true) || (card.suit === 'flood' && hand.containsId('FR41', true));
 }
 
 function allSuits() {
