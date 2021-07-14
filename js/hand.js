@@ -202,29 +202,29 @@ class Hand {
       }
     }
     for (const card of this.nonBlankedCards()) {
-      if (card.id !== CH_DEMON && card.blanks !== undefined && !card.penaltyCleared && !this._cardBlanked(card)) {
-        for (const target of this.cards()) {
-          if (card.blanks(target, this) && !this._cannotBeBlanked(target)) {
-            target.blanked = true;
-          }
-        }
-      }
-    }
-    for (const card of this.nonBlankedCards()) {
       if (card.blankedIf !== undefined && !card.penaltyCleared) {
         if (card.blankedIf(this) && !this._cannotBeBlanked(card)) {
           card.blanked = true;
         }
       }
     }
+    var blanked = [];
+    for (const card of this.nonBlankedCards()) {
+      if (this._cardBlanked(card, card)) {
+        blanked.push(card);
+      }
+    }
+    for (const card of blanked) {
+      card.blanked = true;
+    }
   }
 
   // a card that is blanked by another card cannot blank other cards,
   // except when they blank eachother
-  _cardBlanked(card) {
+  _cardBlanked(card, target) {
     for (const by of this.nonBlankedCards()) {
-      if (by.blanks !== undefined && !by.penaltyCleared) {
-        if (by.blanks(card, this) && !card.blanks(by, this)) {
+      if (by.blanks !== undefined && !by.penaltyCleared && by.id !== CH_DEMON && by.blanks(card, this)) {
+        if (by === target || (card.blanks !== undefined && card.blanks(by, this)) || !this._cardBlanked(by, target)) {
           return true;
         }
       }
