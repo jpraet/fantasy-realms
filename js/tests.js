@@ -30,6 +30,7 @@ $(document).ready(function() {
   assertScoreByCode('FR49,FR41,FR45,FR23,FR15+FR49:FR45:flood', 47, 'Bug?');
   deck.enableCursedHoardSuits();
   assertScoreByCode('CH10,FR41,FR10,FR07,FR22,FR23+', 114);
+  assertScoreByCode('CH08,FR32,FR37+CH08:FR32', 57, 'Angel');
 });
 
 function assertScoreByName(cardNames, expectedScore, message) {

@@ -222,6 +222,9 @@ class Hand {
   // a card that is blanked by another card cannot blank other cards,
   // except when they blank eachother
   _cardBlanked(card, target) {
+    if (this._cannotBeBlanked(card)) {
+      return false;
+    }
     for (const by of this.nonBlankedCards()) {
       if (by.blanks !== undefined && !by.penaltyCleared && by.id !== CH_DEMON && by.blanks(card, this)) {
         if (by === target || (card.blanks !== undefined && card.blanks(by, this)) || !this._cardBlanked(by, target)) {
