@@ -644,7 +644,7 @@ var base = {
     bonus: false,
     penalty: true,
     blankedIf: function(hand) {
-      return !hand.containsSuit('army') || hand.containsSuit('weather');
+      return (!hand.containsSuit('army') && !isArmyClearedFromPenalty(this, hand)) || hand.containsSuit('weather');
     },
     relatedSuits: ['army', 'weather'],
     relatedCards: []

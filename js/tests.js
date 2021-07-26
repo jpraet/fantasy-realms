@@ -26,8 +26,9 @@ $(document).ready(function() {
   assertScoreByCode('FR49,FR41,FR37,FR21+FR49:FR37:flood', 73, 'Blanking III');
   assertScoreByCode('FR49,FR41,FR24,FR22+FR49:FR24:flood', 56, 'Blanking IV');
   assertScoreByCode('FR49,FR41,FR06,FR08,FR22+FR49:FR08:wizard', 82, 'Blanking V');
-  assertScoreByCode('FR49,FR41,FR45+FR49:FR45:flood', 26, 'Bug?');
   assertScoreByCode('FR49,FR41,FR45,FR23,FR15+FR49:FR45:flood', 47, 'Bug?');
+  assertScoreByCode('FR49,FR41,FR45+FR49:FR45:flood', 61, 'War Dirigible does not need Army when Army cleared from penalty');
+  assertScoreByCode('FR49,FR45,FR25+FR49:FR25:land', 53, 'War Dirigible does not need Army when Army cleared from penalty');
   deck.enableCursedHoardSuits();
   assertScoreByCode('CH10,FR41,FR10,FR07,FR22,FR23+', 114);
   assertScoreByCode('CH08,FR32,FR37+CH08:FR32', 57, 'Angel');
