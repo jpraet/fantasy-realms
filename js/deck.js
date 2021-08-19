@@ -1449,7 +1449,7 @@ var deck = {
         ordered['cursed-item'].push(this.cursedItems[id]);
       }  
     }
-    Object.keys(cardsBySuit).sort().forEach(function(key) {
+    Object.keys(cardsBySuit).sort((a, b) => jQuery.i18n.prop('suit.' + a).localeCompare(jQuery.i18n.prop('suit.' + b))).forEach(function(key) {
       ordered[key] = cardsBySuit[key];
     });
     return ordered;
