@@ -326,7 +326,7 @@ function getHandFromQueryString() {
   for (var i = 0; i < params.length; i++) {
     var param = params[i].split('=');
     if (param[0] === 'hand') {
-      hand.loadFromString(param[1]);
+      hand.loadFromString(decodeURIComponent(param[1]).replace(/ /g, '+'));
     }
   }
   updateHandView();
@@ -337,7 +337,7 @@ function getDiscardFromQueryString() {
   for (var i = 0; i < params.length; i++) {
     var param = params[i].split('=');
     if (param[0] === 'discard') {
-      discard.loadFromString(param[1]);
+      discard.loadFromString(decodeURIComponent(param[1]));
     }
   }
 }
