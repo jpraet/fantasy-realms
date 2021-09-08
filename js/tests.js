@@ -29,6 +29,8 @@ $(document).ready(function() {
   assertScoreByCode('FR49,FR41,FR45,FR23,FR15+FR49:FR45:flood', 47, 'Bug?');
   assertScoreByCode('FR49,FR41,FR45+FR49:FR45:flood', 61, 'War Dirigible does not need Army when Army cleared from penalty');
   assertScoreByCode('FR49,FR45,FR25+FR49:FR25:land', 53, 'War Dirigible does not need Army when Army cleared from penalty');
+  assertScoreByCode('FR21,FR45,FR13+', 47, 'War Dirigible + Smoke');
+  assertScoreByCode('FR21,FR13,FR45+', 47, 'Smoke + War Dirigible');
   deck.enableCursedHoardSuits();
   assertScoreByCode('CH10,FR41,FR10,FR07,FR22,FR23+', 114);
   assertScoreByCode('CH08,FR32,FR37+CH08:FR32', 57, 'Angel');

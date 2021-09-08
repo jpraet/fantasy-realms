@@ -201,13 +201,6 @@ class Hand {
         }
       }
     }
-    for (const card of this.nonBlankedCards()) {
-      if (card.blankedIf !== undefined && !card.penaltyCleared) {
-        if (card.blankedIf(this) && !this._cannotBeBlanked(card)) {
-          card.blanked = true;
-        }
-      }
-    }
     var blanked = [];
     for (const card of this.nonBlankedCards()) {
       if (this._cardBlanked(card, card)) {
@@ -216,6 +209,13 @@ class Hand {
     }
     for (const card of blanked) {
       card.blanked = true;
+    }
+    for (const card of this.nonBlankedCards().sort((a, b) => a.id.localeCompare(b.id))) {
+      if (card.blankedIf !== undefined && !card.penaltyCleared) {
+        if (card.blankedIf(this) && !this._cannotBeBlanked(card)) {
+          card.blanked = true;
+        }
+      }
     }
   }
 
